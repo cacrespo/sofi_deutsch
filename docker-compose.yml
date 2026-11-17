@@ -1,0 +1,7 @@
+services:
+  web:
+    image: ghcr.io/cacrespo/sofi_deutsch:latest
+    build: .
+    ports:
+      - "${PORT:-8082}:8000"
+    restart: unless-stopped

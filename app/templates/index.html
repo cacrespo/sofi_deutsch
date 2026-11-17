@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Sofía & Dandy's World - Deutsch-Abenteuer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent: #f59e0b;
+    --green: #16a34a;
+    --green-dark: #15803d;
+    --red: #dc2626;
+    --purple: #9333ea;
+    --der: #1d4ed8;
+    --die: #dc2626;
+    --das: #16a34a;
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text: #1e293b;
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', 'Nunito', -apple-system, sans-serif;
+    background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 50%, #f3e8ff 100%);
+    min-height: 100vh;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* App Container */
+  .app-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 12px 16px calc(90px + env(safe-area-inset-bottom, 0px)) 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-sizing: border-box;
+  }
+
+  /* Header 2-Tier Responsive */
+  .top-navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border: 2px solid #e2e8f0;
+  }
+
+  .nav-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f59e0b;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  .nav-title h1 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    line-height: 1.2;
+  }
+
+  .nav-title p {
+    margin: 0;
+    font-size: 0.78rem;
+    color: #64748b;
+    font-weight: 700;
+  }
+
+  .nav-actions-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    justify-content: space-between;
+  }
+
+  .student-pill {
+    background: #eff6ff;
+    border: 1.5px solid #93c5fd;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: #1e40af;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    min-height: 38px;
+  }
+
+  .speed-toggle-btn {
+    background: #fef3c7;
+    border: 1.5px solid #f59e0b;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #b45309;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 38px;
+  }
+
+  .btn-shuffle {
+    background: #ecfdf5;
+    border: 1.5px solid #10b981;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #047857;
+    cursor: pointer;
+    min-height: 38px;
+  }
+
+  .score-badge {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-pdf {
+    background: #fee2e2;
+    border: 1.5px solid #ef4444;
+    color: #b91c1c;
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 38px;
+  }
+
+  /* Stage Tabs */
+  .stage-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    padding: 4px 2px;
+  }
+  .stage-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 0 0 auto;
+    background: #fff;
+    border: 2px solid #cbd5e1;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 42px;
+  }
+
+  .tab-btn.active {
+    background: var(--primary);
+    border-color: var(--primary-dark);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  /* Cards & Stages */
+  .stage-view {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeIn 0.25s ease-out;
+  }
+  .stage-view.active { display: flex; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .rule-pill {
+    background: #eff6ff;
+    border: 1.5px solid #93c5fd;
+    border-radius: 16px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1e40af;
+    line-height: 1.4;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 22px;
+    padding: 18px 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    border: 2px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .card-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 2px dashed #f1f5f9;
+    padding-bottom: 10px;
+  }
+
+  .card-badge {
+    background: var(--primary);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #1e3a8a;
+  }
+
+  .card-hint {
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #64748b;
+  }
+
+  /* Question Items */
+  .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .question-item {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.15s;
+  }
+
+  .q-prompt {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.96rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.35;
+  }
+
+  .q-num {
+    color: var(--primary);
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .choices-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .choice-btn {
+    flex: 1 1 calc(50% - 8px);
+    min-height: 44px;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 14px;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .choice-btn:active {
+    transform: scale(0.97);
+  }
+
+  .choice-btn.selected-correct {
+    background: #dcfce7 !important;
+    border-color: #22c55e !important;
+    color: #15803d !important;
+  }
+
+  .choice-btn.selected-wrong {
+    background: #fee2e2 !important;
+    border-color: #ef4444 !important;
+    color: #b91c1c !important;
+  }
+
+  /* TTS Speaker Buttons */
+  .btn-tts {
+    background: #e0f2fe;
+    border: 2px solid #7dd3fc;
+    color: #0369a1;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.15rem;
+    transition: all 0.15s;
+    padding: 0;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    touch-action: manipulation;
+  }
+
+  .btn-tts:active {
+    transform: scale(0.92);
+  }
+
+  .btn-tts.speaking {
+    background: #fef08a !important;
+    border-color: #eab308 !important;
+    animation: pulseSpeaking 0.6s infinite alternate;
+  }
+
+  @keyframes pulseSpeaking {
+    from { transform: scale(1); box-shadow: 0 0 0 rgba(234,179,8,0.3); }
+    to { transform: scale(1.12); box-shadow: 0 0 10px rgba(234,179,8,0.7); }
+  }
+
+  .btn-listen-story {
+    background: #ffffff;
+    border: 2px solid #10b981;
+    color: #047857;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    min-height: 44px;
+    transition: all 0.15s;
+    touch-action: manipulation;
+  }
+
+  .btn-listen-story:active { transform: scale(0.96); }
+
+  /* Sentence Feedback Box */
+  .sentence-feedback {
+    display: none;
+    margin-top: 6px;
+    padding: 8px 12px;
+    background: #ecfdf5;
+    border: 1.5px solid #6ee7b7;
+    border-radius: 14px;
+    align-items: center;
+    gap: 10px;
+    animation: fadeInSentence 0.25s ease-out;
+  }
+
+  .sentence-feedback.show { display: flex; }
+
+  .sentence-feedback .feedback-text {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: #065f46;
+    line-height: 1.35;
+  }
+
+  @keyframes fadeInSentence {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Der Die Das Game */
+  .article-game-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 16px;
+    min-height: 60px;
+  }
+
+  .article-pill-btn {
+    background: #fff;
+    border: 2px solid #94a3b8;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: 44px;
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  .article-baskets {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .article-baskets {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .basket-box {
+    border-radius: 18px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 130px;
+  }
+
+  .basket-der { background: #eff6ff; border: 2.5px solid var(--der); }
+  .basket-die { background: #fef2f2; border: 2.5px solid var(--die); }
+  .basket-das { background: #f0fdf4; border: 2.5px solid var(--das); }
+
+  .basket-header {
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-align: center;
+    padding-bottom: 6px;
+    border-bottom: 1.5px dashed rgba(0,0,0,0.12);
+  }
+
+  .basket-der .basket-header { color: var(--der); }
+  .basket-die .basket-header { color: var(--die); }
+  .basket-das .basket-header { color: var(--das); }
+
+  .basket-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sorted-item {
+    background: #fff;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  /* Fixed Bottom Nav */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-top: 2px solid #e2e8f0;
+    padding: 10px 16px max(10px, env(safe-area-inset-bottom, 10px)) 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+  }
+
+  .nav-step-btn {
+    min-height: 46px;
+    min-width: 130px;
+    background: var(--primary);
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+    transition: all 0.15s;
+    touch-action: manipulation;
+  }
+
+  .nav-step-btn:active { transform: scale(0.96); }
+
+  .nav-step-btn.btn-prev {
+    background: #e2e8f0;
+    color: #475569;
+    box-shadow: none;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 16px;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .modal-card {
+    background: #fff;
+    border-radius: 24px;
+    width: 92vw;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 3px solid #f59e0b;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .modal-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto;
+    border: 3px solid #f59e0b;
+  }
+
+  .modal-input {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: 2px solid #cbd5e1;
+    border-radius: 14px;
+    outline: none;
+    text-align: center;
+  }
+
+  .modal-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  }
+
+  .btn-modal-start {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: none;
+    border-radius: 16px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 800;
+    min-height: 48px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  }
+
+  #confetti-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Welcome / Name Modal -->
+<div class="modal-overlay" id="name-modal">
+  <div class="modal-card">
+    <img src="/static/dandy_assets/dandy.png" class="modal-avatar" alt="Dandy">
+    <h2 style="margin:0; font-size:1.35rem; color:#1e3a8a;">🌸 Willkommen! / ¡Bienvenido!</h2>
+    <p style="margin:0; font-size:0.9rem; color:#475569; font-weight:600;">
+      ¿Cómo te llamas? / Wie heißt du?<br/>
+      <small style="color:#64748b;">(Puedes poner tu nombre para practicar)</small>
+    </p>
+    <input type="text" id="student-name-input" class="modal-input" placeholder="Ej: Sofía" maxlength="25">
+    <button class="btn-modal-start" onclick="saveStudentName()">🚀 Los geht's! / ¡A jugar!</button>
+  </div>
+</div>
+
+<div class="app-container">
+
+  <!-- Top Navigation 2-Tier -->
+  <header class="top-navbar">
+    <div class="nav-brand-row">
+      <img src="/static/dandy_assets/dandy.png" class="nav-avatar" alt="Dandy">
+      <div class="nav-title">
+        <h1><span class="dyn-student-name">Sofía</span> & Dandy's World</h1>
+        <p>Deutsch-Abenteuer • 3° Grado • Frau Mónica Briesemeister</p>
+      </div>
+    </div>
+    <div class="nav-actions-row">
+      <div class="student-pill" onclick="openNameModal()" title="Klicke hier, um den Namen zu ändern">
+        <span>👤</span>
+        <span id="student-name-header">Sofía</span>
+        <span>✏️</span>
+      </div>
+      <button class="speed-toggle-btn" id="speed-toggle" onclick="toggleTtsSpeed()" title="Stimmengeschwindigkeit">
+        <span id="speed-icon">🐰</span>
+        <span id="speed-label">Normal</span>
+      </button>
+      <button class="speed-toggle-btn" id="autoread-toggle" onclick="toggleAutoRead()" title="Ganzen Satz beim Richtig-Tippen vorlesen">
+        <span id="autoread-icon">🔊</span>
+        <span id="autoread-label">Satz: AN</span>
+      </button>
+      <button class="btn-shuffle" onclick="regenerateAllQuestions()" title="Neue Fragen mischen">
+        🔄 Mischen
+      </button>
+      <div class="score-badge" id="score-display">⭐ 0 pts</div>
+      <a href="/static/Repaso_Aleman_Sofia_3er_Grado.pdf" target="_blank" class="btn-pdf">
+        🖨️ PDF
+      </a>
+    </div>
+  </header>
+
+  <!-- Stage Navigation Tabs -->
+  <nav class="stage-nav">
+    <button class="tab-btn active" onclick="switchStage(1)">🌸 1. Vorstellung</button>
+    <button class="tab-btn" onclick="switchStage(2)">🌿 2. Der, Die, Das</button>
+    <button class="tab-btn" onclick="switchStage(3)">🐮 3. Bauernhof</button>
+    <button class="tab-btn" onclick="switchStage(4)">📅 4. Datum & Hobbys</button>
+    <button class="tab-btn" onclick="switchStage(5)">⭐ 5. Lese- & Hörquiz</button>
+  </nav>
+
+  <!-- STAGE 1: Vorstellung & Familie -->
+  <section class="stage-view active" id="stage-1">
+    <div class="rule-pill">
+      🌸 <strong>Thema 1:</strong> Personalvorstellung (Name, Alter, Wohnort, Familie) mit Dandy & Poppy!
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge">1</span>
+        <h2 class="card-title">Über mich (Personalvorstellung)</h2>
+        <span class="card-hint">heißen, sein, wohnen</span>
+      </div>
+      <div id="container-s1-vorstellung" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#f59e0b;">2</span>
+        <h2 class="card-title">Verben im Präsens (Verbos)</h2>
+      </div>
+      <div id="container-s1-verben" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#9333ea;">3</span>
+        <h2 class="card-title">Meine Familie (Familienmitglieder)</h2>
+      </div>
+      <div id="container-s1-familie" class="item-list"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 2: Schulsachen & Artikel -->
+  <section class="stage-view" id="stage-2">
+    <div class="rule-pill" style="background:#f3e8ff; border-color:#d8b4fe; color:#6b21a8;">
+      ✏️ <strong>Thema 2:</strong> Schulsachen & die drei Artikel: 🟦 DER, 🔴 DIE, 🟢 DAS!
+    </div>
+
+    <!-- Interactive Der Die Das Game -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#9333ea;">1</span>
+        <h2 class="card-title">Artikel-Sortierspiel mit Boxten!</h2>
+        <span class="card-hint">Tippe auf das Wort für den richtigen Korb!</span>
+      </div>
+      <div class="article-game-pool" id="article-pool"></div>
+      <div class="article-baskets">
+        <div class="basket-box basket-der">
+          <div class="basket-header">🟦 DER (Maskulin)</div>
+          <div class="basket-items" id="basket-der-items"></div>
+        </div>
+        <div class="basket-box basket-die">
+          <div class="basket-header">🔴 DIE (Feminin)</div>
+          <div class="basket-items" id="basket-die-items"></div>
+        </div>
+        <div class="basket-box basket-das">
+          <div class="basket-header">🟢 DAS (Neutral)</div>
+          <div class="basket-items" id="basket-das-items"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge">2</span>
+        <h2 class="card-title">Welcher Artikel ist richtig? (der / die / das)</h2>
+      </div>
+      <div id="container-s2-artikel" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#22c55e;">3</span>
+        <h2 class="card-title">In meiner Schultasche (ein / eine / kein)</h2>
+      </div>
+      <div id="container-s2-einEine" class="item-list"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 3: Bauernhof & Adjektive -->
+  <section class="stage-view" id="stage-3">
+    <div class="rule-pill" style="background:#eafaf1; border-color:#27ae60; color:#145a32;">
+      🐮 <strong>Thema 3:</strong> Bauernhoftiere & Adjektive mit Pebble & Flutter!
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#16a34a;">1</span>
+        <h2 class="card-title">Tiere auf dem Bauernhof</h2>
+      </div>
+      <div id="container-s3-tiere" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge">2</span>
+        <h2 class="card-title">Adjektive (groß, klein, schnell, lustig...)</h2>
+      </div>
+      <div id="container-s3-adjektive" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#f59e0b;">3</span>
+        <h2 class="card-title">Tier-Fakten & Richtig / Falsch</h2>
+      </div>
+      <div id="container-s3-fakten" class="item-list"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 4: Datum & Hobbys -->
+  <section class="stage-view" id="stage-4">
+    <div class="rule-pill" style="background:#fef3c7; border-color:#eab308; color:#854d0e;">
+      📅 <strong>Thema 4:</strong> Kalender, Wochentage, das Datum & Hobbys mit Sprout!
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#ea580c;">1</span>
+        <h2 class="card-title">Die Wochentage (Montag bis Sonntag)</h2>
+      </div>
+      <div id="container-s4-wochentage" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge">2</span>
+        <h2 class="card-title">Das Datum schreiben (Donnerstag, 19. November)</h2>
+      </div>
+      <div id="container-s4-datum" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#9333ea;">3</span>
+        <h2 class="card-title">Freizeit & Hobbys (Was machst du gern?)</h2>
+      </div>
+      <div id="container-s4-hobbys" class="item-list"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 5: Lese- & Hörverstehen & Abschluss-Quiz -->
+  <section class="stage-view" id="stage-5">
+    <div class="rule-pill" style="background:#eff6ff; border-color:#60a5fa; color:#1e40af;">
+      🎧 <strong>Thema 5:</strong> Hör- und Leseverstehen & Großes Integrator-Quiz!
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge">📖</span>
+        <h2 class="card-title">Geschichte: Dandy auf dem Bauernhof</h2>
+      </div>
+      <div style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:16px; padding:12px; font-size:0.92rem; line-height:1.45; color:#1e293b;">
+        Es ist <b>Donnerstag, der 19. November</b>. <span class="dyn-student-name">Sofía</span> und ihre Toon-Freunde von Dandy's World besuchen einen Bauernhof.
+        Die Sonne scheint am blauen Himmel.
+        Dandy sieht eine <b>große Kuh</b> auf der Wiese. Die Kuh frisst frisches Gras.
+        Pebble, der kleine lustige Hund, bellt fröhlich und läuft schnell zum <b>Pferd</b>.
+        In der Luft fliegt der bunte Schmetterling <b>Flutter</b> zwischen den Blumen.
+        In ihrer Schultasche hat <span class="dyn-student-name">Sofía</span> ein <b>Mäppchen</b>, ein <b>Lineal</b> und einen roten Apfel.
+        Am Nachmittag spielen alle Freunde zusammen Fußball. Alle Kinder sind glücklich!
+        <div style="text-align:right;">
+          <button class="btn-listen-story" onclick="speakStory(this)">🎧 Geschichte anhören (Escuchar Cuento)</button>
+        </div>
+      </div>
+      <div id="container-s5-story" class="item-list"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#f59e0b;">🏆</span>
+        <h2 class="card-title">Das große Integrator-Quiz (Frau Mónica Briesemeister)</h2>
+      </div>
+      <div id="container-s5-quiz" class="item-list"></div>
+    </div>
+
+    <!-- Final Certificate Card -->
+    <div class="card" id="certificate-card" style="text-align:center; background: linear-gradient(135deg, #fef08a 0%, #bbf7d0 100%); border-color:#22c55e;">
+      <h2 style="margin:4px 0; color:#15803d; font-size:1.35rem;">🎓 HERZLICHEN GLÜCKWUNSCH, <span class="dyn-student-name" style="text-transform:uppercase;">SOFÍA</span>! 🎓</h2>
+      <p style="margin:4px 0; font-size:1.05rem; font-weight:700; color:#166534;">
+        Du bist ein echter Dandy's World Deutsch-Superstar!
+      </p>
+      <div style="font-size:2.2rem; margin:6px 0;">🌟 🏆 ⭐ 🌸 🐮</div>
+      <p style="margin:4px 0; font-size:0.95rem; font-weight:800; color:#14532d;">
+        Bereit für die Integrator-Prüfung am Donnerstag, 19. November mit Frau Mónica Briesemeister!
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<!-- Bottom Navigation Bar -->
+<div class="bottom-nav">
+  <button class="nav-step-btn btn-prev" id="btn-prev" onclick="prevStage()">⬅️ Zurück</button>
+  <button class="nav-step-btn" id="btn-next" onclick="nextStage()">Weiter ➡️</button>
+</div>
+
+<script>
+  // ==========================================
+  // DEUTSCHE QUESTION BANK (100+ Test Cases)
+  // ==========================================
+  const QUESTION_BANK = {
+    s1_vorstellung: [
+      { prompt: "Wie heißt du? — Ich ______ Sofía.", correct: "heiße", wrong: ["heißt", "heißen"] },
+      { prompt: "Wie alt bist du? — Ich ______ acht Jahre alt.", correct: "bin", wrong: ["bist", "ist"] },
+      { prompt: "Wo wohnst du? — Ich ______ in Hurlingham.", correct: "wohne", wrong: ["wohnst", "wohnen"] },
+      { prompt: "Woher kommst du? — Ich ______ aus Argentinien.", correct: "komme", wrong: ["kommst", "kommen"] },
+      { prompt: "Wer ist das? — Das ______ mein Freund Boxten.", correct: "ist", wrong: ["bist", "sind"] },
+      { prompt: "Wie heißt deine Freundin? — Sie ______ Poppy.", correct: "heißt", wrong: ["heiße", "heißen"] },
+      { prompt: "Er ist neun Jahre alt und ______ in Gardenview.", correct: "wohnt", wrong: ["wohne", "wohnen"] },
+      { prompt: "Mein ______ ist Sofía und ich lerne Deutsch.", correct: "Name", wrong: ["Alter", "Hobby"] },
+      { prompt: "Ich ______ eine Schultasche und ein Mäppchen.", correct: "habe", wrong: ["hast", "hat"] },
+      { prompt: "Wie alt ______ dein kleiner Bruder?", correct: "ist", wrong: ["bist", "bin"] }
+    ],
+    s1_verben: [
+      { prompt: "Ich (sein) ______ sehr glücklich in der Schule.", correct: "bin", wrong: ["bist", "ist"] },
+      { prompt: "Du (sein) ______ meine beste Freundin.", correct: "bist", wrong: ["bin", "ist"] },
+      { prompt: "Dandy (sein) ______ freundlich und hilfsbereit.", correct: "ist", wrong: ["sind", "bist"] },
+      { prompt: "Wir (wohnen) ______ in Argentinien.", correct: "wohnen", wrong: ["wohnt", "wohne"] },
+      { prompt: "Poppy und Boxten (spielen) ______ im Schulhof.", correct: "spielen", wrong: ["spielt", "spiele"] },
+      { prompt: "Die Lehrerin Frau Mónica (schreiben) ______ an die Tafel.", correct: "schreibt", wrong: ["schreibe", "schreiben"] },
+      { prompt: "Du (haben) ______ einen schönen bunten Bleistift.", correct: "hast", wrong: ["hat", "habe"] },
+      { prompt: "Astro (schlafen) ______ am Tag mit seiner Mütze.", correct: "schläft", wrong: ["schlafe", "schlafen"] }
+    ],
+    s1_familie: [
+      { prompt: "Der Vater von meiner Mutter ist mein...", correct: "Opa (Großvater)", wrong: ["Bruder", "Onkel"] },
+      { prompt: "Die Mutter von meinem Vater ist meine...", correct: "Oma (Großmutter)", wrong: ["Schwester", "Tante"] },
+      { prompt: "Der Sohn von meinen Eltern ist mein...", correct: "Bruder", wrong: ["Opa", "Vater"] },
+      { prompt: "Die Tochter von meinen Eltern ist meine...", correct: "Schwester", wrong: ["Oma", "Mutter"] },
+      { prompt: "Mein Vater und meine Mutter sind meine...", correct: "Eltern", wrong: ["Kinder", "Geschwister"] },
+      { prompt: "Das kleine Kind in der Wiege ist das...", correct: "Baby", wrong: ["Bruder", "Schwester"] },
+      { prompt: "Der Artikel von 'Mutter' ist: ______ Mutter.", correct: "die", wrong: ["der", "das"] },
+      { prompt: "Der Artikel von 'Vater' ist: ______ Vater.", correct: "der", wrong: ["die", "das"] }
+    ],
+    s2_artikel: [
+      { prompt: "Welcher Artikel gehört zu 'Bleistift'? ______ Bleistift", correct: "der", wrong: ["die", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Mäppchen'? ______ Mäppchen", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Schere'? ______ Schere", correct: "die", wrong: ["der", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Lineal'? ______ Lineal", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Radiergummi'? ______ Radiergummi", correct: "der", wrong: ["die", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Buch'? ______ Buch", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Heft'? ______ Heft", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Spitzer'? ______ Spitzer", correct: "der", wrong: ["die", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Schultasche'? ______ Schultasche", correct: "die", wrong: ["der", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Buntstift'? ______ Buntstift", correct: "der", wrong: ["die", "das"] }
+    ],
+    s2_einEine: [
+      { prompt: "In meinem Mäppchen ist ______ Bleistift (maskulin).", correct: "ein", wrong: ["eine", "kein"] },
+      { prompt: "Auf dem Tisch liegt ______ Schere (feminin).", correct: "eine", wrong: ["ein", "kein"] },
+      { prompt: "Sofía liest ______ spannendes Buch (neutral).", correct: "ein", wrong: ["eine", "keine"] },
+      { prompt: "Das ist ______ Lineal, das ist ein Radiergummi!", correct: "kein", wrong: ["keine", "eine"] },
+      { prompt: "Ich habe ______ Spitzer für meine Stifte.", correct: "einen", wrong: ["eine", "ein"] },
+      { prompt: "Das ist ______ Schere, das ist ein Bleistift!", correct: "keine", wrong: ["kein", "ein"] },
+      { prompt: "Boxten trägt ______ Schultasche auf dem Rücken.", correct: "eine", wrong: ["ein", "kein"] },
+      { prompt: "Hast du ______ Radiergummi für mich?", correct: "einen", wrong: ["eine", "keine"] }
+    ],
+    s3_tiere: [
+      { prompt: "Welcher Artikel gehört zu 'Kuh'? ______ Kuh", correct: "die", wrong: ["der", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Hund'? ______ Hund", correct: "der", wrong: ["die", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Pferd'? ______ Pferd", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Schaf'? ______ Schaf", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Schwein'? ______ Schwein", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Katze'? ______ Katze", correct: "die", wrong: ["der", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Ente'? ______ Ente", correct: "die", wrong: ["der", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Hahn'? ______ Hahn", correct: "der", wrong: ["die", "das"] },
+      { prompt: "Welcher Artikel gehört zu 'Huhn'? ______ Huhn", correct: "das", wrong: ["der", "die"] },
+      { prompt: "Welcher Artikel gehört zu 'Ziege'? ______ Ziege", correct: "die", wrong: ["der", "das"] }
+    ],
+    s3_adjektive: [
+      { prompt: "Das Pferd rennt sehr schnell, es ist nicht...", correct: "langsam", wrong: ["schnell", "schön"] },
+      { prompt: "Die Maus ist klein, aber die Kuh ist...", correct: "groß", wrong: ["klein", "bunt"] },
+      { prompt: "Der Schmetterling Flutter hat viele Farben, er ist...", correct: "bunt", wrong: ["schwarz", "müde"] },
+      { prompt: "Pebble der Hund macht Witze, er ist sehr...", correct: "lustig", wrong: ["traurig", "böse"] },
+      { prompt: "Goob umarmt alle Toons, er ist sehr...", correct: "freundlich", wrong: ["müde", "wild"] },
+      { prompt: "Nach einem langen Schultag bin ich...", correct: "müde", wrong: ["lecker", "bunt"] },
+      { prompt: "Der rote Apfel schmeckt süß und...", correct: "lecker", wrong: ["langsam", "müde"] },
+      { prompt: "Das Gegenteil von 'groß' ist...", correct: "klein", wrong: ["schnell", "schön"] }
+    ],
+    s3_fakten: [
+      { prompt: "Die Kuh frisst frisches grünes Gras auf der Wiese.", correct: "Richtig [R]", wrong: ["Falsch [F]"] },
+      { prompt: "Das Schwein kann hoch am Himmel fliegen.", correct: "Falsch [F]", wrong: ["Richtig [R]"] },
+      { prompt: "Der Hund Pebble bellt fröhlich und spielt Ball.", correct: "Richtig [R]", wrong: ["Falsch [F]"] },
+      { prompt: "Die Ente schwimmt im kleinen Teich.", correct: "Richtig [R]", wrong: ["Falsch [F]"] },
+      { prompt: "Das Schaf gibt uns weiche, warme Wolle.", correct: "Richtig [R]", wrong: ["Falsch [F]"] }
+    ],
+    s4_wochentage: [
+      { prompt: "Welcher Tag kommt nach Montag? ➔", correct: "Dienstag", wrong: ["Mittwoch", "Sonntag"] },
+      { prompt: "Welcher Tag kommt nach Dienstag? ➔", correct: "Mittwoch", wrong: ["Donnerstag", "Montag"] },
+      { prompt: "Welcher Tag kommt nach Mittwoch? ➔", correct: "Donnerstag", wrong: ["Freitag", "Dienstag"] },
+      { prompt: "Welcher Tag kommt vor Samstag? ➔", correct: "Freitag", wrong: ["Sonntag", "Donnerstag"] },
+      { prompt: "Samstag und Sonntag gehören zum...", correct: "Wochenende", wrong: ["Schultag", "Monat"] },
+      { prompt: "Die Woche beginnt mit dem...", correct: "Montag", wrong: ["Freitag", "Samstag"] },
+      { prompt: "Wie viele Tage hat eine Woche? ➔", correct: "sieben (7)", wrong: ["fünf (5)", "zehn (10)"] }
+    ],
+    s4_datum: [
+      { prompt: "Heute ist Donnerstag, der 19. ______.", correct: "November", wrong: ["Dezember", "Oktober"] },
+      { prompt: "Welcher Wochentag ist der Prüfungstag? ➔", correct: "Donnerstag", wrong: ["Dienstag", "Freitag"] },
+      { prompt: "Morgen ist...", correct: "Freitag", wrong: ["Mittwoch", "Montag"] },
+      { prompt: "Gestern war...", correct: "Mittwoch", wrong: ["Freitag", "Dienstag"] },
+      { prompt: "Im Datum schreiben wir: 'der 19. November' bedeutet der...", correct: "neunzehnte", wrong: ["neunte", "zwanzigste"] },
+      { prompt: "Die Lehrerin für Deutsch heißt Frau Mónica...", correct: "Briesemeister", wrong: ["Vane", "Ani"] }
+    ],
+    s4_hobbys: [
+      { prompt: "Was machst du gern? — Ich spiele gern ______ (fútbol).", correct: "Fußball", wrong: ["Buch", "Mäppchen"] },
+      { prompt: "Sofía nimmt Buntstifte und malt gern...", correct: "Bilder", wrong: ["Fußball", "Rad"] },
+      { prompt: "Astro liest gern spannende...", correct: "Bücher", wrong: ["Tore", "Lieder"] },
+      { prompt: "Im Schwimmbad kann man gut...", correct: "schwimmen", wrong: ["schlafen", "malen"] },
+      { prompt: "Poppy fährt gern mit dem...", correct: "Rad (Fahrrad)", wrong: ["Buch", "Tisch"] },
+      { prompt: "Dandy hört gerne fröhliche...", correct: "Musik", wrong: ["Schere", "Bleistift"] },
+      { prompt: "Wir singen zusammen schöne...", correct: "Lieder", wrong: ["Radiergummis", "Bücher"] }
+    ],
+    s5_story: [
+      { prompt: "Welcher Tag ist es in der Geschichte?", correct: "Donnerstag, der 19. November", wrong: ["Montag, der 1. Mai", "Samstag"] },
+      { prompt: "Was sieht Dandy auf der grünen Wiese?", correct: "Eine große Kuh", wrong: ["Einen Elefanten", "Ein Flugzeug"] },
+      { prompt: "Was macht Pebble der kleine Hund?", correct: "Er bellt und läuft zum Pferd", wrong: ["Er schläft im Bett", "Er liest ein Buch"] },
+      { prompt: "Wer fliegt zwischen den Blumen?", correct: "Flutter der Schmetterling", wrong: ["Goob", "Boxten"] },
+      { prompt: "Was spielen alle Freunde am Nachmittag zusammen?", correct: "Fußball", wrong: ["Tennis", "Klavier"] }
+    ],
+    s5_quiz: [
+      { prompt: "Artikel von 'Schere' ist: ______ Schere.", correct: "die", wrong: ["der", "das"], sentence: "Die Schere ist feminin." },
+      { prompt: "Artikel von 'Bleistift' ist: ______ Bleistift.", correct: "der", wrong: ["die", "das"], sentence: "Der Bleistift ist maskulin." },
+      { prompt: "Artikel von 'Lineal' ist: ______ Lineal.", correct: "das", wrong: ["der", "die"], sentence: "Das Lineal ist neutral." },
+      { prompt: "Das Gegenteil von 'groß' ist: ______.", correct: "klein", wrong: ["schnell", "schön"], sentence: "Das Gegenteil von groß ist klein." },
+      { prompt: "Ein Tier, das uns Wolle gibt: das ______.", correct: "Schaf", wrong: ["Pferd", "Hund"], sentence: "Das Schaf gibt uns weiche Wolle." },
+      { prompt: "'Meine Schwester' bedeutet auf Spanisch: ______.", correct: "Mi hermana", wrong: ["Mi hermano", "Mi mamá"], sentence: "Meine Schwester bedeutet mi hermana." },
+      { prompt: "Der Tag nach Donnerstag ist der: ______.", correct: "Freitag", wrong: ["Samstag", "Mittwoch"], sentence: "Der Tag nach Donnerstag ist der Freitag." },
+      { prompt: "Zahl 8 auf Deutsch heißt: ______.", correct: "acht", wrong: ["sechs", "zehn"], sentence: "Die Zahl 8 heißt acht." },
+      { prompt: "Zahl 12 auf Deutsch heißt: ______.", correct: "zwölf", wrong: ["zehn", "zwanzig"], sentence: "Die Zahl 12 heißt zwölf." },
+      { prompt: "Zahl 20 auf Deutsch heißt: ______.", correct: "zwanzig", wrong: ["zwölf", "zwei"], sentence: "Die Zahl 20 heißt zwanzig." }
+    ]
+  };
+
+  // Article Sort Game (15 items)
+  const EXTENDED_ARTICLE_POOL = [
+    { name: "✏️ Bleistift", type: "der", full: "der Bleistift" },
+    { name: "🎒 Schultasche", type: "die", full: "die Schultasche" },
+    { name: "📏 Lineal", type: "das", full: "das Lineal" },
+    { name: "🧽 Radiergummi", type: "der", full: "der Radiergummi" },
+    { name: "✂️ Schere", type: "die", full: "die Schere" },
+    { name: "📦 Mäppchen", type: "das", full: "das Mäppchen" },
+    { name: "🔍 Spitzer", type: "der", full: "der Spitzer" },
+    { name: "📖 Buch", type: "das", full: "das Buch" },
+    { name: "📓 Heft", type: "das", full: "das Heft" },
+    { name: "🐮 Kuh", type: "die", full: "die Kuh" },
+    { name: "🐶 Hund", type: "der", full: "der Hund" },
+    { name: "🐴 Pferd", type: "das", full: "das Pferd" },
+    { name: "🐱 Katze", type: "die", full: "die Katze" },
+    { name: "🐑 Schaf", type: "das", full: "das Schaf" },
+    { name: "🦆 Ente", type: "die", full: "die Ente" }
+  ];
+
+  // Helper shuffle
+  function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Build German Sentence
+  function buildGermanSentence(prompt, correct) {
+    let p = prompt.trim();
+    p = p.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+    const cleanCorrect = correct.replace(/\[.*?\]/g, '').trim();
+
+    if (cleanCorrect.toLowerCase().startsWith('richtig')) {
+      return p;
+    }
+    if (cleanCorrect.toLowerCase().startsWith('falsch')) {
+      return cleanCorrect.replace(/[()]/g, '').trim();
+    }
+
+    const c = cleanCorrect.replace(/\(.*?\)/g, '').trim();
+
+    if (p.includes('______')) {
+      const res = p.replace(/______\s*(\([^)]*\))?/g, ' ' + c + ' ');
+      return res.replace(/\s+/g, ' ').trim();
+    }
+
+    if (/\([^)]*\/[^)]*\)/.test(p)) {
+      const res = p.replace(/\([^)]*\/[^)]*\)/g, ' ' + c + ' ');
+      return res.replace(/\s+/g, ' ').trim();
+    }
+
+    if (p.endsWith('...')) {
+      return p.slice(0, -3).trim() + ' ' + c + '.';
+    }
+
+    if (p.includes('➔')) {
+      return c;
+    }
+
+    if (p.includes('?')) {
+      return `${p} ${c}`;
+    }
+
+    return `${p} ${c}`;
+  }
+
+  // Render question list
+  function renderQuestionGroup(containerId, pool, count = 4) {
+    const container = document.getElementById(containerId);
+    if (!container || !pool || pool.length === 0) return;
+    container.innerHTML = "";
+
+    const selected = shuffle(pool).slice(0, count);
+    selected.forEach((q, idx) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question-item";
+
+      const fullSentence = q.sentence || buildGermanSentence(q.prompt, q.correct);
+      qDiv.dataset.fullSentence = fullSentence;
+
+      const promptDiv = document.createElement("div");
+      promptDiv.className = "q-prompt";
+
+      const ttsBtn = document.createElement("button");
+      ttsBtn.className = "btn-tts";
+      ttsBtn.title = "Anhören (Escuchar)";
+      ttsBtn.innerText = "🔊";
+      ttsBtn.onclick = function() {
+        const textToSpeak = qDiv.dataset.scored ? (qDiv.dataset.fullSentence || q.prompt) : q.prompt;
+        speakPrompt(this, textToSpeak);
+      };
+
+      const numSpan = document.createElement("span");
+      numSpan.className = "q-num";
+      numSpan.innerText = `${idx + 1}.`;
+
+      const textNode = document.createElement("span");
+      textNode.innerHTML = ` ${q.prompt.replace(/Sofía/g, '<span class="dyn-student-name">' + currentStudentName + '</span>')}`;
+
+      promptDiv.appendChild(ttsBtn);
+      promptDiv.appendChild(numSpan);
+      promptDiv.appendChild(textNode);
+
+      const choicesDiv = document.createElement("div");
+      choicesDiv.className = "choices-grid";
+
+      // Combine and shuffle choices
+      const allChoices = shuffle([
+        { text: q.correct, isCorrect: true },
+        ...q.wrong.map(w => ({ text: w, isCorrect: false }))
+      ]);
+
+      allChoices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.innerText = choice.text;
+        btn.onclick = function() { checkChoice(this, choice.isCorrect, fullSentence); };
+        choicesDiv.appendChild(btn);
+      });
+
+      qDiv.appendChild(promptDiv);
+      qDiv.appendChild(choicesDiv);
+      container.appendChild(qDiv);
+    });
+  }
+
+  // Render Article Game Pool
+  function renderArticlePool() {
+    const poolDiv = document.getElementById("article-pool");
+    const basketDer = document.getElementById("basket-der-items");
+    const basketDie = document.getElementById("basket-die-items");
+    const basketDas = document.getElementById("basket-das-items");
+    if (!poolDiv) return;
+
+    poolDiv.innerHTML = "";
+    if (basketDer) basketDer.innerHTML = "";
+    if (basketDie) basketDie.innerHTML = "";
+    if (basketDas) basketDas.innerHTML = "";
+
+    const ders = shuffle(EXTENDED_ARTICLE_POOL.filter(f => f.type === "der")).slice(0, 3);
+    const dies = shuffle(EXTENDED_ARTICLE_POOL.filter(f => f.type === "die")).slice(0, 3);
+    const dass = shuffle(EXTENDED_ARTICLE_POOL.filter(f => f.type === "das")).slice(0, 3);
+    const chosen = shuffle([...ders, ...dies, ...dass]);
+
+    chosen.forEach(item => {
+      const btn = document.createElement("button");
+      btn.className = "article-pill-btn";
+      btn.innerText = item.name;
+      btn.onclick = function() { sortArticle(this, item.name, item.type, item.full); };
+      poolDiv.appendChild(btn);
+    });
+  }
+
+  function sortArticle(btn, name, type, full) {
+    getAudioCtx();
+    let targetList;
+    if (type === 'der') targetList = document.getElementById('basket-der-items');
+    else if (type === 'die') targetList = document.getElementById('basket-die-items');
+    else targetList = document.getElementById('basket-das-items');
+
+    const item = document.createElement('div');
+    item.className = 'sorted-item';
+    item.innerHTML = `<span>${full}</span> <span>✅</span>`;
+    targetList.appendChild(item);
+
+    btn.style.display = 'none';
+    playCorrectSound();
+
+    if (autoReadSentence) {
+      setTimeout(() => {
+        speakPrompt(null, full);
+      }, 200);
+    }
+
+    score++;
+    document.getElementById('score-display').innerText = `⭐ ${score} pts`;
+
+    if (document.getElementById('article-pool').querySelectorAll('button[style*="display: none"]').length === 9) {
+      playFanfare();
+    }
+  }
+
+  function regenerateAllQuestions() {
+    renderQuestionGroup("container-s1-vorstellung", QUESTION_BANK.s1_vorstellung, 4);
+    renderQuestionGroup("container-s1-verben", QUESTION_BANK.s1_verben, 4);
+    renderQuestionGroup("container-s1-familie", QUESTION_BANK.s1_familie, 4);
+
+    renderArticlePool();
+    renderQuestionGroup("container-s2-artikel", QUESTION_BANK.s2_artikel, 4);
+    renderQuestionGroup("container-s2-einEine", QUESTION_BANK.s2_einEine, 4);
+
+    renderQuestionGroup("container-s3-tiere", QUESTION_BANK.s3_tiere, 4);
+    renderQuestionGroup("container-s3-adjektive", QUESTION_BANK.s3_adjektive, 4);
+    renderQuestionGroup("container-s3-fakten", QUESTION_BANK.s3_fakten, 3);
+
+    renderQuestionGroup("container-s4-wochentage", QUESTION_BANK.s4_wochentage, 4);
+    renderQuestionGroup("container-s4-datum", QUESTION_BANK.s4_datum, 3);
+    renderQuestionGroup("container-s4-hobbys", QUESTION_BANK.s4_hobbys, 4);
+
+    renderQuestionGroup("container-s5-story", QUESTION_BANK.s5_story, 4);
+    renderQuestionGroup("container-s5-quiz", QUESTION_BANK.s5_quiz, 6);
+
+    playTone(587.33, 'triangle', 0.15, 0);
+  }
+
+  // Audio Synthesizer
+  let audioCtx;
+  function getAudioCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    return audioCtx;
+  }
+
+  function playTone(freq, type = 'sine', duration = 0.15, delay = 0) {
+    try {
+      const ctx = getAudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + delay);
+      osc.stop(ctx.currentTime + delay + duration);
+    } catch(e) {}
+  }
+
+  function playCorrectSound() {
+    playTone(523.25, 'triangle', 0.1, 0);
+    playTone(659.25, 'triangle', 0.12, 0.08);
+    playTone(783.99, 'triangle', 0.22, 0.16);
+  }
+
+  function playWrongSound() {
+    playTone(261.63, 'sawtooth', 0.15, 0);
+    playTone(220.00, 'sawtooth', 0.2, 0.12);
+  }
+
+  function playFanfare() {
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((f, i) => playTone(f, 'sine', 0.25, i * 0.12));
+    launchConfetti();
+  }
+
+  // Confetti Engine
+  function launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = ['#2563eb', '#f59e0b', '#16a34a', '#ec4899', '#9333ea', '#e11d48'];
+    const particles = [];
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        vx: (Math.random() - 0.5) * 14,
+        vy: (Math.random() - 0.7) * 14,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        vr: (Math.random() - 0.5) * 10,
+        alpha: 1
+      });
+    }
+
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.35;
+        p.rotation += p.vr;
+        p.alpha -= 0.015;
+        if (p.alpha > 0) {
+          alive = true;
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        }
+      });
+      if (alive) requestAnimationFrame(render);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    render();
+  }
+
+  // Toggle Auto-Read
+  let autoReadSentence = true;
+  function toggleAutoRead() {
+    autoReadSentence = !autoReadSentence;
+    document.getElementById('autoread-icon').innerText = autoReadSentence ? '🔊' : '🔇';
+    document.getElementById('autoread-label').innerText = autoReadSentence ? 'Satz: AN' : 'Satz: AUS';
+    playTone(autoReadSentence ? 660 : 440, 'sine', 0.1, 0);
+  }
+
+  // Score & Choice Checking
+  let score = 0;
+  function checkChoice(btn, isCorrect, fullSentence) {
+    getAudioCtx();
+    const parent = btn.closest('.question-item');
+    if (!parent) return;
+
+    parent.querySelectorAll('.choice-btn').forEach(b => {
+      b.classList.remove('selected-correct', 'selected-wrong');
+    });
+
+    if (isCorrect) {
+      btn.classList.add('selected-correct');
+      playCorrectSound();
+      if (!parent.dataset.scored) {
+        parent.dataset.scored = "true";
+        score++;
+        document.getElementById('score-display').innerText = `⭐ ${score} pts`;
+        launchConfetti();
+      }
+
+      // Sentence feedback & auto-read
+      const sentence = fullSentence || parent.dataset.fullSentence;
+      if (sentence) {
+        let feedback = parent.querySelector('.sentence-feedback');
+        if (!feedback) {
+          feedback = document.createElement('div');
+          feedback.className = 'sentence-feedback';
+          parent.appendChild(feedback);
+        }
+
+        const displaySentence = sentence.replace(/Sofía/g, currentStudentName);
+        feedback.innerHTML = '';
+
+        const fbBtn = document.createElement('button');
+        fbBtn.className = 'btn-tts';
+        fbBtn.title = 'Nochmal anhören (Escuchar de nuevo)';
+        fbBtn.innerText = '🔊';
+        fbBtn.onclick = function() {
+          speakPrompt(this, displaySentence);
+        };
+
+        const fbText = document.createElement('span');
+        fbText.className = 'feedback-text';
+        fbText.innerText = `“${displaySentence}”`;
+
+        feedback.appendChild(fbBtn);
+        feedback.appendChild(fbText);
+        feedback.classList.add('show');
+
+        if (autoReadSentence) {
+          setTimeout(() => {
+            speakPrompt(fbBtn, displaySentence);
+          }, 320);
+        }
+      }
+    } else {
+      btn.classList.add('selected-wrong');
+      playWrongSound();
+    }
+  }
+
+  // German TTS Engine
+  let ttsRate = 0.88;
+  let isSlow = false;
+  function toggleTtsSpeed() {
+    isSlow = !isSlow;
+    ttsRate = isSlow ? 0.72 : 0.88;
+    document.getElementById('speed-icon').innerText = isSlow ? '🐢' : '🐰';
+    document.getElementById('speed-label').innerText = isSlow ? 'Langsam' : 'Normal';
+    playTone(isSlow ? 440 : 660, 'sine', 0.1, 0);
+  }
+
+  function speakPrompt(btn, text, lang = 'de-DE') {
+    if (!('speechSynthesis' in window)) {
+      alert("Dein Browser unterstützt keine Sprachausgabe.");
+      return;
+    }
+    window.speechSynthesis.cancel();
+    document.querySelectorAll('.btn-tts, .btn-listen-story').forEach(b => b.classList.remove('speaking'));
+
+    let clean = text.replace(/<[^>]*>/g, ' ').replace(/______/g, ' ');
+    clean = clean.replace(/Sofía/g, currentStudentName);
+
+    const utterance = new SpeechSynthesisUtterance(clean);
+    utterance.lang = lang;
+    utterance.rate = ttsRate;
+    utterance.pitch = 1.05;
+
+    const voices = window.speechSynthesis.getVoices();
+    const bestVoice = voices.find(v => v.lang.startsWith('de') && 
+      (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Marlene') || v.name.includes('Hans') || v.name.includes('Anna') || v.name.includes('Vicki')));
+    if (bestVoice) utterance.voice = bestVoice;
+
+    if (btn) {
+      btn.classList.add('speaking');
+      utterance.onend = () => btn.classList.remove('speaking');
+      utterance.onerror = () => btn.classList.remove('speaking');
+    }
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function speakStory(btn) {
+    const text = `Es ist Donnerstag, der neunzehnte November. ${currentStudentName} und ihre Toon-Freunde von Dandys World besuchen einen Bauernhof. Die Sonne scheint am blauen Himmel. Dandy sieht eine große Kuh auf der Wiese. Die Kuh frisst frisches Gras. Pebble, der kleine lustige Hund, bellt fröhlich und läuft schnell zum Pferd. In der Luft fliegt der bunte Schmetterling Flutter zwischen den Blumen. In ihrer Schultasche hat ${currentStudentName} ein Mäppchen, ein Lineal und einen roten Apfel. Am Nachmittag spielen alle Freunde zusammen Fußball. Alle Kinder sind glücklich!`;
+    speakPrompt(btn, text, 'de-DE');
+  }
+
+  // Student Name
+  let currentStudentName = localStorage.getItem('dandy_student_name_de') || 'Sofía';
+  function applyStudentName(name) {
+    if (!name || !name.trim()) name = 'Sofía';
+    name = name.trim();
+    currentStudentName = name;
+    localStorage.setItem('dandy_student_name_de', name);
+
+    document.getElementById('student-name-header').innerText = name;
+    document.querySelectorAll('.dyn-student-name').forEach(el => {
+      el.innerText = name;
+    });
+
+    // Update feedback bubbles
+    document.querySelectorAll('.question-item').forEach(qDiv => {
+      const fb = qDiv.querySelector('.sentence-feedback');
+      const origSentence = qDiv.dataset.fullSentence;
+      if (fb && origSentence) {
+        const displaySentence = origSentence.replace(/Sofía/g, currentStudentName);
+        const fbText = fb.querySelector('.feedback-text');
+        if (fbText) fbText.innerText = `“${displaySentence}”`;
+        const fbBtn = fb.querySelector('.btn-tts');
+        if (fbBtn) {
+          fbBtn.onclick = function() { speakPrompt(this, displaySentence); };
+        }
+      }
+    });
+
+    document.title = `${name} & Dandy's World - Deutsch-Abenteuer`;
+  }
+
+  function openNameModal() {
+    const modal = document.getElementById('name-modal');
+    const input = document.getElementById('student-name-input');
+    input.value = currentStudentName;
+    modal.classList.add('show');
+    setTimeout(() => input.focus(), 100);
+  }
+
+  function saveStudentName() {
+    const input = document.getElementById('student-name-input');
+    applyStudentName(input.value);
+    document.getElementById('name-modal').classList.remove('show');
+    playTone(659.25, 'sine', 0.15, 0);
+  }
+
+  // Stage Switcher
+  let currentStage = 1;
+  function switchStage(stageNum) {
+    currentStage = stageNum;
+    document.querySelectorAll('.stage-view').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    const activeStage = document.getElementById(`stage-${stageNum}`);
+    if (activeStage) activeStage.classList.add('active');
+
+    const activeTab = document.querySelectorAll('.tab-btn')[stageNum - 1];
+    if (activeTab) {
+      activeTab.classList.add('active');
+      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    document.getElementById('btn-prev').style.visibility = (stageNum === 1) ? 'hidden' : 'visible';
+    const nextBtn = document.getElementById('btn-next');
+    if (stageNum === 5) {
+      nextBtn.innerText = '🏆 Fertig! (Terminar)';
+      nextBtn.onclick = () => { playFanfare(); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); };
+    } else {
+      nextBtn.innerText = 'Weiter ➡️';
+      nextBtn.onclick = nextStage;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStage() { if (currentStage < 5) switchStage(currentStage + 1); }
+  function prevStage() { if (currentStage > 1) switchStage(currentStage - 1); }
+
+  // Init
+  window.addEventListener('DOMContentLoaded', () => {
+    applyStudentName(currentStudentName);
+    switchStage(1);
+    regenerateAllQuestions();
+    if (!localStorage.getItem('dandy_student_name_de')) {
+      setTimeout(openNameModal, 400);
+    }
+  });
+</script>
+</body>
+</html>
