@@ -64,354 +64,276 @@
     display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
     justify-content: space-between;
   }
+  .actions-left, .actions-right { display: flex; align-items: center; gap: 6px; }
 
-  .student-pill {
-    background: #eff6ff; border: 1.5px solid #93c5fd;
-    padding: 4px 10px; border-radius: 20px;
-    font-size: 0.82rem; font-weight: 800; color: #1e40af;
-    display: flex; align-items: center; gap: 5px;
-    cursor: pointer; min-height: 38px;
+  .badge-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 11px; border-radius: 12px;
+    font-size: 0.8rem; font-weight: 700; font-family: inherit;
+    border: none; cursor: pointer; transition: transform 0.15s, background 0.15s;
+    user-select: none;
   }
+  .badge-btn:active { transform: scale(0.96); }
+  .badge-student { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+  .badge-score { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; font-weight: 800; }
+  .badge-mode { background: #e2e8f0; color: #334155; }
+  .badge-mode.active { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+  .badge-speed { background: #fae8ff; color: #86198f; border: 1px solid #f5d0fe; }
+  .badge-pdf { background: #fee2e2; color: #991b1b; text-decoration: none; border: 1px solid #fecaca; }
 
-  .speed-toggle-btn {
-    background: #fef3c7; border: 1.5px solid #f59e0b;
-    border-radius: 20px; padding: 4px 10px;
-    font-family: inherit; font-size: 0.8rem; font-weight: 800; color: #b45309;
-    cursor: pointer; display: flex; align-items: center; gap: 4px; min-height: 38px;
-  }
-
-  .btn-shuffle {
-    background: #ecfdf5; border: 1.5px solid #10b981;
-    border-radius: 20px; padding: 4px 10px;
-    font-family: inherit; font-size: 0.8rem; font-weight: 800; color: #047857;
-    cursor: pointer; min-height: 38px;
-  }
-
-  .score-badge {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
-    color: #fff; padding: 4px 12px; border-radius: 20px;
-    font-weight: 800; font-size: 0.85rem; min-height: 38px;
-    display: flex; align-items: center;
-  }
-
-  .btn-pdf {
-    background: #fee2e2; border: 1.5px solid #ef4444; color: #b91c1c;
-    text-decoration: none; padding: 4px 10px; border-radius: 20px;
-    font-weight: 800; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; min-height: 38px;
-  }
-
-  /* Stage Tabs */
+  /* Stage Nav Tabs (Horizontal scroll on mobile) */
   .stage-nav {
-    display: flex; gap: 8px;
-    overflow-x: auto; white-space: nowrap;
-    -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth;
-    padding: 4px 2px;
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 4px 2px 8px 2px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
   }
   .stage-nav::-webkit-scrollbar { display: none; }
 
   .tab-btn {
-    flex: 0 0 auto; background: #fff;
-    border: 2px solid #cbd5e1; border-radius: 20px;
-    padding: 8px 16px; font-family: inherit;
-    font-size: 0.85rem; font-weight: 800; color: #475569;
-    cursor: pointer; transition: all 0.2s; min-height: 42px;
+    white-space: nowrap; padding: 9px 14px; border-radius: 14px;
+    font-family: inherit; font-size: 0.85rem; font-weight: 700;
+    background: rgba(255, 255, 255, 0.85); color: #475569;
+    border: 2px solid transparent; cursor: pointer;
+    transition: all 0.2s ease; flex-shrink: 0;
   }
-
+  .tab-btn:hover { background: #fff; color: var(--primary); }
   .tab-btn.active {
-    background: var(--primary); border-color: #1e3a8a; color: #fff;
-    transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    background: var(--primary); color: #fff;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+    border-color: #1d4ed8;
   }
 
   /* Stage Views */
-  .stage-view {
-    display: none; flex-direction: column; gap: 16px;
-    animation: fadeIn 0.25s ease-out;
-  }
+  .stage-view { display: none; flex-direction: column; gap: 14px; }
   .stage-view.active { display: flex; }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  /* Info / Rule Pills */
   .rule-pill {
-    background: #eff6ff; border: 1.5px solid #93c5fd;
-    border-radius: 16px; padding: 10px 14px;
-    font-size: 0.88rem; font-weight: 700; color: #1e40af; line-height: 1.4;
+    background: #f0fdf4; border: 1.5px solid #86efac;
+    border-radius: 14px; padding: 10px 14px;
+    font-size: 0.85rem; color: #166534; line-height: 1.4;
   }
+  .rule-pill strong { color: #14532d; }
+  .rule-pill small { color: #166534; font-size: 0.78rem; display: block; margin-top: 3px; }
 
+  /* Cards */
   .card {
-    background: var(--card-bg); border-radius: 22px;
-    padding: 18px 18px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-    border: 2px solid #e2e8f0; display: flex; flex-direction: column; gap: 12px;
+    background: var(--card-bg); border-radius: 20px;
+    padding: 16px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 12px;
   }
-
-  .card-banner {
-    display: flex; align-items: center; gap: 10px;
-    border-bottom: 2px dashed #f1f5f9; padding-bottom: 10px;
-  }
-
+  .card-banner { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .card-badge {
-    background: var(--primary); color: #fff;
-    width: 30px; height: 30px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 0.95rem; flex-shrink: 0;
+    padding: 4px 10px; border-radius: 10px;
+    font-size: 0.75rem; font-weight: 800; color: #fff;
   }
+  .card-title { font-size: 1.05rem; font-weight: 800; color: #1e3a8a; margin: 0; }
+  .card-hint { font-size: 0.78rem; color: var(--subtext); font-style: italic; margin-left: auto; }
 
-  .card-title { margin: 0; font-size: 1.05rem; font-weight: 800; color: #1e3a8a; }
-  .card-hint { margin-left: auto; font-size: 0.78rem; font-weight: 700; color: var(--subtext); }
-
-  /* Visual Vocabulary Grid & Cards */
+  /* Vocab Showcase Grid */
   .vocab-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     gap: 10px;
-    margin-top: 4px;
   }
-
   .vocab-card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 10px 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 2px solid #cbd5e1;
-    cursor: pointer;
-    transition: all 0.18s;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-    touch-action: manipulation;
+    background: #f8fafc; border-radius: 14px; border: 2px solid #e2e8f0;
+    padding: 8px 6px; text-align: center; display: flex; flex-direction: column;
+    align-items: center; gap: 4px; cursor: pointer; transition: all 0.2s;
   }
-
-  .vocab-card:active {
-    transform: scale(0.96);
-  }
-
-  .vocab-card.border-der { border-color: var(--der); background: #eff6ff; }
-  .vocab-card.border-die { border-color: var(--die); background: #fef2f2; }
-  .vocab-card.border-das { border-color: var(--das); background: #f0fdf4; }
-  .vocab-card.border-hobby { border-color: var(--accent); background: #fffbeb; }
-
+  .vocab-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .vocab-card:active { transform: scale(0.96); }
+  .vocab-img { width: 56px; height: 56px; object-fit: contain; }
   .vocab-art-badge {
-    font-size: 0.72rem;
-    font-weight: 800;
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-bottom: 4px;
-    text-transform: uppercase;
+    padding: 2px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 800; color: #fff;
   }
-  .badge-der { background: var(--der); }
-  .badge-die { background: var(--die); }
-  .badge-das { background: var(--das); }
-  .badge-hobby { background: var(--accent); }
+  .vocab-art-der { background: var(--der); }
+  .vocab-art-die { background: var(--die); }
+  .vocab-art-das { background: var(--das); }
+  .vocab-art-adj { background: #7e22ce; }
+  .vocab-art-hobby { background: #b45309; }
+  .vocab-de { font-size: 0.82rem; font-weight: 800; color: #1e293b; margin-top: 2px; }
+  .vocab-es { font-size: 0.7rem; color: #64748b; font-style: italic; }
 
-  .vocab-img {
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    margin: 4px 0;
-  }
-
-  .vocab-de {
-    font-size: 0.92rem;
-    font-weight: 800;
-    color: #1e293b;
-    line-height: 1.2;
-  }
-
-  .vocab-es {
-    font-size: 0.75rem;
-    color: var(--subtext);
-    font-style: italic;
-    line-height: 1.2;
-    margin-top: 2px;
-  }
-
-  /* Question Items with Illustrated Prompt */
+  /* Question Items */
   .item-list { display: flex; flex-direction: column; gap: 12px; }
-
   .question-item {
     background: #f8fafc; border: 1.5px solid #e2e8f0;
-    border-radius: 16px; padding: 12px 14px;
-    display: flex; flex-direction: column; gap: 6px;
-    transition: all 0.15s;
+    border-radius: 14px; padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 8px;
   }
-
-  .q-prompt-wrap {
-    display: flex; align-items: center; gap: 10px;
+  .question-header {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
   }
+  .q-meta { display: flex; flex-direction: column; gap: 2px; }
+  .q-text-de { font-weight: 800; font-size: 0.92rem; color: #1e293b; line-height: 1.3; }
+  .q-text-es { font-size: 0.78rem; color: #64748b; font-style: italic; }
 
-  .q-prompt-img {
-    width: 56px; height: 56px; object-fit: contain;
-    border-radius: 12px; background: #fff; padding: 4px;
-    border: 2px solid #cbd5e1; flex-shrink: 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  .q-img-wrap {
+    display: flex; align-items: center; justify-content: center;
+    background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px;
+    padding: 6px; margin: 4px 0; width: fit-content; align-self: center;
   }
+  .q-thumb { width: 72px; height: 72px; object-fit: contain; }
 
-  .q-prompt-text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-  .q-prompt-de { font-size: 0.96rem; font-weight: 800; color: #1e293b; line-height: 1.35; }
-  .q-prompt-es { font-size: 0.82rem; font-style: italic; color: var(--subtext); line-height: 1.25; }
-
-  .choices-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-
+  .choices-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;
+  }
   .choice-btn {
-    flex: 1 1 calc(33.3% - 8px);
-    min-height: 44px; background: #ffffff;
-    border: 2px solid #cbd5e1; border-radius: 14px;
-    padding: 8px 12px; font-family: inherit; font-size: 0.9rem;
-    font-weight: 700; color: #334155; cursor: pointer;
-    transition: all 0.15s; touch-action: manipulation; user-select: none;
-    display: flex; align-items: center; justify-content: center; text-align: center;
+    background: #fff; border: 2px solid #cbd5e1; border-radius: 12px;
+    padding: 9px 12px; font-family: inherit; font-size: 0.88rem; font-weight: 700;
+    color: #1e293b; text-align: left; cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: space-between;
   }
-
-  @media (max-width: 540px) {
-    .choice-btn { flex: 1 1 100%; justify-content: flex-start; padding-left: 14px; }
-  }
-
-  .choice-btn:active { transform: scale(0.97); }
-
+  .choice-btn:hover { border-color: #3b82f6; background: #eff6ff; }
   .choice-btn.selected-correct {
-    background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important;
+    border-color: #22c55e !important; background: #dcfce7 !important; color: #15803d !important;
   }
   .choice-btn.selected-wrong {
-    background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important;
+    border-color: #ef4444 !important; background: #fee2e2 !important; color: #b91c1c !important;
   }
 
-  /* TTS Speaker Buttons */
-  .btn-tts {
-    background: #e0f2fe; border: 2px solid #7dd3fc; color: #0369a1;
-    border-radius: 50%; width: 44px; height: 44px;
-    display: inline-flex; align-items: center; justify-content: center;
-    cursor: pointer; font-size: 1.15rem; transition: all 0.15s;
-    padding: 0; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    touch-action: manipulation;
-  }
-  .btn-tts:active { transform: scale(0.92); }
-  .btn-tts.speaking {
-    background: #fef08a !important; border-color: #eab308 !important;
-    animation: pulseSpeaking 0.6s infinite alternate;
-  }
-  @keyframes pulseSpeaking {
-    from { transform: scale(1); box-shadow: 0 0 0 rgba(234,179,8,0.3); }
-    to { transform: scale(1.12); box-shadow: 0 0 10px rgba(234,179,8,0.7); }
-  }
-
-  .btn-listen-story {
-    background: #ffffff; border: 2px solid #10b981; color: #047857;
-    font-family: inherit; font-weight: 800; font-size: 0.9rem;
-    padding: 8px 16px; border-radius: 20px; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 8px; margin-top: 8px;
-    min-height: 44px; transition: all 0.15s; touch-action: manipulation;
-  }
-  .btn-listen-story:active { transform: scale(0.96); }
-
-  /* Sentence Feedback Box */
+  /* Full Sentence Feedback Readout */
   .sentence-feedback {
-    display: none; margin-top: 6px; padding: 8px 12px;
-    background: #ecfdf5; border: 1.5px solid #6ee7b7; border-radius: 14px;
-    align-items: center; gap: 10px; animation: fadeInSentence 0.25s ease-out;
+    display: none; align-items: center; gap: 8px;
+    background: #eff6ff; border: 1.5px solid #93c5fd;
+    border-radius: 10px; padding: 7px 11px; margin-top: 4px;
   }
   .sentence-feedback.show { display: flex; }
-  .sentence-feedback .feedback-text {
-    font-size: 0.94rem; font-weight: 700; color: #065f46; line-height: 1.35;
-  }
-  @keyframes fadeInSentence {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
+  .feedback-text {
+    font-weight: 800; font-size: 0.84rem; color: #1e40af; flex-grow: 1;
   }
 
-  /* Der Die Das Game */
-  .article-game-pool {
-    display: flex; flex-wrap: wrap; gap: 8px; padding: 10px;
-    background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 16px; min-height: 60px;
+  /* Audio speech button */
+  .btn-tts {
+    background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px;
+    padding: 4px 8px; font-size: 0.85rem; cursor: pointer;
+    flex-shrink: 0; transition: background 0.15s;
   }
+  .btn-tts:hover { background: #e2e8f0; }
 
-  .article-pill-btn {
-    background: #fff; border: 2px solid #94a3b8; border-radius: 20px;
-    padding: 8px 14px; font-family: inherit; font-size: 0.9rem;
-    font-weight: 800; color: #1e293b; cursor: pointer;
-    transition: all 0.15s; min-height: 44px; touch-action: manipulation; user-select: none;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .article-pill-btn img { width: 22px; height: 22px; object-fit: contain; }
-
+  /* Basket Sorting Game (Der Die Das) */
+  .sorting-game { display: flex; flex-direction: column; gap: 12px; }
   .article-baskets {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
   }
-  @media (max-width: 640px) { .article-baskets { grid-template-columns: 1fr; } }
-
-  .basket-box {
-    border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 130px;
+  .basket {
+    border-radius: 14px; padding: 10px; min-height: 120px;
+    display: flex; flex-direction: column; gap: 6px;
+    border: 2px dashed; text-align: center;
   }
-  .basket-der { background: #eff6ff; border: 2.5px solid var(--der); }
-  .basket-die { background: #fef2f2; border: 2.5px solid var(--die); }
-  .basket-das { background: #f0fdf4; border: 2.5px solid var(--das); }
-
-  .basket-header {
-    font-size: 0.92rem; font-weight: 800; text-align: center;
-    padding-bottom: 6px; border-bottom: 1.5px dashed rgba(0,0,0,0.12);
-  }
-  .basket-der .basket-header { color: var(--der); }
-  .basket-die .basket-header { color: var(--die); }
-  .basket-das .basket-header { color: var(--das); }
-
-  .basket-items { display: flex; flex-direction: column; gap: 4px; }
+  .basket-der { background: #eff6ff; border-color: var(--der); }
+  .basket-die { background: #fef2f2; border-color: var(--die); }
+  .basket-das { background: #f0fdf4; border-color: var(--das); }
+  .basket-title { font-weight: 800; font-size: 0.95rem; }
+  .basket-der .basket-title { color: var(--der); }
+  .basket-die .basket-title { color: var(--die); }
+  .basket-das .basket-title { color: var(--das); }
+  .basket-items { display: flex; flex-direction: column; gap: 4px; min-height: 60px; }
   .sorted-item {
-    background: #fff; padding: 4px 8px; border-radius: 8px;
-    font-size: 0.82rem; font-weight: 700; display: flex; justify-content: space-between;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05); align-items: center;
+    background: #fff; border-radius: 8px; padding: 4px 8px;
+    font-size: 0.78rem; font-weight: 700; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .pool-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pool-item-btn {
+    background: #fff; border: 1.5px solid #cbd5e1; border-radius: 10px;
+    padding: 6px 10px; font-family: inherit; font-size: 0.82rem; font-weight: 700;
+    cursor: pointer; transition: transform 0.15s;
+  }
+  .pool-item-btn:hover { border-color: #3b82f6; transform: scale(1.03); }
+
+  /* Antonyms Game (Gegenteile verbinden) */
+  .opposites-container {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 6px 0;
+  }
+  .opposites-col { display: flex; flex-direction: column; gap: 8px; }
+  .opposite-btn {
+    display: flex; align-items: center; gap: 8px; padding: 10px 12px;
+    border-radius: 12px; border: 2px solid #cbd5e1; background: #fff;
+    font-family: inherit; font-size: 0.88rem; font-weight: 700; color: #1e293b;
+    cursor: pointer; transition: all 0.15s ease;
+  }
+  .opposite-btn:hover { border-color: #3b82f6; background: #eff6ff; }
+  .opposite-btn.selected {
+    border-color: #f59e0b !important; background: #fffbeb !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+  }
+  .opposite-btn.matched {
+    border-color: #22c55e !important; background: #f0fdf4 !important;
+    color: #15803d !important; pointer-events: none;
+  }
+  .opposite-btn.shake {
+    animation: shake 0.4s ease-in-out; border-color: #ef4444 !important; background: #fef2f2 !important;
+  }
+  .opposite-icon { width: 28px; height: 28px; object-fit: contain; }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
   }
 
-  /* Fixed Bottom Nav */
-  .bottom-nav {
+  /* Audio Box (Max & Anna) */
+  .audio-card {
+    background: #eff6ff; border: 2px solid #93c5fd; border-radius: 16px;
+    padding: 14px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .audio-card.anna { background: #fdf4ff; border-color: #f0abfc; }
+  .audio-header { display: flex; align-items: center; justify-content: space-between; }
+  .audio-title { font-size: 0.95rem; font-weight: 800; color: #1e40af; }
+  .audio-card.anna .audio-title { color: #86198f; }
+  .audio-text-de { font-weight: 700; font-size: 0.92rem; line-height: 1.45; color: #1e293b; }
+  .audio-text-es { font-size: 0.8rem; color: #64748b; font-style: italic; line-height: 1.35; }
+
+  /* Personal Production Form */
+  .profile-form { display: flex; flex-direction: column; gap: 10px; }
+  .form-row { display: flex; flex-direction: column; gap: 4px; }
+  .form-row label { font-size: 0.82rem; font-weight: 800; color: #1e293b; }
+  .form-row small { font-size: 0.74rem; color: #64748b; font-style: italic; }
+  .form-input {
+    border: 2px solid #cbd5e1; border-radius: 10px; padding: 9px 12px;
+    font-family: inherit; font-size: 0.9rem; font-weight: 600;
+  }
+  .form-input:focus { outline: none; border-color: #3b82f6; }
+
+  /* Bottom Navigation Bar (Sticky) */
+  .bottom-bar {
     position: fixed; bottom: 0; left: 0; right: 0;
-    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
-    border-top: 2px solid #e2e8f0;
-    padding: 10px 16px max(10px, env(safe-area-inset-bottom, 10px)) 16px;
-    display: flex; justify-content: space-between; align-items: center; z-index: 100;
+    background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px);
+    border-top: 2px solid #e2e8f0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)) 16px;
+    display: flex; justify-content: center; z-index: 100;
   }
-
-  .nav-step-btn {
-    min-height: 46px; min-width: 130px; background: var(--primary);
-    border: none; border-radius: 20px; color: #fff; font-family: inherit;
-    font-size: 0.95rem; font-weight: 800; cursor: pointer;
-    box-shadow: 0 3px 10px rgba(30, 58, 138, 0.3); transition: all 0.15s; touch-action: manipulation;
+  .nav-inner {
+    width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center;
   }
-  .nav-step-btn:active { transform: scale(0.96); }
-  .nav-step-btn.btn-prev { background: #e2e8f0; color: #475569; box-shadow: none; }
-
-  /* Modal */
-  .modal-overlay {
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px);
-    display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px;
+  .btn-nav {
+    display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px;
+    border-radius: 12px; font-family: inherit; font-size: 0.88rem; font-weight: 800;
+    border: none; cursor: pointer; transition: all 0.15s ease;
   }
-  .modal-overlay.show { display: flex; }
+  .btn-prev { background: #f1f5f9; color: #475569; }
+  .btn-next { background: var(--primary); color: #fff; }
+  .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
 
+  /* Modal for Student Name */
+  .modal-backdrop {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5); z-index: 999;
+    align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-backdrop.show { display: flex; }
   .modal-card {
-    background: #fff; border-radius: 24px; width: 92vw; max-width: 420px;
-    max-height: 90vh; overflow-y: auto; padding: 24px 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 3px solid #f59e0b;
-    text-align: center; display: flex; flex-direction: column; gap: 14px;
+    background: #fff; border-radius: 20px; padding: 20px;
+    width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   }
-  .modal-avatar { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto; border: 3px solid #f59e0b; }
-  .modal-input {
-    width: 100%; min-height: 48px; padding: 10px 14px; font-family: inherit;
-    font-size: 1.15rem; font-weight: 700; border: 2px solid #cbd5e1; border-radius: 14px;
-    outline: none; text-align: center;
-  }
-  .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
-  .btn-modal-start {
-    background: linear-gradient(135deg, #10b981, #059669);
-    border: none; border-radius: 16px; color: #fff; font-family: inherit;
-    font-size: 1.05rem; font-weight: 800; min-height: 48px; cursor: pointer;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
-  }
+  .modal-title { font-size: 1.15rem; font-weight: 800; color: #1e3a8a; margin: 0; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
 
+  /* Confetti Canvas */
   #confetti-canvas {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none; z-index: 9999;
   }
 </style>
 </head>
@@ -419,52 +341,38 @@
 
 <canvas id="confetti-canvas"></canvas>
 
-<!-- Welcome / Name Modal -->
-<div class="modal-overlay" id="name-modal">
-  <div class="modal-card">
-    <img src="/static/dandy_assets/dandy.png" class="modal-avatar" alt="Dandy">
-    <h2 style="margin:0; font-size:1.35rem; color:#1e3a8a;">🌸 Willkommen! / ¡Bienvenido!</h2>
-    <p style="margin:0; font-size:0.9rem; color:#475569; font-weight:600;">
-      ¿Cómo te llamas? / Wie heißt du?<br/>
-      <small style="color:#64748b;">(Ingresa tu nombre para practicar)</small>
-    </p>
-    <input type="text" id="student-name-input" class="modal-input" placeholder="Ej: Sofía" maxlength="25">
-    <button class="btn-modal-start" onclick="saveStudentName()">🚀 Los geht's! / ¡A jugar!</button>
-  </div>
-</div>
-
 <div class="app-container">
 
-  <!-- Top Navigation 2-Tier -->
+  <!-- Top Navigation Header -->
   <header class="top-navbar">
     <div class="nav-brand-row">
-      <img src="/static/dandy_assets/dandy.png" class="nav-avatar" alt="Dandy">
+      <img src="/static/dandy_assets/dandy.png" alt="Dandy" class="nav-avatar">
       <div class="nav-title">
-        <h1><span class="dyn-student-name">Sofía</span> & Dandy's World</h1>
-        <p>Deutsch-Abenteuer • 3° Grado • Frau Mónica Briesemeister</p>
+        <h1>Sofía & Dandy's World · Deutsch</h1>
+        <p>Trabajo Integrador · Frau Mónica Briesemeister (19. November)</p>
       </div>
     </div>
     <div class="nav-actions-row">
-      <div class="student-pill" onclick="openNameModal()" title="Klicke hier, um den Namen zu ändern">
-        <span>👤</span>
-        <span id="student-name-header">Sofía</span>
-        <span>✏️</span>
+      <div class="actions-left">
+        <button class="badge-btn badge-student" onclick="openNameModal()" id="btn-student-name">
+          👤 Sofía
+        </button>
+        <span class="badge-btn badge-score" id="score-display">⭐ 0 pts</span>
       </div>
-      <button class="speed-toggle-btn" id="speed-toggle" onclick="toggleTtsSpeed()" title="Stimmengeschwindigkeit">
-        <span id="speed-icon">🐰</span>
-        <span id="speed-label">Normal</span>
-      </button>
-      <button class="speed-toggle-btn" id="autoread-toggle" onclick="toggleAutoRead()" title="Ganzen Satz beim Richtig-Tippen vorlesen">
-        <span id="autoread-icon">🔊</span>
-        <span id="autoread-label">Satz: AN</span>
-      </button>
-      <button class="btn-shuffle" onclick="regenerateAllQuestions()" title="Neue Fragen mischen">
-        🔄 Mischen
-      </button>
-      <div class="score-badge" id="score-display">⭐ 0 pts</div>
-      <a href="/static/Repaso_Aleman_Sofia_3er_Grado.pdf" target="_blank" class="btn-pdf">
-        🖨️ PDF
-      </a>
+      <div class="actions-right">
+        <button class="badge-btn badge-mode active" id="btn-toggle-autoread" onclick="toggleAutoRead()" title="Lectura de voz automática tras respuesta correcta">
+          🔊 Auto-Voz: ON
+        </button>
+        <button class="badge-btn badge-speed" id="btn-tts-speed" onclick="toggleTtsSpeed()" title="Velocidad de habla">
+          🐰 Normal
+        </button>
+        <button class="badge-btn" style="background:#e0f2fe; color:#0369a1;" onclick="regenerateAllQuestions()" title="Mezclar y cambiar preguntas">
+          🔄 Rotar
+        </button>
+        <a href="/pdf" target="_blank" class="badge-btn badge-pdf">
+          🖨️ PDF
+        </a>
+      </div>
     </div>
   </header>
 
@@ -472,14 +380,15 @@
   <nav class="stage-nav">
     <button class="tab-btn active" onclick="switchStage(1)">🐮 1. Bauernhoftiere</button>
     <button class="tab-btn" onclick="switchStage(2)">✏️ 2. Schulsachen</button>
-    <button class="tab-btn" onclick="switchStage(3)">👨‍👩‍👧 3. Familie</button>
-    <button class="tab-btn" onclick="switchStage(4)">⚽ 4. Hobbys & Datum</button>
-    <button class="tab-btn" onclick="switchStage(5)">🎧 5. Hör- & Leseverstehen</button>
+    <button class="tab-btn" onclick="switchStage(3)">⭐ 3. Adjektive & Gegenteile</button>
+    <button class="tab-btn" onclick="switchStage(4)">👨‍👩‍👧 4. Familie</button>
+    <button class="tab-btn" onclick="switchStage(5)">⚽ 5. Hobbys & Datum</button>
+    <button class="tab-btn" onclick="switchStage(6)">🎧 6. Hör- & Leseverstehen</button>
   </nav>
 
   <!-- STAGE 1: Bauernhoftiere (Bild & Wort verbinden) -->
   <section class="stage-view active" id="stage-1">
-    <div class="rule-pill" style="background:#f0fdf4; border-color:#86efac; color:#166534;">
+    <div class="rule-pill">
       🐮 <strong>Thema 1: Die Tiere auf dem Bauernhof – Bild & Wort verbinden!</strong><br/>
       <small>Cada animal con su imagen, artículo (🟦 der, 🔴 die, 🟢 das) y pronunciación. ¡Toca cada tarjeta para escucharla!</small>
     </div>
@@ -503,22 +412,13 @@
       </div>
       <div id="container-s1-tiere" class="item-list"></div>
     </div>
-
-    <!-- Adjektive mit Tieren -->
-    <div class="card">
-      <div class="card-banner">
-        <span class="card-badge" style="background:#ea580c;">⭐</span>
-        <h2 class="card-title">Adjektive bei Tieren (groß, klein, schnell, lustig...)</h2>
-      </div>
-      <div id="container-s1-adjektive" class="item-list"></div>
-    </div>
   </section>
 
-  <!-- STAGE 2: Schulsachen (Bild & Wort verbinden & Der Die Das) -->
+  <!-- STAGE 2: Schulsachen & Artikel (Der, Die, Das) -->
   <section class="stage-view" id="stage-2">
     <div class="rule-pill" style="background:#eff6ff; border-color:#93c5fd; color:#1e40af;">
-      ✏️ <strong>Thema 2: Die Schulsachen – Bild & Wort verbinden & Artikel!</strong><br/>
-      <small>Útiles escolares con sus imágenes y artículos: 🟦 <b>der</b>, 🔴 <b>die</b>, 🟢 <b>das</b>.</small>
+      ✏️ <strong>Thema 2: Die Schulsachen & Artikel (der, die, das / ein, eine, kein)</strong><br/>
+      <small>En alemán los útiles tienen género: 🟦 DER (maskulin), 🔴 DIE (feminin), 🟢 DAS (neutral). ¡Clasifícalos!</small>
     </div>
 
     <!-- Visual Showcase of School Supplies -->
@@ -526,415 +426,575 @@
       <div class="card-banner">
         <span class="card-badge" style="background:#2563eb;">🖼️</span>
         <h2 class="card-title">Wortschatz: Schulsachen in Dandy's World</h2>
-        <span class="card-hint">Tippe auf das Bild zum Anhören 🔊</span>
+        <span class="card-hint">Tippe zum Anhören 🔊</span>
       </div>
       <div class="vocab-grid" id="showcase-schule"></div>
     </div>
 
-    <!-- Interactive Der Die Das Game -->
+    <!-- Interactive 3-Basket Sorting Game -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#7e22ce;">🎮</span>
-        <h2 class="card-title">Artikel-Sortierspiel: Der, Die oder Das?</h2>
-        <span class="card-hint">Toca cada útil para enviarlo a su canasta</span>
+        <span class="card-badge" style="background:#4338ca;">🧺</span>
+        <h2 class="card-title">Sortierspiel: Der, Die oder Das?</h2>
+        <span class="card-hint">Toca cada útil escolar para clasificarlo en su canasta</span>
       </div>
-      <div class="article-game-pool" id="article-pool"></div>
-      <div class="article-baskets">
-        <div class="basket-box basket-der">
-          <div class="basket-header">🟦 DER (Maskulin)</div>
-          <div class="basket-items" id="basket-der-items"></div>
-        </div>
-        <div class="basket-box basket-die">
-          <div class="basket-header">🔴 DIE (Feminin)</div>
-          <div class="basket-items" id="basket-die-items"></div>
-        </div>
-        <div class="basket-box basket-das">
-          <div class="basket-header">🟢 DAS (Neutral)</div>
-          <div class="basket-items" id="basket-das-items"></div>
+      <div class="sorting-game">
+        <div class="pool-grid" id="article-pool"></div>
+        <div class="article-baskets">
+          <div class="basket basket-der" id="basket-der">
+            <span class="basket-title">🟦 DER</span>
+            <div class="basket-items" id="basket-der-items"></div>
+          </div>
+          <div class="basket basket-die" id="basket-die">
+            <span class="basket-title">🔴 DIE</span>
+            <div class="basket-items" id="basket-die-items"></div>
+          </div>
+          <div class="basket basket-das" id="basket-das">
+            <span class="basket-title">🟢 DAS</span>
+            <div class="basket-items" id="basket-das-items"></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Matching Questions with School Images -->
+    <!-- Matching Questions with Images -->
     <div class="card">
       <div class="card-banner">
         <span class="card-badge" style="background:#1d4ed8;">🎯</span>
-        <h2 class="card-title">Verbinde Bild & Wort: Schulsachen & Artikel</h2>
+        <h2 class="card-title">Verbinde Bild & Wort: Schulsachen</h2>
       </div>
       <div id="container-s2-schule" class="item-list"></div>
     </div>
 
-    <!-- Ein / Eine / Kein -->
+    <!-- Ein / Eine / Kein Practice -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#059669;">📦</span>
-        <h2 class="card-title">In meiner Schultasche (ein / eine / kein)</h2>
+        <span class="card-badge" style="background:#7c3aed;">📝</span>
+        <h2 class="card-title">Grammatik: ein, eine oder kein?</h2>
       </div>
-      <div id="container-s2-einEine" class="item-list"></div>
+      <div id="container-s2-grammatik" class="item-list"></div>
     </div>
   </section>
 
-  <!-- STAGE 3: Familie (Bild & Wort verbinden) -->
+  <!-- STAGE 3: Adjektive & Gegenteile (NEW DEDICATED STAGE!) -->
   <section class="stage-view" id="stage-3">
-    <div class="rule-pill" style="background:#fdf4ff; border-color:#e879f9; color:#86198f;">
-      👨‍👩‍👧 <strong>Thema 3: Meine Familie – Bild & Wort verbinden!</strong><br/>
-      <small>Miembros de la familia con sus imágenes, artículos y pronunciación.</small>
+    <div class="rule-pill" style="background:#faf5ff; border-color:#d8b4fe; color:#6b21a8;">
+      ⭐ <strong>Thema 3: Die Adjektive & Gegenteile – ¡Adjetivos, Opuestos y Características!</strong><br/>
+      <small>Los adjetivos describen cómo son las cosas, animales y amigos: <strong>groß ↔ klein</strong> (grande/chico), <strong>schnell ↔ langsam</strong> (rápido/lento), <strong>lustig ↔ traurig</strong> (divertido/triste), <strong>laut ↔ leise</strong> (fuerte/bajito), <strong>bunt</strong> (colorido).</small>
     </div>
 
-    <!-- Visual Showcase of Family Members -->
+    <!-- Visual Showcase of Adjectives -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#d946ef;">🖼️</span>
-        <h2 class="card-title">Wortschatz: Die Familienmitglieder</h2>
+        <span class="card-badge" style="background:#7e22ce;">🖼️</span>
+        <h2 class="card-title">Wortschatz: Adjektive & Eigenschaften</h2>
         <span class="card-hint">Tippe auf das Bild zum Anhören 🔊</span>
+      </div>
+      <div class="vocab-grid" id="showcase-adjektive"></div>
+    </div>
+
+    <!-- Interactive Antonyms Matching Game: Finde das Gegenteil! -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#9333ea;">⚡</span>
+        <h2 class="card-title">Spiel: Finde das Gegenteil! (¡Encontrá el opuesto!)</h2>
+        <span class="card-hint">Toca una palabra a la izquierda y luego su antónimo a la derecha</span>
+      </div>
+      <div class="opposites-container" id="opposites-game">
+        <div class="opposites-col" id="col-opposites-left"></div>
+        <div class="opposites-col" id="col-opposites-right"></div>
+      </div>
+      <div id="opposites-status" style="text-align:center; font-weight:800; font-size:0.9rem; color:#15803d; min-height:20px;"></div>
+    </div>
+
+    <!-- Image Association: Bild & Adjektiv verbinden -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#c026d3;">🎯</span>
+        <h2 class="card-title">Bild & Adjektiv: ¿Cómo es cada personaje o animal?</h2>
+        <span class="card-hint">Observa la imagen y elige el adjetivo correcto</span>
+      </div>
+      <div id="container-s3-adjektive-bild" class="item-list"></div>
+    </div>
+
+    <!-- Sentence Practice with Adjectives -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#4f46e5;">✍️</span>
+        <h2 class="card-title">Sätze vervollständigen (Completar con el adjetivo)</h2>
+      </div>
+      <div id="container-s3-adjektive-saetze" class="item-list"></div>
+    </div>
+  </section>
+
+  <!-- STAGE 4: Familie (Bild & Wort verbinden) -->
+  <section class="stage-view" id="stage-4">
+    <div class="rule-pill" style="background:#fffbeb; border-color:#fde68a; color:#92400e;">
+      👨‍👩‍👧 <strong>Thema 4: Meine Familie – Los miembros de la familia</strong><br/>
+      <small>der Vater (Papa), die Mutter (Mama), der Bruder, die Schwester, der Opa, die Oma, das Baby.</small>
+    </div>
+
+    <!-- Visual Showcase of Family -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#b45309;">🖼️</span>
+        <h2 class="card-title">Wortschatz: Die Familie</h2>
+        <span class="card-hint">Tippe zum Anhören 🔊</span>
       </div>
       <div class="vocab-grid" id="showcase-familie"></div>
     </div>
 
-    <!-- Matching Questions with Family Images -->
+    <!-- Matching Questions with Images -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#9333ea;">🎯</span>
-        <h2 class="card-title">Verbinde Bild & Wort: Familienmitglieder</h2>
+        <span class="card-badge" style="background:#d97706;">🎯</span>
+        <h2 class="card-title">Verbinde Bild & Wort: Familie</h2>
       </div>
-      <div id="container-s3-familie" class="item-list"></div>
+      <div id="container-s4-familie" class="item-list"></div>
     </div>
   </section>
 
-  <!-- STAGE 4: Hobbys & Das Datum -->
-  <section class="stage-view" id="stage-4">
-    <div class="rule-pill" style="background:#fffbeb; border-color:#fde68a; color:#854d0e;">
-      ⚽ <strong>Thema 4: Hobbys & Das Datum – Bild & Wort verbinden!</strong><br/>
-      <small>Pasatiempos con imágenes, días de la semana y la fecha del examen con Frau Mónica Briesemeister.</small>
+  <!-- STAGE 5: Hobbys & Das Datum -->
+  <section class="stage-view" id="stage-5">
+    <div class="rule-pill" style="background:#fef3c7; border-color:#fcd34d; color:#78350f;">
+      ⚽ <strong>Thema 5: Hobbys, Wochentage & Datum</strong><br/>
+      <small>¿Qué te gusta hacer? Fußball spielen, Bücher lesen, malen, schwimmen, Rad fahren. ¡Y cómo escribir la fecha del examen!</small>
     </div>
 
     <!-- Visual Showcase of Hobbies -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#d97706;">🖼️</span>
-        <h2 class="card-title">Wortschatz: Was machst du gern? (Hobbys)</h2>
-        <span class="card-hint">Tippe auf das Bild zum Anhören 🔊</span>
+        <span class="card-badge" style="background:#b45309;">🖼️</span>
+        <h2 class="card-title">Wortschatz: Hobbys & Freizeit</h2>
+        <span class="card-hint">Tippe zum Anhören 🔊</span>
       </div>
       <div class="vocab-grid" id="showcase-hobbys"></div>
     </div>
 
-    <!-- Matching Questions with Hobby Images -->
+    <!-- Matching Questions Hobbies -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#f59e0b;">🎯</span>
+        <span class="card-badge" style="background:#d97706;">🎯</span>
         <h2 class="card-title">Verbinde Bild & Wort: Hobbys</h2>
       </div>
-      <div id="container-s4-hobbys" class="item-list"></div>
+      <div id="container-s5-hobbys" class="item-list"></div>
     </div>
 
-    <!-- Das Datum schreiben -->
+    <!-- Datum & Wochentage Questions -->
     <div class="card">
       <div class="card-banner">
         <span class="card-badge" style="background:#0284c7;">📅</span>
-        <h2 class="card-title">Das Datum & Wochentage (Donnerstag, 19. November)</h2>
+        <h2 class="card-title">Das Datum & Die Wochentage (La fecha y los días)</h2>
       </div>
-      <div id="container-s4-datum" class="item-list"></div>
+      <div id="container-s5-datum" class="item-list"></div>
     </div>
   </section>
 
-  <!-- STAGE 5: Hör- & Leseverstehen (Max, Anna, Ahora te toca a vos & Quiz) -->
-  <section class="stage-view" id="stage-5">
+  <!-- STAGE 6: Hör- & Leseverstehen & Zertifikat -->
+  <section class="stage-view" id="stage-6">
     <div class="rule-pill" style="background:#eff6ff; border-color:#93c5fd; color:#1e40af;">
-      🎧 <strong>Thema 5: Hör- und Leseverstehen (Max & Anna) & Integrator-Quiz!</strong><br/>
-      <small>Formato exacto de la práctica de clase con textos y consignas bilingües.</small>
+      🎧 <strong>Thema 6: Hörverstehen, Leseverstehen & persönliche Vorstellung</strong><br/>
+      <small>Modelos exactos del integrador: escuchá a Max, leé sobre Anna y completá tus propios datos personales.</small>
     </div>
 
-    <!-- 1. Hörverstehen (Max) -->
+    <!-- Max Hörtext -->
+    <div class="audio-card">
+      <div class="audio-header">
+        <span class="audio-title">🎧 1. Hörtext: Max stellt sich vor (Dandy's World)</span>
+        <button class="btn-tts" onclick="speakMaxText(this)">▶️ Vorlesen (Escuchar)</button>
+      </div>
+      <div class="audio-text-de">
+        "Hallo! Ich heiße Max. Ich bin 8 Jahre alt. Ich habe einen Hund. Der Hund heißt Bello. Ich spiele gern Fußball. Meine Lieblingsfarbe ist blau."
+      </div>
+      <div class="audio-text-es">
+        ¡Hola! Me llamo Max. Tengo 8 años. Tengo un perro. El perro se llama Bello. Me gusta jugar al fútbol. Mi color favorito es el azul.
+      </div>
+    </div>
+    <div id="container-s6-max" class="item-list"></div>
+
+    <!-- Anna Lesetext -->
+    <div class="audio-card anna">
+      <div class="audio-header">
+        <span class="audio-title">📖 2. Lesetext: Das ist Anna!</span>
+        <button class="btn-tts" onclick="speakAnnaText(this)">▶️ Vorlesen (Escuchar)</button>
+      </div>
+      <div class="audio-text-de">
+        "Hallo! Das ist meine Freundin Anna. Sie ist 9 Jahre alt und kommt aus Deutschland. Sie hat eine Katze. Die Katze heißt Mimi. Anna spielt gern Tennis und malt gern. Ihre Lieblingsfarbe ist rosa."
+      </div>
+      <div class="audio-text-es">
+        ¡Hola! Esta es mi amiga Anna. Tiene 9 años y es de Alemania. Tiene una gata (Mimi). A Anna le gusta jugar al tenis y pintar. Su color favorito es el rosa.
+      </div>
+    </div>
+    <div id="container-s6-anna" class="item-list"></div>
+
+    <!-- Jetzt bist du dran! Form -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#2563eb;">1</span>
-        <h2 class="card-title">1. Hörverstehen – Escuchá y marcá (Max stellt sich vor)</h2>
+        <span class="card-badge" style="background:#f59e0b;">✍️</span>
+        <h2 class="card-title">3. Jetzt bist du dran! (¡Ahora te toca a vos!)</h2>
       </div>
-      <div class="reading-box" style="background:#eff6ff; border-color:#93c5fd;">
-        <div class="reading-box-header">Hörtext – Max stellt sich vor</div>
-        <div class="reading-box-de">
-          Hallo! Ich heiße Max.<br/>
-          Ich bin 8 Jahre alt.<br/>
-          Ich habe einen Hund. Der Hund heißt Bello.<br/>
-          Ich spiele gern Fußball.<br/>
-          Meine Lieblingsfarbe ist blau.
+      <form class="profile-form" onsubmit="event.preventDefault();">
+        <div class="form-row">
+          <label>Hallo! Ich heiße... (Me llamo...)</label>
+          <input type="text" id="prof-name" class="form-input" value="Sofía" placeholder="Dein Name">
         </div>
-        <div class="reading-box-es">
-          ¡Hola! Me llamo Max. Tengo 8 años. Tengo un perro. El perro se llama Bello.<br/>
-          Me gusta jugar al fútbol. Mi color favorito es el azul.
+        <div class="form-row">
+          <label>Ich bin ... Jahre alt. (Tengo ... años)</label>
+          <input type="text" id="prof-age" class="form-input" value="8" placeholder="Alter">
         </div>
-        <div style="text-align:center; margin-top:8px;">
-          <button class="btn-listen-story" onclick="speakMaxText(this)">
-            🎧 Hörtext anhören (Escuchar en alemán)
-          </button>
+        <div class="form-row">
+          <label>Ich habe einen Hund / eine Katze... (Tengo una mascota...)</label>
+          <input type="text" id="prof-pet" class="form-input" value="einen Hund" placeholder="z.B. einen Hund / eine Katze / kein Haustier">
         </div>
-      </div>
-      <div id="container-s5-max" class="item-list" style="margin-top:8px;"></div>
-    </div>
-
-    <!-- 2. Leseverstehen (Anna) -->
-    <div class="card">
-      <div class="card-banner">
-        <span class="card-badge" style="background:#d946ef;">2</span>
-        <h2 class="card-title">2. Leseverstehen – Leé y comprendé (Das ist Anna!)</h2>
-      </div>
-      <div class="reading-box" style="background:#fdf4ff; border-color:#e879f9;">
-        <div class="reading-box-header" style="color:#86198f;">Das ist Anna! (Presentación de otra persona)</div>
-        <div class="reading-box-de">
-          Hallo! Das ist meine Freundin Anna.<br/>
-          Sie ist 9 Jahre alt und kommt aus Deutschland.<br/>
-          Sie hat eine Katze. Die Katze heißt Mimi.<br/>
-          Anna spielt gern Tennis und malt gern.<br/>
-          Ihre Lieblingsfarbe ist rosa.
+        <div class="form-row">
+          <label>Ich spiele gern... (Me gusta jugar a...)</label>
+          <input type="text" id="prof-hobby" class="form-input" value="mit Dandy und Freunden" placeholder="z.B. Fußball / Tennis / Videospiele">
         </div>
-        <div class="reading-box-es">
-          ¡Hola! Esta es mi amiga Anna. Tiene 9 años y es de Alemania.<br/>
-          Tiene una gata. La gata se llama Mimi. A Anna le gusta jugar al tenis y dibujar/pintar. Su color favorito es el rosa.
+        <div class="form-row">
+          <label>Meine Lieblingsfarbe ist... (Mi color favorito es...)</label>
+          <input type="text" id="prof-color" class="form-input" value="rosa und lila" placeholder="z.B. blau / rot / grün / rosa">
         </div>
-        <div style="text-align:center; margin-top:8px;">
-          <button class="btn-listen-story" onclick="speakAnnaText(this)" style="border-color:#d946ef; color:#a21caf;">
-            🎧 Lesetext anhören (Escuchar a Anna)
-          </button>
-        </div>
-      </div>
-      <div id="container-s5-anna" class="item-list" style="margin-top:8px;"></div>
-    </div>
-
-    <!-- 3. Jetzt bist du dran! Form -->
-    <div class="card" style="background:#fffbeb; border-color:#fde68a;">
-      <div class="card-banner">
-        <span class="card-badge" style="background:#ea580c;">3</span>
-        <h2 class="card-title">3. Jetzt bist du dran! – ¡Ahora te toca a vos!</h2>
-      </div>
-      <p style="font-size:0.85rem; color:#78350f; margin:0; font-weight:700;">
-        Aufgabe / Consigna: Ergänze die Sätze mit deinen persönlichen Informationen. (Completá las oraciones con tus datos):
-      </p>
-      <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
-        <div style="font-weight:700; font-size:0.92rem;">
-          🌸 Hallo! Ich heiße <span class="dyn-student-name" style="color:#1d4ed8; text-decoration:underline;">Sofía</span>.
-        </div>
-        <div style="font-weight:700; font-size:0.92rem;">
-          🎂 Ich bin <input type="number" id="jetzt-alter" value="8" style="width:50px; padding:4px; border:1.5px solid #cbd5e1; border-radius:8px; text-align:center; font-family:inherit; font-weight:800;"> Jahre alt.
-        </div>
-        <div style="font-weight:700; font-size:0.92rem;">
-          🏡 Ich wohne in <input type="text" id="jetzt-ort" value="Hurlingham" style="width:130px; padding:4px; border:1.5px solid #cbd5e1; border-radius:8px; font-family:inherit; font-weight:700;">.
-        </div>
-        <div style="font-weight:700; font-size:0.92rem;">
-          🐾 Mein Lieblingstier ist <input type="text" id="jetzt-tier" value="der Hund" style="width:120px; padding:4px; border:1.5px solid #cbd5e1; border-radius:8px; font-family:inherit; font-weight:700;">.
-        </div>
-        <div style="font-weight:700; font-size:0.92rem;">
-          🎨 Ich spiele / mache gern <input type="text" id="jetzt-hobby" value="malen" style="width:120px; padding:4px; border:1.5px solid #cbd5e1; border-radius:8px; font-family:inherit; font-weight:700;">.
-        </div>
-        <div style="font-weight:700; font-size:0.92rem;">
-          🌈 Meine Lieblingsfarbe ist <input type="text" id="jetzt-farbe" value="blau" style="width:100px; padding:4px; border:1.5px solid #cbd5e1; border-radius:8px; font-family:inherit; font-weight:700;">.
-        </div>
-        <button class="btn-listen-story" onclick="readMyProfile(this)" style="margin-top:6px; align-self:flex-start;">
-          🔊 Meine Vorstellung vorlesen (Leer mi presentación en voz alta)
+        <button type="button" class="badge-btn" style="background:#15803d; color:#fff; align-self:flex-start; padding:10px 16px; font-size:0.9rem;" onclick="readMyProfile(this)">
+          🔊 Mein Profil auf Deutsch vorlesen!
         </button>
-      </div>
+      </form>
     </div>
 
     <!-- Final Certificate -->
-    <div class="card" id="certificate-card" style="text-align:center; background: linear-gradient(135deg, #fef08a 0%, #bbf7d0 100%); border-color:#22c55e;">
-      <h2 style="margin:4px 0; color:#15803d; font-size:1.35rem;">🎓 HERZLICHEN GLÜCKWUNSCH, <span class="dyn-student-name" style="text-transform:uppercase;">SOFÍA</span>! 🎓</h2>
-      <p style="margin:4px 0; font-size:1.05rem; font-weight:700; color:#166534;">
-        Du bist ein echter Dandy's World Deutsch-Superstar!
+    <div class="card" style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 2px solid #86efac; text-align: center; align-items: center; padding: 24px 16px;">
+      <span style="font-size: 3rem;">🏆</span>
+      <h2 style="color: #15803d; margin: 6px 0; font-size: 1.3rem;">HERZLICHEN GLÜCKWUNSCH!</h2>
+      <p style="margin: 0; color: #166534; font-weight: 700; font-size: 0.95rem;">
+        ¡Completaste todo el repaso de Alemán de 3.° Grado!
       </p>
-      <div style="font-size:2.2rem; margin:6px 0;">🌟 🏆 ⭐ 🌸 🐮</div>
-      <p style="margin:4px 0; font-size:0.95rem; font-weight:800; color:#14532d;">
-        Bereit für die Integrator-Prüfungsarbeit am Donnerstag, 19. November mit Frau Mónica Briesemeister!
+      <p style="margin: 6px 0 16px 0; color: #64748b; font-size: 0.85rem;">
+        Lista para el trabajo integrador del <strong>Jueves 19 de Noviembre</strong> con la seño <strong>Mónica Briesemeister</strong>.
       </p>
+      <button class="badge-btn" style="background:#15803d; color:#fff; padding:10px 22px; font-size:0.95rem;" onclick="launchConfetti(); playFanfare();">
+        🎉 ¡Celebrar con Dandy y Sofía!
+      </button>
     </div>
   </section>
 
 </div>
 
-<!-- Bottom Navigation Bar -->
-<div class="bottom-nav">
-  <button class="nav-step-btn btn-prev" id="btn-prev" onclick="prevStage()">⬅️ Zurück</button>
-  <button class="nav-step-btn" id="btn-next" onclick="nextStage()">Weiter ➡️</button>
+<!-- Sticky Bottom Navigation -->
+<div class="bottom-bar">
+  <div class="nav-inner">
+    <button class="btn-nav btn-prev" id="btn-nav-prev" onclick="prevStage()">
+      ◀ Anterior
+    </button>
+    <span id="stage-indicator" style="font-size:0.85rem; font-weight:800; color:#475569;">
+      Etapa 1 de 6
+    </span>
+    <button class="btn-nav btn-next" id="btn-nav-next" onclick="nextStage()">
+      Siguiente ▶
+    </button>
+  </div>
+</div>
+
+<!-- Modal: Change Student Name -->
+<div class="modal-backdrop" id="modal-name">
+  <div class="modal-card">
+    <h3 class="modal-title">¿Cómo te llamas?</h3>
+    <input type="text" id="modal-input-name" class="form-input student-name-input" value="Sofía" placeholder="Tu nombre...">
+    <div class="modal-actions">
+      <button class="badge-btn" style="background:#f1f5f9; color:#475569;" onclick="closeNameModal()">Cancelar</button>
+      <button class="badge-btn" style="background:#1e3a8a; color:#fff;" onclick="saveStudentName()">Guardar</button>
+    </div>
+  </div>
 </div>
 
 <script>
-  // ==========================================
-  // VOCABULARY ITEMS WITH IMAGES & ARTICLES
-  // ==========================================
-  const VOCAB_DATA = {
-    tiere: [
-      { id: "hund", de: "der Hund", art: "der", es: "el perro", img: "/static/vocab_images/hund_icon.png", full: "der Hund" },
-      { id: "katze", de: "die Katze", art: "die", es: "la gata", img: "/static/vocab_images/katze_icon.png", full: "die Katze" },
-      { id: "kuh", de: "die Kuh", art: "die", es: "la vaca", img: "/static/vocab_images/kuh_icon.png", full: "die Kuh" },
-      { id: "pferd", de: "das Pferd", art: "das", es: "el caballo", img: "/static/vocab_images/pferd_icon.png", full: "das Pferd" },
-      { id: "schwein", de: "das Schwein", art: "das", es: "el cerdo", img: "/static/vocab_images/schwein_icon.png", full: "das Schwein" },
-      { id: "schaf", de: "das Schaf", art: "das", es: "la oveja", img: "/static/vocab_images/schaf_icon.png", full: "das Schaf" },
-      { id: "ente", de: "die Ente", art: "die", es: "el pato", img: "/static/vocab_images/ente_icon.png", full: "die Ente" },
-      { id: "huhn", de: "das Huhn", art: "das", es: "la gallina", img: "/static/vocab_images/huhn_icon.png", full: "das Huhn" },
-      { id: "ziege", de: "die Ziege", art: "die", es: "la cabra", img: "/static/vocab_images/ziege_icon.png", full: "die Ziege" }
-    ],
-    schule: [
-      { id: "bleistift", de: "der Bleistift", art: "der", es: "el lápiz", img: "/static/vocab_images/bleistift_icon.png", full: "der Bleistift" },
-      { id: "schere", de: "die Schere", art: "die", es: "la tijera", img: "/static/vocab_images/schere_icon.png", full: "die Schere" },
-      { id: "maeppchen", de: "das Mäppchen", art: "das", es: "la cartuchera", img: "/static/vocab_images/maeppchen_icon.png", full: "das Mäppchen" },
-      { id: "lineal", de: "das Lineal", art: "das", es: "la regla", img: "/static/vocab_images/lineal_icon.png", full: "das Lineal" },
-      { id: "radiergummi", de: "der Radiergummi", art: "der", es: "la goma de borrar", img: "/static/vocab_images/radiergummi_icon.png", full: "der Radiergummi" },
-      { id: "spitzer", de: "der Spitzer", art: "der", es: "el sacapuntas", img: "/static/vocab_images/spitzer_icon.png", full: "der Spitzer" },
-      { id: "buch", de: "das Buch", art: "das", es: "el libro", img: "/static/vocab_images/buch_icon.png", full: "das Buch" },
-      { id: "heft", de: "das Heft", art: "das", es: "el cuaderno", img: "/static/vocab_images/heft_icon.png", full: "das Heft" },
-      { id: "schultasche", de: "die Schultasche", art: "die", es: "la mochila escolar", img: "/static/vocab_images/schultasche_icon.png", full: "die Schultasche" },
-      { id: "buntstift", de: "der Buntstift", art: "der", es: "el lápiz de color", img: "/static/vocab_images/buntstift_icon.png", full: "der Buntstift" }
-    ],
-    familie: [
-      { id: "vater", de: "der Vater (Papa)", art: "der", es: "el papá / padre", img: "/static/vocab_images/vater_icon.png", full: "der Vater" },
-      { id: "mutter", de: "die Mutter (Mama)", art: "die", es: "la mamá / madre", img: "/static/vocab_images/mutter_icon.png", full: "die Mutter" },
-      { id: "bruder", de: "der Bruder", art: "der", es: "el hermano", img: "/static/vocab_images/bruder_icon.png", full: "der Bruder" },
-      { id: "schwester", de: "die Schwester", art: "die", es: "la hermana", img: "/static/vocab_images/schwester_icon.png", full: "die Schwester" },
-      { id: "opa", de: "der Opa", art: "der", es: "el abuelo", img: "/static/vocab_images/opa_icon.png", full: "der Opa" },
-      { id: "oma", de: "die Oma", art: "die", es: "la abuela", img: "/static/vocab_images/oma_icon.png", full: "die Oma" },
-      { id: "baby", de: "das Baby", art: "das", es: "el bebé", img: "/static/vocab_images/baby_icon.png", full: "das Baby" }
-    ],
-    hobbys: [
-      { id: "fussball", de: "Fußball spielen", art: "hobby", es: "jugar al fútbol", img: "/static/vocab_images/fussball_icon.png", full: "Fußball spielen" },
-      { id: "malen", de: "Bilder malen", art: "hobby", es: "pintar / dibujar", img: "/static/vocab_images/malen_icon.png", full: "Bilder malen" },
-      { id: "lesen", de: "Bücher lesen", art: "hobby", es: "leer libros", img: "/static/vocab_images/lesen_icon.png", full: "Bücher lesen" },
-      { id: "schwimmen", de: "im Pool schwimmen", art: "hobby", es: "nadar en la pileta", img: "/static/vocab_images/schwimmen_icon.png", full: "schwimmen" },
-      { id: "radfahren", de: "Rad fahren", art: "hobby", es: "andar en bicicleta", img: "/static/vocab_images/radfahren_icon.png", full: "Rad fahren" },
-      { id: "musik", de: "Musik hören", art: "hobby", es: "escuchar música", img: "/static/vocab_images/musik_icon.png", full: "Musik hören" },
-      { id: "tanzen", de: "tanzen", art: "hobby", es: "bailar", img: "/static/vocab_images/tanzen_icon.png", full: "tanzen" },
-      { id: "singen", de: "Lieder singen", art: "hobby", es: "cantar canciones", img: "/static/vocab_images/singen_icon.png", full: "Lieder singen" }
-    ]
-  };
+  let currentStage = 1;
+  const TOTAL_STAGES = 6;
+  let score = 0;
+  let autoReadSentence = true;
+  let currentStudentName = "Sofía";
 
-  // Render Visual Showcase Cards
+  // VOCABULARY ARRAYS
+  const VOCAB_TIERE = [
+    { id: "hund", de: "der Hund", es: "el perro", art: "der" },
+    { id: "katze", de: "die Katze", es: "el gato", art: "die" },
+    { id: "kuh", de: "die Kuh", es: "la vaca", art: "die" },
+    { id: "pferd", de: "das Pferd", es: "el caballo", art: "das" },
+    { id: "schwein", de: "das Schwein", es: "el cerdo", art: "das" },
+    { id: "schaf", de: "das Schaf", es: "la oveja", art: "das" },
+    { id: "ente", de: "die Ente", es: "el pato", art: "die" },
+    { id: "huhn", de: "das Huhn", es: "la gallina", art: "das" },
+    { id: "ziege", de: "die Ziege", es: "la cabra", art: "die" }
+  ];
+
+  const VOCAB_SCHULE = [
+    { id: "bleistift", de: "der Bleistift", es: "el lápiz", art: "der" },
+    { id: "schere", de: "die Schere", es: "la tijera", art: "die" },
+    { id: "maeppchen", de: "das Mäppchen", es: "la cartuchera", art: "das" },
+    { id: "lineal", de: "das Lineal", es: "la regla", art: "das" },
+    { id: "radiergummi", de: "der Radiergummi", es: "la goma", art: "der" },
+    { id: "spitzer", de: "der Spitzer", es: "el sacapuntas", art: "der" },
+    { id: "buch", de: "das Buch", es: "el libro", art: "das" },
+    { id: "heft", de: "das Heft", es: "el cuaderno", art: "das" },
+    { id: "schultasche", de: "die Schultasche", es: "la mochila", art: "die" },
+    { id: "buntstift", de: "der Buntstift", es: "lápiz de color", art: "der" }
+  ];
+
+  const VOCAB_ADJEKTIVE = [
+    { id: "gross", de: "groß", es: "grande", art: "adj", antonym: "klein" },
+    { id: "klein", de: "klein", es: "pequeño", art: "adj", antonym: "groß" },
+    { id: "schnell", de: "schnell", es: "rápido", art: "adj", antonym: "langsam" },
+    { id: "langsam", de: "langsam", es: "lento", art: "adj", antonym: "schnell" },
+    { id: "lustig", de: "lustig", es: "divertido", art: "adj", antonym: "traurig" },
+    { id: "traurig", de: "traurig", es: "triste", art: "adj", antonym: "lustig" },
+    { id: "laut", de: "laut", es: "ruidoso / fuerte", art: "adj", antonym: "leise" },
+    { id: "leise", de: "leise", es: "silencioso", art: "adj", antonym: "laut" },
+    { id: "bunt", de: "bunt", es: "colorido", art: "adj", antonym: "schwarz-weiß" },
+    { id: "schoen", de: "schön", es: "hermoso / lindo", art: "adj", antonym: "hässlich" },
+    { id: "alt", de: "alt", es: "viejo", art: "adj", antonym: "jung" },
+    { id: "jung", de: "jung", es: "joven", art: "adj", antonym: "alt" }
+  ];
+
+  const VOCAB_FAMILIE = [
+    { id: "vater", de: "der Vater", es: "el papá", art: "der" },
+    { id: "mutter", de: "die Mutter", es: "la mamá", art: "die" },
+    { id: "bruder", de: "der Bruder", es: "el hermano", art: "der" },
+    { id: "schwester", de: "die Schwester", es: "la hermana", art: "die" },
+    { id: "opa", de: "der Opa", es: "el abuelo", art: "der" },
+    { id: "oma", de: "die Oma", es: "la abuela", art: "die" },
+    { id: "baby", de: "das Baby", es: "el bebé", art: "das" }
+  ];
+
+  const VOCAB_HOBBYS = [
+    { id: "fussball", de: "Fußball spielen", es: "jugar fútbol", art: "hobby" },
+    { id: "malen", de: "malen", es: "pintar / dibujar", art: "hobby" },
+    { id: "lesen", de: "Bücher lesen", es: "leer libros", art: "hobby" },
+    { id: "schwimmen", de: "schwimmen", es: "nadar", art: "hobby" },
+    { id: "radfahren", de: "Rad fahren", es: "andar en bici", art: "hobby" },
+    { id: "musik", de: "Musik hören", es: "escuchar música", art: "hobby" },
+    { id: "tanzen", de: "tanzen", es: "bailar", art: "hobby" },
+    { id: "singen", de: "singen", es: "cantar", art: "hobby" }
+  ];
+
+  // Render showcase cards
   function renderShowcases() {
-    for (const [key, items] of Object.entries(VOCAB_DATA)) {
-      const container = document.getElementById(`showcase-${key}`);
-      if (!container) continue;
-      container.innerHTML = "";
-      items.forEach(item => {
-        const card = document.createElement("div");
-        card.className = `vocab-card border-${item.art}`;
-        card.onclick = () => speakPrompt(null, item.de);
-        card.title = "Klicke zum Anhören / Clic para escuchar";
+    renderShowcaseGrid("showcase-tiere", VOCAB_TIERE);
+    renderShowcaseGrid("showcase-schule", VOCAB_SCHULE);
+    renderShowcaseGrid("showcase-adjektive", VOCAB_ADJEKTIVE);
+    renderShowcaseGrid("showcase-familie", VOCAB_FAMILIE);
+    renderShowcaseGrid("showcase-hobbys", VOCAB_HOBBYS);
+  }
 
-        const badge = document.createElement("span");
-        badge.className = `vocab-art-badge badge-${item.art}`;
-        badge.innerText = item.art.toUpperCase();
+  function renderShowcaseGrid(containerId, items) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = items.map(it => {
+      let badgeClass = "vocab-art-der";
+      if (it.art === "die") badgeClass = "vocab-art-die";
+      else if (it.art === "das") badgeClass = "vocab-art-das";
+      else if (it.art === "adj") badgeClass = "vocab-art-adj";
+      else if (it.art === "hobby") badgeClass = "vocab-art-hobby";
 
-        const img = document.createElement("img");
-        img.className = "vocab-img";
-        img.src = item.img;
-        img.alt = item.de;
+      const artLabel = (it.art === "adj") ? "ADJEKTIV" : (it.art === "hobby" ? "HOBBY" : it.art.toUpperCase());
 
-        const deText = document.createElement("span");
-        deText.className = "vocab-de";
-        deText.innerText = item.de;
+      return `
+        <div class="vocab-card" onclick="speakPrompt(this, '${it.de}')">
+          <span class="vocab-art-badge ${badgeClass}">${artLabel}</span>
+          <img src="/static/vocab_images/${it.id}_icon.png" class="vocab-img" alt="${it.de}">
+          <span class="vocab-de">${it.de}</span>
+          <span class="vocab-es">${it.es}</span>
+        </div>
+      `;
+    }).join("");
+  }
 
-        const esText = document.createElement("span");
-        esText.className = "vocab-es";
-        esText.innerText = item.es;
+  // OPPOSITES GAME LOGIC
+  const OPPOSITE_PAIRS = [
+    { id: "gross", wordA: "groß", labelA: "groß (grande)", iconA: "gross_icon.png", wordB: "klein", labelB: "klein (pequeño)", iconB: "klein_icon.png" },
+    { id: "schnell", wordA: "schnell", labelA: "schnell (rápido)", iconA: "schnell_icon.png", wordB: "langsam", labelB: "langsam (lento)", iconB: "langsam_icon.png" },
+    { id: "lustig", wordA: "lustig", labelA: "lustig (divertido)", iconA: "lustig_icon.png", wordB: "traurig", labelB: "traurig (triste)", iconB: "traurig_icon.png" },
+    { id: "laut", wordA: "laut", labelA: "laut (ruidoso/fuerte)", iconA: "laut_icon.png", wordB: "leise", labelB: "leise (silencioso)", iconB: "leise_icon.png" },
+    { id: "alt", wordA: "alt", labelA: "alt (viejo)", iconA: "alt_icon.png", wordB: "jung", labelB: "jung (joven)", iconB: "jung_icon.png" }
+  ];
 
-        card.appendChild(badge);
-        card.appendChild(img);
-        card.appendChild(deText);
-        card.appendChild(esText);
-        container.appendChild(card);
-      });
+  let selectedOppositeLeft = null;
+  let matchedPairsCount = 0;
+
+  function initOppositesGame() {
+    const colLeft = document.getElementById('col-opposites-left');
+    const colRight = document.getElementById('col-opposites-right');
+    const statusEl = document.getElementById('opposites-status');
+    if (!colLeft || !colRight) return;
+
+    selectedOppositeLeft = null;
+    matchedPairsCount = 0;
+    statusEl.innerText = "";
+
+    const leftItems = [...OPPOSITE_PAIRS];
+    const rightItems = shuffle([...OPPOSITE_PAIRS]);
+
+    colLeft.innerHTML = leftItems.map(p => `
+      <button class="opposite-btn" data-pair="${p.id}" data-side="left" onclick="handleOppositeClick(this, '${p.id}', 'left', '${p.wordA}')">
+        <img src="/static/vocab_images/${p.iconA}" class="opposite-icon">
+        <span>${p.labelA}</span>
+      </button>
+    `).join("");
+
+    colRight.innerHTML = rightItems.map(p => `
+      <button class="opposite-btn" data-pair="${p.id}" data-side="right" onclick="handleOppositeClick(this, '${p.id}', 'right', '${p.wordB}')">
+        <img src="/static/vocab_images/${p.iconB}" class="opposite-icon">
+        <span>${p.labelB}</span>
+      </button>
+    `).join("");
+  }
+
+  function handleOppositeClick(btn, pairId, side, wordText) {
+    getAudioCtx();
+    speakPrompt(null, wordText);
+
+    if (side === "left") {
+      document.querySelectorAll('#col-opposites-left .opposite-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedOppositeLeft = { btn, pairId, wordText };
+      return;
+    }
+
+    if (side === "right") {
+      if (!selectedOppositeLeft) {
+        btn.classList.add('shake');
+        setTimeout(() => btn.classList.remove('shake'), 400);
+        return;
+      }
+
+      if (selectedOppositeLeft.pairId === pairId) {
+        // MATCH!
+        selectedOppositeLeft.btn.classList.remove('selected');
+        selectedOppositeLeft.btn.classList.add('matched');
+        btn.classList.add('matched');
+
+        playCorrectSound();
+        launchConfetti();
+        score++;
+        document.getElementById('score-display').innerText = `⭐ ${score} pts`;
+
+        const leftWord = selectedOppositeLeft.wordText;
+        if (autoReadSentence) {
+          setTimeout(() => {
+            speakPrompt(null, `${leftWord} und ${wordText}! Das ist das Gegenteil!`);
+          }, 250);
+        }
+
+        matchedPairsCount++;
+        selectedOppositeLeft = null;
+
+        if (matchedPairsCount === OPPOSITE_PAIRS.length) {
+          playFanfare();
+          document.getElementById('opposites-status').innerText = "🎉 ¡Wunderbar! ¡Encontraste todos los opuestos!";
+        }
+      } else {
+        // MISMATCH
+        playWrongSound();
+        btn.classList.add('shake');
+        selectedOppositeLeft.btn.classList.add('shake');
+        setTimeout(() => {
+          btn.classList.remove('shake');
+          if (selectedOppositeLeft && selectedOppositeLeft.btn) {
+            selectedOppositeLeft.btn.classList.remove('shake', 'selected');
+          }
+          selectedOppositeLeft = null;
+        }, 400);
+      }
     }
   }
 
-  // ==========================================
-  // QUESTION BANK WITH IMAGE ASSOCIATIONS
-  // ==========================================
+  // QUESTION BANK
   const QUESTION_BANK = {
-    // Stage 1: Bauernhoftiere
     s1_tiere: [
-      { prompt: "Wie heißt dieses Tier mit Artikel?", sub: "¿Cómo se llama este animal con su artículo?", img: "/static/vocab_images/hund_icon.png", correct: "der Hund", wrong: ["die Katze", "das Pferd"], sentence: "Das ist der Hund." },
-      { prompt: "Welcher Artikel und welches Tier ist das?", sub: "¿Qué artículo y animal es este?", img: "/static/vocab_images/kuh_icon.png", correct: "die Kuh", wrong: ["der Hund", "das Schwein"], sentence: "Das ist die Kuh." },
-      { prompt: "Wie heißt dieses schnelle Tier?", sub: "¿Cómo se llama este animal rápido?", img: "/static/vocab_images/pferd_icon.png", correct: "das Pferd", wrong: ["die Ente", "der Hahn"], sentence: "Das ist das Pferd." },
-      { prompt: "Welches Tier gibt uns warme Wolle?", sub: "¿Qué animal nos da lana tibia?", img: "/static/vocab_images/schaf_icon.png", correct: "das Schaf", wrong: ["das Schwein", "die Katze"], sentence: "Das Schaf gibt uns Wolle." },
-      { prompt: "Wie heißt dieses rosa Tier?", sub: "¿Cómo se llama este animal rosa?", img: "/static/vocab_images/schwein_icon.png", correct: "das Schwein", wrong: ["der Hund", "die Kuh"], sentence: "Das ist das Schwein." },
-      { prompt: "Dieses Tier schwimmt im Teich. Es heißt:", sub: "Este animal nada en la laguna. Se llama:", img: "/static/vocab_images/ente_icon.png", correct: "die Ente", wrong: ["der Hahn", "das Pferd"], sentence: "Das ist die Ente." },
-      { prompt: "Miau! Wie heißt dieses Tier mit Artikel?", sub: "¡Miau! ¿Cómo se llama este animal con artículo?", img: "/static/vocab_images/katze_icon.png", correct: "die Katze", wrong: ["der Hund", "das Schaf"], sentence: "Das ist die Katze." },
-      { prompt: "Dieses Tier legt frische Eier auf dem Bauernhof:", sub: "Este animal pone huevos frescos en la granja:", img: "/static/vocab_images/huhn_icon.png", correct: "das Huhn", wrong: ["der Hund", "die Ziege"], sentence: "Das ist das Huhn." },
-      { prompt: "Wie heißt dieses Tier mit Hörnern?", sub: "¿Cómo se llama este animal con cuernos?", img: "/static/vocab_images/ziege_icon.png", correct: "die Ziege", wrong: ["die Kuh", "das Pferd"], sentence: "Das ist die Ziege." }
-    ],
-    s1_adjektive: [
-      { prompt: "Das Pferd rennt nicht langsam, es ist sehr...", sub: "El caballo no corre lento, es muy...", correct: "schnell", wrong: ["langsam", "müde"], sentence: "Das Pferd ist sehr schnell." },
-      { prompt: "Die Maus ist klein, aber die Kuh ist...", sub: "El ratón es pequeño, pero la vaca es...", correct: "groß", wrong: ["klein", "bunt"], sentence: "Die Kuh ist groß." },
-      { prompt: "Pebble der Hund macht Witze, er ist sehr...", sub: "Pebble el perro hace chistes, es muy...", correct: "lustig", wrong: ["traurig", "böse"], sentence: "Der Hund Pebble ist sehr lustig." },
-      { prompt: "Flutter hat viele schöne Farben, Flutter ist...", sub: "Flutter tiene muchos colores lindos, es...", correct: "bunt", wrong: ["schwarz", "müde"], sentence: "Flutter ist bunt." },
-      { prompt: "Das Gegenteil von 'groß' ist...", sub: "El opuesto de 'groß' (grande) es...", correct: "klein", wrong: ["schnell", "schön"], sentence: "Das Gegenteil von groß ist klein." }
+      { img: "hund_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["der Hund", "die Katze", "das Pferd"], answer: "der Hund", full: "Das ist der Hund." },
+      { img: "katze_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["die Katze", "die Kuh", "das Huhn"], answer: "die Katze", full: "Das ist die Katze." },
+      { img: "kuh_icon.png", de: "Welches Tier gibt frische Milch?", es: "¿Qué animal da leche fresca?", choices: ["die Kuh", "das Schwein", "der Hund"], answer: "die Kuh", full: "Die Kuh gibt frische Milch." },
+      { img: "pferd_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["das Pferd", "der Hund", "die Ziege"], answer: "das Pferd", full: "Das ist das Pferd." },
+      { img: "schwein_icon.png", de: "Welches Tier ist rosa und macht Oink?", es: "¿Qué animal es rosa?", choices: ["das Schwein", "die Ente", "das Schaf"], answer: "das Schwein", full: "Das ist das Schwein." },
+      { img: "ente_icon.png", de: "Welches Tier schwimmt im See?", es: "¿Qué animal nada en el lago?", choices: ["die Ente", "die Katze", "der Hund"], answer: "die Ente", full: "Die Ente schwimmt im See." },
+      { img: "schaf_icon.png", de: "Welches Tier hat weiße Wolle?", es: "¿Qué animal tiene lana blanca?", choices: ["das Schaf", "das Pferd", "die Ziege"], answer: "das Schaf", full: "Das Schaf hat weiße Wolle." },
+      { img: "huhn_icon.png", de: "Welches Tier legt Eier?", es: "¿Qué animal pone huevos?", choices: ["das Huhn", "der Hund", "die Katze"], answer: "das Huhn", full: "Das Huhn legt Eier." }
     ],
 
-    // Stage 2: Schulsachen
     s2_schule: [
-      { prompt: "Zum Schreiben brauche ich:", sub: "Para escribir necesito:", img: "/static/vocab_images/bleistift_icon.png", correct: "den Bleistift (der)", wrong: ["die Schere", "das Lineal"], sentence: "Das ist der Bleistift." },
-      { prompt: "Zum Schneiden von buntem Papier brauche ich:", sub: "Para cortar papel de colores necesito:", img: "/static/vocab_images/schere_icon.png", correct: "die Schere", wrong: ["der Spitzer", "das Heft"], sentence: "Das ist die Schere." },
-      { prompt: "Meine Stifte und mein Radiergummi wohnen in:", sub: "Mis lápices y mi goma viven en:", img: "/static/vocab_images/maeppchen_icon.png", correct: "dem Mäppchen (das)", wrong: ["der Schultasche", "dem Buch"], sentence: "Das ist das Mäppchen." },
-      { prompt: "Zum geraden Zeichnen und Messen brauche ich:", sub: "Para dibujar derecho y medir necesito:", img: "/static/vocab_images/lineal_icon.png", correct: "das Lineal", wrong: ["der Radiergummi", "die Schere"], sentence: "Das ist das Lineal." },
-      { prompt: "Wenn ich einen Fehler mache, radiere ich mit:", sub: "Cuando cometo un error, borro con:", img: "/static/vocab_images/radiergummi_icon.png", correct: "dem Radiergummi (der)", wrong: ["dem Buch", "der Schultasche"], sentence: "Das ist der Radiergummi." },
-      { prompt: "Wenn der Bleistift stumpf ist, spitze ich mit:", sub: "Cuando el lápiz no tiene punta, le saco punta con:", img: "/static/vocab_images/spitzer_icon.png", correct: "dem Spitzer (der)", wrong: ["dem Lineal", "dem Heft"], sentence: "Das ist der Spitzer." },
-      { prompt: "Ich lese eine spannende Geschichte in:", sub: "Leo una historia emocionante en:", img: "/static/vocab_images/buch_icon.png", correct: "dem Buch (das)", wrong: ["dem Radiergummi", "dem Lineal"], sentence: "Das ist das Buch." },
-      { prompt: "Meine Schularbeiten schreibe ich in:", sub: "Mis tareas de la escuela las escribo en:", img: "/static/vocab_images/heft_icon.png", correct: "das Heft", wrong: ["die Schere", "den Spitzer"], sentence: "Das ist das Heft." },
-      { prompt: "Alle Schulsachen trage ich auf dem Rücken in:", sub: "Todos los útiles los llevo en la espalda en:", img: "/static/vocab_images/schultasche_icon.png", correct: "der Schultasche (die)", wrong: ["dem Mäppchen", "dem Lineal"], sentence: "Das ist die Schultasche." }
-    ],
-    s2_einEine: [
-      { prompt: "In meinem Mäppchen ist ______ Bleistift (maskulin).", sub: "En mi cartuchera hay un lápiz.", correct: "ein", wrong: ["eine", "keine"], sentence: "In meinem Mäppchen ist ein Bleistift." },
-      { prompt: "Auf dem Tisch liegt ______ Schere (feminin).", sub: "Sobre la mesa hay una tijera.", correct: "eine", wrong: ["ein", "kein"], sentence: "Auf dem Tisch liegt eine Schere." },
-      { prompt: "Sofía liest ______ spannendes Buch (neutral).", sub: "Sofía lee un libro emocionante.", correct: "ein", wrong: ["eine", "keine"], sentence: "Sofía liest ein Buch." },
-      { prompt: "Das ist ______ Schere, das ist ein Lineal!", sub: "¡Eso no es una tijera, es una regla!", correct: "keine", wrong: ["kein", "ein"], sentence: "Das ist keine Schere, das ist ein Lineal!" },
-      { prompt: "Ich habe ______ Spitzer für meine Stifte.", sub: "Tengo un sacapuntas para mis lápices.", correct: "einen", wrong: ["eine", "keine"], sentence: "Ich habe einen Spitzer." }
+      { img: "bleistift_icon.png", de: "Was ist das?", es: "¿Qué es esto?", choices: ["der Bleistift", "die Schere", "das Buch"], answer: "der Bleistift", full: "Das ist der Bleistift." },
+      { img: "schere_icon.png", de: "Womit schneiden wir Papier?", es: "¿Con qué cortamos papel?", choices: ["die Schere", "der Radiergummi", "das Lineal"], answer: "die Schere", full: "Die Schere schneidet Papier." },
+      { img: "maeppchen_icon.png", de: "Wo sind die Stifte?", es: "¿Dónde están los lápices?", choices: ["im Mäppchen", "im Buch", "auf dem Stuhl"], answer: "im Mäppchen", full: "Die Stifte sind im Mäppchen." },
+      { img: "lineal_icon.png", de: "Was ist das?", es: "¿Qué es esto?", choices: ["das Lineal", "der Bleistift", "die Schultasche"], answer: "das Lineal", full: "Das ist das Lineal." },
+      { img: "radiergummi_icon.png", de: "Womit radieren wir Fehler weg?", es: "¿Con qué borramos?", choices: ["der Radiergummi", "das Heft", "der Spitzer"], answer: "der Radiergummi", full: "Der Radiergummi radiert Fehler weg." },
+      { img: "buch_icon.png", de: "Was liest du gern?", es: "¿Qué lees?", choices: ["das Buch", "die Schere", "der Spitzer"], answer: "das Buch", full: "Ich lese gern das Buch." }
     ],
 
-    // Stage 3: Familie
-    s3_familie: [
-      { prompt: "Das ist mein...", sub: "Este es mi papá / padre:", img: "/static/vocab_images/vater_icon.png", correct: "der Vater (Papa)", wrong: ["die Mutter", "der Bruder"], sentence: "Das ist mein Vater." },
-      { prompt: "Das ist meine...", sub: "Esta es mi mamá / madre:", img: "/static/vocab_images/mutter_icon.png", correct: "die Mutter (Mama)", wrong: ["der Vater", "die Schwester"], sentence: "Das ist meine Mutter." },
-      { prompt: "Der Sohn meiner Eltern ist mein...", sub: "El hijo de mis padres es mi hermano:", img: "/static/vocab_images/bruder_icon.png", correct: "der Bruder", wrong: ["die Schwester", "der Opa"], sentence: "Das ist mein Bruder." },
-      { prompt: "Die Tochter meiner Eltern ist meine...", sub: "La hija de mis padres es mi hermana:", img: "/static/vocab_images/schwester_icon.png", correct: "die Schwester", wrong: ["der Bruder", "die Oma"], sentence: "Das ist meine Schwester." },
-      { prompt: "Der Vater meiner Mutter ist mein...", sub: "El papá de mi mamá es mi abuelo:", img: "/static/vocab_images/opa_icon.png", correct: "der Opa (Großvater)", wrong: ["der Vater", "das Baby"], sentence: "Das ist mein Opa." },
-      { prompt: "Die Mutter meines Vaters ist meine...", sub: "La mamá de mi papá es mi abuela:", img: "/static/vocab_images/oma_icon.png", correct: "die Oma (Großmutter)", wrong: ["die Schwester", "die Mutter"], sentence: "Das ist meine Oma." },
-      { prompt: "Das kleinste Mitglied der Familie ist...", sub: "El miembro más pequeño de la familia es:", img: "/static/vocab_images/baby_icon.png", correct: "das Baby", wrong: ["der Opa", "der Vater"], sentence: "Das ist das Baby." }
+    s2_grammatik: [
+      { de: "In meiner Schultasche ist ______ Bleistift (maskulin).", es: "En mi mochila hay un lápiz.", choices: ["ein", "eine", "keine"], answer: "ein", full: "In meiner Schultasche ist ein Bleistift." },
+      { de: "Auf dem Tisch liegt ______ Schere (feminin).", es: "Sobre la mesa hay una tijera.", choices: ["eine", "ein", "kein"], answer: "eine", full: "Auf dem Tisch liegt eine Schere." },
+      { de: "Ich habe ______ Mäppchen (neutral).", es: "Tengo una cartuchera.", choices: ["ein", "eine", "keine"], answer: "ein", full: "Ich habe ein Mäppchen." },
+      { de: "Das ist ______ Schere, das ist ein Lineal!", es: "¡Eso no es una tijera, es una regla!", choices: ["keine", "kein", "ein"], answer: "keine", full: "Das ist keine Schere, das ist ein Lineal!" }
     ],
 
-    // Stage 4: Hobbys & Datum
-    s4_hobbys: [
-      { prompt: "Was ist das für ein Hobby?", sub: "¿Qué pasatiempo es este?", img: "/static/vocab_images/fussball_icon.png", correct: "Fußball spielen", wrong: ["Bücher lesen", "tanzen"], sentence: "Das Hobby ist Fußball spielen." },
-      { prompt: "Mit Buntstiften und Farben mache ich gern:", sub: "Con lápices de colores y témperas me gusta hacer:", img: "/static/vocab_images/malen_icon.png", correct: "Bilder malen", wrong: ["im Pool schwimmen", "Rad fahren"], sentence: "Das Hobby ist Bilder malen." },
-      { prompt: "Auf dem Sofa mit einem spannenden Text:", sub: "En el sillón con un texto emocionante:", img: "/static/vocab_images/lesen_icon.png", correct: "Bücher lesen", wrong: ["Musik hören", "Lieder singen"], sentence: "Das Hobby ist Bücher lesen." },
-      { prompt: "Im Wasser mache ich gern Sport:", sub: "En el agua me gusta hacer deporte:", img: "/static/vocab_images/schwimmen_icon.png", correct: "im Pool schwimmen", wrong: ["Fußball spielen", "Bilder malen"], sentence: "Das Hobby ist schwimmen." },
-      { prompt: "Im Park mit zwei Rädern unterwegs:", sub: "En el parque en dos ruedas:", img: "/static/vocab_images/radfahren_icon.png", correct: "Rad fahren", wrong: ["Bücher lesen", "tanzen"], sentence: "Das Hobby ist Rad fahren." },
-      { prompt: "Mit Kopfhörern schöne Töne genießen:", sub: "Con auriculares disfrutando lindos sonidos:", img: "/static/vocab_images/musik_icon.png", correct: "Musik hören", wrong: ["Fußball spielen", "im Pool schwimmen"], sentence: "Das Hobby ist Musik hören." },
-      { prompt: "Zur Musik im Takt bewegen:", sub: "Moverse al compás de la música:", img: "/static/vocab_images/tanzen_icon.png", correct: "tanzen", wrong: ["Rad fahren", "Bücher lesen"], sentence: "Das Hobby ist tanzen." },
-      { prompt: "Mit der eigenen Stimme fröhliche Melodien machen:", sub: "Hacer melodías alegres con la propia voz:", img: "/static/vocab_images/singen_icon.png", correct: "Lieder singen", wrong: ["Bilder malen", "schwimmen"], sentence: "Das Hobby ist Lieder singen." }
-    ],
-    s4_datum: [
-      { prompt: "Welcher Tag ist der Prüfungstag von Frau Mónica?", sub: "¿Qué día es el examen integrador de la seño Mónica?", correct: "Donnerstag (19. Nov.)", wrong: ["Dienstag", "Samstag"], sentence: "Die Prüfung ist am Donnerstag, dem 19. November." },
-      { prompt: "Wie schreibt man das heutige Prüfungsdatum?", sub: "¿Cómo se escribe la fecha de hoy?", correct: "Donnerstag, der 19. November", wrong: ["Montag, der 3. Mai", "Sonntag, der 10. Juli"], sentence: "Heute ist Donnerstag, der 19. November." },
-      { prompt: "Welcher Wochentag kommt nach Montag?", sub: "¿Qué día viene después del lunes?", correct: "Dienstag", wrong: ["Mittwoch", "Sonntag"], sentence: "Nach Montag kommt Dienstag." },
-      { prompt: "Welcher Wochentag kommt nach Dienstag?", sub: "¿Qué día viene después del martes?", correct: "Mittwoch", wrong: ["Donnerstag", "Montag"], sentence: "Nach Dienstag kommt Mittwoch." },
-      { prompt: "Welcher Wochentag kommt nach Mittwoch?", sub: "¿Qué día viene después del miércoles?", correct: "Donnerstag", wrong: ["Freitag", "Samstag"], sentence: "Nach Mittwoch kommt Donnerstag." },
-      { prompt: "Samstag und Sonntag gehören zum...", sub: "Sábado y domingo pertenecen al...", correct: "Wochenende", wrong: ["Schultag", "Monat"], sentence: "Samstag und Sonntag sind das Wochenende." }
+    // NEW STAGE 3: ADJEKTIVE
+    s3_adjektive_bild: [
+      { img: "gross_icon.png", de: "Der Elefant ist nicht klein, er ist...", es: "El elefante no es chico, es...", choices: ["groß", "klein", "traurig"], answer: "groß", full: "Der Elefant ist groß!" },
+      { img: "klein_icon.png", de: "Die kleine Maus ist...", es: "El ratoncito es...", choices: ["klein", "groß", "laut"], answer: "klein", full: "Die kleine Maus ist klein." },
+      { img: "schnell_icon.png", de: "Die Rakete und das Rennauto sind sehr...", es: "El cohete es muy...", choices: ["schnell", "langsam", "müde"], answer: "schnell", full: "Die Rakete fliegt schnell!" },
+      { img: "langsam_icon.png", de: "Die Schildkröte läuft ganz...", es: "La tortuga camina muy...", choices: ["langsam", "schnell", "laut"], answer: "langsam", full: "Die Schildkröte läuft langsam." },
+      { img: "lustig_icon.png", de: "Dandy lacht und macht Witze. Dandy ist...", es: "Dandy se ríe, es muy...", choices: ["lustig", "traurig", "langsam"], answer: "lustig", full: "Dandy ist sehr lustig!" },
+      { img: "bunt_icon.png", de: "Flutter hat Flügel mit vielen Farben. Flutter ist...", es: "Flutter tiene alas de muchos colores, es...", choices: ["bunt", "schwarz", "leise"], answer: "bunt", full: "Flutter ist wunderschön bunt!" },
+      { img: "laut_icon.png", de: "Der Hund bellt laut! Das ist sehr...", es: "El perro ladra fuerte, es...", choices: ["laut", "leise", "klein"], answer: "laut", full: "Der Hund bellt laut." },
+      { img: "leise_icon.png", de: "Die Katze schleicht nachts ganz...", es: "La gata se mueve de noche muy...", choices: ["leise", "laut", "dick"], answer: "leise", full: "Die Katze ist ganz leise." },
+      { img: "alt_icon.png", de: "Opa hat weiße Haare. Opa ist...", es: "El abuelo tiene pelo blanco, es...", choices: ["alt", "jung", "bunt"], answer: "alt", full: "Der Opa ist alt und weise." },
+      { img: "jung_icon.png", de: "Das kleine Baby ist noch sehr...", es: "El bebé es aún muy...", choices: ["jung", "alt", "schnell"], answer: "jung", full: "Das Baby ist jung." }
     ],
 
-    // Stage 5: Max & Anna
-    s5_max: [
-      { prompt: "Wie heißt der Junge?", sub: "¿Cómo se llama el nene?", correct: "Max", wrong: ["Leo", "Bello"], sentence: "Der Junge heißt Max." },
-      { prompt: "Wie alt ist er?", sub: "¿Cuántos años tiene?", correct: "8 Jahre", wrong: ["7 Jahre", "9 Jahre"], sentence: "Er ist acht Jahre alt." },
-      { prompt: "Welches Tier hat er?", sub: "¿Qué animal tiene?", correct: "Einen Hund (Bello)", wrong: ["Eine Katze", "Ein Pferd"], sentence: "Er hat einen Hund namens Bello." },
-      { prompt: "Was spielt er gern?", sub: "¿Qué le gusta jugar?", correct: "Fußball", wrong: ["Schwimmen", "Malen"], sentence: "Er spielt gern Fußball." },
-      { prompt: "Was ist seine Lieblingsfarbe?", sub: "¿Cuál es su color favorito?", correct: "Blau", wrong: ["Rot", "Grün"], sentence: "Seine Lieblingsfarbe ist blau." }
+    s3_adjektive_saetze: [
+      { de: "Was ist das Gegenteil von **groß**? (Opuesto de grande)", es: "¿Cuál es el opuesto de groß?", choices: ["klein", "schnell", "lustig"], answer: "klein", full: "Das Gegenteil von groß ist klein." },
+      { de: "Was ist das Gegenteil von **schnell**? (Opuesto de rápido)", es: "¿Cuál es el opuesto de schnell?", choices: ["langsam", "klein", "laut"], answer: "langsam", full: "Das Gegenteil von schnell ist langsam." },
+      { de: "Was ist das Gegenteil von **lustig**? (Opuesto de divertido)", es: "¿Cuál es el opuesto de lustig?", choices: ["traurig", "bunt", "alt"], answer: "traurig", full: "Das Gegenteil von lustig ist traurig." },
+      { de: "Was ist das Gegenteil von **laut**? (Opuesto de fuerte/ruidoso)", es: "¿Cuál es el opuesto de laut?", choices: ["leise", "langsam", "jung"], answer: "leise", full: "Das Gegenteil von laut ist leise." },
+      { de: "Das Pferd rennt schnell, aber die Kuh geht...", es: "El caballo corre rápido, pero la vaca va...", choices: ["langsam", "bunt", "klein"], answer: "langsam", full: "Das Pferd rennt schnell, die Kuh geht langsam." },
+      { de: "Mein neuer Bleistift schreibt super, er ist...", es: "Mi nuevo lápiz escribe genial, es...", choices: ["schön", "traurig", "müde"], answer: "schön", full: "Mein neuer Bleistift ist schön." }
     ],
-    s5_anna: [
-      { prompt: "Wie heißt das Mädchen?", sub: "¿Cómo se llama la nena?", correct: "Anna", wrong: ["Lisa", "Mimi"], sentence: "Das Mädchen heißt Anna." },
-      { prompt: "Wie alt ist Anna?", sub: "¿Cuántos años tiene Anna?", correct: "9 Jahre", wrong: ["8 Jahre", "10 Jahre"], sentence: "Anna ist neun Jahre alt." },
-      { prompt: "Welches Tier hat Anna?", sub: "¿Qué animal tiene Anna?", correct: "Eine Katze (Mimi)", wrong: ["Einen Hund", "Ein Pferd"], sentence: "Anna hat eine Katze namens Mimi." },
-      { prompt: "Was macht Anna gern?", sub: "¿Qué le gusta hacer a Anna?", correct: "Tennis spielen und malen", wrong: ["Fußball spielen", "Schwimmen"], sentence: "Anna spielt gern Tennis und malt gern." },
-      { prompt: "Was ist ihre Lieblingsfarbe?", sub: "¿Cuál es su color favorito?", correct: "Rosa", wrong: ["Blau", "Grün"], sentence: "Ihre Lieblingsfarbe ist rosa." }
+
+    s4_familie: [
+      { img: "vater_icon.png", de: "Wer ist das?", es: "¿Quién es?", choices: ["der Vater", "die Mutter", "die Schwester"], answer: "der Vater", full: "Das ist der Vater." },
+      { img: "mutter_icon.png", de: "Wer ist das?", es: "¿Quién es?", choices: ["die Mutter", "der Bruder", "die Oma"], answer: "die Mutter", full: "Das ist die Mutter." },
+      { img: "bruder_icon.png", de: "Das ist mein...", es: "Este es mi hermano...", choices: ["Bruder", "Opa", "Vater"], answer: "Bruder", full: "Das ist mein Bruder." },
+      { img: "schwester_icon.png", de: "Das ist meine...", es: "Esta es mi hermana...", choices: ["Schwester", "Oma", "Mutter"], answer: "Schwester", full: "Das ist meine Schwester." },
+      { img: "opa_icon.png", de: "Wer erzählt tolle Geschichten?", es: "¿Quién cuenta historias?", choices: ["der Opa", "das Baby", "der Hund"], answer: "der Opa", full: "Der Opa erzählt tolle Geschichten." },
+      { img: "oma_icon.png", de: "Wer backt leckere Kekse?", es: "¿Quién hornea galletitas?", choices: ["die Oma", "der Bruder", "die Katze"], answer: "die Oma", full: "Die Oma backt leckere Kekse." }
+    ],
+
+    s5_hobbys: [
+      { img: "fussball_icon.png", de: "Was spielt Max gern?", es: "¿Qué le gusta jugar a Max?", choices: ["Fußball", "Tennis", "Basketball"], answer: "Fußball", full: "Max spielt gern Fußball." },
+      { img: "malen_icon.png", de: "Anna nimmt Pinsel und Farben. Sie...", es: "Anna agarra pincel y pinturas. Ella...", choices: ["malt gern", "schwimmt gern", "schläft"], answer: "malt gern", full: "Anna malt gern bunte Bilder." },
+      { img: "lesen_icon.png", de: "Astro hat ein tolles Buch. Astro...", es: "Astro tiene un libro lindo. Astro...", choices: ["liest gern", "singt gern", "fährt Rad"], answer: "liest gern", full: "Astro liest gern Bücher." },
+      { img: "schwimmen_icon.png", de: "Im Sommer geht Sofía in den Pool und...", es: "En verano Sofía va a la pileta y...", choices: ["schwimmt gern", "malt", "liest"], answer: "schwimmt gern", full: "Sofía schwimmt gern im Pool." }
+    ],
+
+    s5_datum: [
+      { de: "An welchem Tag ist der integrative Test mit Frau Mónica?", es: "¿Qué día es el trabajo integrador?", choices: ["Donnerstag, 19. November", "Dienstag, 3. Mai", "Samstag, 12. Juli"], answer: "Donnerstag, 19. November", full: "Die Prüfung ist am Donnerstag, dem 19. November." },
+      { de: "Welcher Tag kommt nach Mittwoch? (¿Qué día sigue al miércoles?)", es: "¿Qué día viene después del miércoles?", choices: ["Donnerstag", "Montag", "Freitag"], answer: "Donnerstag", full: "Nach Mittwoch kommt Donnerstag." },
+      { de: "Wie sagt man 'Hoy es jueves' auf Deutsch?", es: "¿Cómo se dice 'Hoy es jueves'?", choices: ["Heute ist Donnerstag", "Heute ist Sonntag", "Heute ist Montag"], answer: "Heute ist Donnerstag", full: "Heute ist Donnerstag." },
+      { de: "Wie schreibt man das Datum richtig?", es: "¿Cómo se escribe la fecha correctamente?", choices: ["Donnerstag, der 19. November", "Donnerstag 19 von November", "Tag 19 November"], answer: "Donnerstag, der 19. November", full: "Heute ist Donnerstag, der 19. November." }
+    ],
+
+    s6_max: [
+      { de: "Wie heißt der Junge im Hörtext?", es: "¿Cómo se llama el nene?", choices: ["Max", "Leo", "Bello"], answer: "Max", full: "Der Junge heißt Max." },
+      { de: "Wie alt ist Max?", es: "¿Cuántos años tiene Max?", choices: ["8 Jahre alt", "7 Jahre alt", "9 Jahre alt"], answer: "8 Jahre alt", full: "Max ist 8 Jahre alt." },
+      { de: "Welches Tier hat Max?", es: "¿Qué animal tiene Max?", choices: ["Einen Hund (Bello)", "Eine Katze", "Ein Pferd"], answer: "Einen Hund (Bello)", full: "Max hat einen Hund, er heißt Bello." },
+      { de: "Was ist seine Lieblingsfarbe?", es: "¿Cuál es su color favorito?", choices: ["Blau", "Rot", "Grün"], answer: "Blau", full: "Seine Lieblingsfarbe ist blau." }
+    ],
+
+    s6_anna: [
+      { de: "Wie heißt das Mädchen im Lesetext?", es: "¿Cómo se llama la nena?", choices: ["Anna", "Lisa", "Mimi"], answer: "Anna", full: "Das Mädchen heißt Anna." },
+      { de: "Wie alt ist Anna?", es: "¿Cuántos años tiene Anna?", choices: ["9 Jahre alt", "8 Jahre alt", "10 Jahre alt"], answer: "9 Jahre alt", full: "Anna ist 9 Jahre alt." },
+      { de: "Welches Haustier hat Anna?", es: "¿Qué mascota tiene Anna?", choices: ["Eine Katze (Mimi)", "Einen Hund", "Ein Schwein"], answer: "Eine Katze (Mimi)", full: "Anna hat eine Katze, sie heißt Mimi." },
+      { de: "Was macht Anna gern?", es: "¿Qué le gusta hacer a Anna?", choices: ["Tennis spielen und malen", "Fußball spielen", "im Pool schwimmen"], answer: "Tennis spielen und malen", full: "Anna spielt gern Tennis und malt gern." }
     ]
   };
 
-  // Helper shuffle
   function shuffle(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -946,102 +1006,102 @@
 
   function renderQuestionGroup(containerId, pool, count = 5) {
     const container = document.getElementById(containerId);
-    if (!container || !pool || pool.length === 0) return;
-    container.innerHTML = "";
-
+    if (!container) return;
     const selected = shuffle(pool).slice(0, count);
+
+    container.innerHTML = "";
     selected.forEach((q, idx) => {
-      const qDiv = document.createElement("div");
-      qDiv.className = "question-item";
-      qDiv.dataset.fullSentence = q.sentence || q.prompt;
+      const qDiv = document.createElement('div');
+      qDiv.className = 'question-item';
+      qDiv.dataset.fullSentence = q.full;
 
-      const wrapDiv = document.createElement("div");
-      wrapDiv.className = "q-prompt-wrap";
+      const header = document.createElement('div');
+      header.className = 'question-header';
 
-      // If question has an image, render it!
+      const meta = document.createElement('div');
+      meta.className = 'q-meta';
+
+      const promptDe = document.createElement('div');
+      promptDe.className = 'q-text-de';
+      promptDe.innerText = `${idx + 1}. ${q.de}`;
+
+      const promptEs = document.createElement('div');
+      promptEs.className = 'q-text-es';
+      promptEs.innerText = q.es;
+
+      meta.appendChild(promptDe);
+      meta.appendChild(promptEs);
+      header.appendChild(meta);
+
+      const btnTts = document.createElement('button');
+      btnTts.className = 'btn-tts';
+      btnTts.title = 'Anhören (Escuchar)';
+      btnTts.innerText = '🔊';
+      btnTts.onclick = function() {
+        speakPrompt(this, q.de);
+      };
+      header.appendChild(btnTts);
+      qDiv.appendChild(header);
+
       if (q.img) {
-        const qImg = document.createElement("img");
-        qImg.className = "q-prompt-img";
-        qImg.src = q.img;
-        qImg.alt = "Vocab visual";
-        qImg.onclick = () => speakPrompt(null, q.correct);
-        qImg.title = "Tippe zum Anhören / Toca para escuchar";
-        wrapDiv.appendChild(qImg);
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'q-img-wrap';
+        const img = document.createElement('img');
+        img.src = `/static/vocab_images/${q.img}`;
+        img.className = 'q-thumb';
+        img.alt = 'Vocab';
+        imgWrap.appendChild(img);
+        qDiv.appendChild(imgWrap);
       }
 
-      const textDiv = document.createElement("div");
-      textDiv.className = "q-prompt-text";
+      const choicesGrid = document.createElement('div');
+      choicesGrid.className = 'choices-grid';
 
-      const deSpan = document.createElement("span");
-      deSpan.className = "q-prompt-de";
-      deSpan.innerHTML = `<strong>${idx + 1}.</strong> ${q.prompt.replace(/Sofía/g, '<span class="dyn-student-name">' + currentStudentName + '</span>')}`;
-
-      const esSpan = document.createElement("span");
-      esSpan.className = "q-prompt-es";
-      esSpan.innerText = q.sub || "";
-
-      textDiv.appendChild(deSpan);
-      if (q.sub) textDiv.appendChild(esSpan);
-
-      const ttsBtn = document.createElement("button");
-      ttsBtn.className = "btn-tts";
-      ttsBtn.title = "Anhören / Escuchar";
-      ttsBtn.innerText = "🔊";
-      ttsBtn.onclick = function() {
-        const textToSpeak = qDiv.dataset.scored ? (qDiv.dataset.fullSentence || q.prompt) : q.prompt;
-        speakPrompt(this, textToSpeak);
-      };
-
-      wrapDiv.appendChild(textDiv);
-      wrapDiv.appendChild(ttsBtn);
-
-      const choicesDiv = document.createElement("div");
-      choicesDiv.className = "choices-grid";
-
-      const letters = ["a", "b", "c", "d"];
-      const allChoices = shuffle([
-        { text: q.correct, isCorrect: true },
-        ...q.wrong.map(w => ({ text: w, isCorrect: false }))
-      ]);
-
-      allChoices.forEach((choice, cIdx) => {
-        const btn = document.createElement("button");
-        btn.className = "choice-btn";
-        btn.innerText = `☐ ${letters[cIdx]}) ${choice.text}`;
-        btn.onclick = function() { checkChoice(this, choice.isCorrect, q.sentence); };
-        choicesDiv.appendChild(btn);
+      const shuffledChoices = shuffle(q.choices);
+      shuffledChoices.forEach(choiceText => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.innerText = choiceText;
+        const isCorrect = (choiceText === q.answer);
+        btn.onclick = function() {
+          checkChoice(this, isCorrect, q.full);
+        };
+        choicesGrid.appendChild(btn);
       });
 
-      qDiv.appendChild(wrapDiv);
-      qDiv.appendChild(choicesDiv);
+      qDiv.appendChild(choicesGrid);
       container.appendChild(qDiv);
     });
   }
 
-  // Article Sort Game
   function renderArticlePool() {
-    const poolDiv = document.getElementById("article-pool");
-    const basketDer = document.getElementById("basket-der-items");
-    const basketDie = document.getElementById("basket-die-items");
-    const basketDas = document.getElementById("basket-das-items");
-    if (!poolDiv) return;
+    const pool = document.getElementById('article-pool');
+    if (!pool) return;
+    document.getElementById('basket-der-items').innerHTML = "";
+    document.getElementById('basket-die-items').innerHTML = "";
+    document.getElementById('basket-das-items').innerHTML = "";
 
-    poolDiv.innerHTML = "";
-    if (basketDer) basketDer.innerHTML = "";
-    if (basketDie) basketDie.innerHTML = "";
-    if (basketDas) basketDas.innerHTML = "";
+    const items = shuffle([
+      { name: "Bleistift", type: "der", full: "der Bleistift" },
+      { name: "Schere", type: "die", full: "die Schere" },
+      { name: "Mäppchen", type: "das", full: "das Mäppchen" },
+      { name: "Lineal", type: "das", full: "das Lineal" },
+      { name: "Radiergummi", type: "der", full: "der Radiergummi" },
+      { name: "Buch", type: "das", full: "das Buch" },
+      { name: "Schultasche", type: "die", full: "die Schultasche" },
+      { name: "Spitzer", type: "der", full: "der Spitzer" },
+      { name: "Heft", type: "das", full: "das Heft" }
+    ]);
 
-    const ders = shuffle(VOCAB_DATA.schule.filter(f => f.art === "der")).slice(0, 3);
-    const dies = shuffle(VOCAB_DATA.schule.filter(f => f.art === "die")).slice(0, 3);
-    const dass = shuffle(VOCAB_DATA.schule.filter(f => f.art === "das")).slice(0, 3);
-    const chosen = shuffle([...ders, ...dies, ...dass]);
-
-    chosen.forEach(item => {
-      const btn = document.createElement("button");
-      btn.className = "article-pill-btn";
-      btn.innerHTML = `<img src="${item.img}" alt=""> <span>${item.de.replace(/^(der|die|das)\s*/, '')}</span>`;
-      btn.onclick = function() { sortArticle(this, item.de, item.art, item.full); };
-      poolDiv.appendChild(btn);
+    pool.innerHTML = "";
+    items.forEach(it => {
+      const btn = document.createElement('button');
+      btn.className = 'pool-item-btn';
+      btn.innerText = it.name;
+      btn.onclick = function() {
+        sortArticle(this, it.name, it.type, it.full);
+      };
+      pool.appendChild(btn);
     });
   }
 
@@ -1076,67 +1136,77 @@
 
   function regenerateAllQuestions() {
     renderShowcases();
+    initOppositesGame();
 
     renderQuestionGroup("container-s1-tiere", QUESTION_BANK.s1_tiere, 5);
-    renderQuestionGroup("container-s1-adjektive", QUESTION_BANK.s1_adjektive, 4);
 
     renderArticlePool();
-    renderQuestionGroup("container-s2-schule", QUESTION_BANK.s2_schule, 5);
-    renderQuestionGroup("container-s2-einEine", QUESTION_BANK.s2_einEine, 4);
+    renderQuestionGroup("container-s2-schule", QUESTION_BANK.s2_schule, 4);
+    renderQuestionGroup("container-s2-grammatik", QUESTION_BANK.s2_grammatik, 4);
 
-    renderQuestionGroup("container-s3-familie", QUESTION_BANK.s3_familie, 5);
+    renderQuestionGroup("container-s3-adjektive-bild", QUESTION_BANK.s3_adjektive_bild, 5);
+    renderQuestionGroup("container-s3-adjektive-saetze", QUESTION_BANK.s3_adjektive_saetze, 4);
 
-    renderQuestionGroup("container-s4-hobbys", QUESTION_BANK.s4_hobbys, 5);
-    renderQuestionGroup("container-s4-datum", QUESTION_BANK.s4_datum, 4);
+    renderQuestionGroup("container-s4-familie", QUESTION_BANK.s4_familie, 5);
 
-    renderQuestionGroup("container-s5-max", QUESTION_BANK.s5_max, 5);
-    renderQuestionGroup("container-s5-anna", QUESTION_BANK.s5_anna, 5);
+    renderQuestionGroup("container-s5-hobbys", QUESTION_BANK.s5_hobbys, 4);
+    renderQuestionGroup("container-s5-datum", QUESTION_BANK.s5_datum, 4);
 
-    playTone(587.33, 'triangle', 0.15, 0);
+    renderQuestionGroup("container-s6-max", QUESTION_BANK.s6_max, 4);
+    renderQuestionGroup("container-s6-anna", QUESTION_BANK.s6_anna, 4);
   }
 
-  // Audio Synthesizer
-  let audioCtx;
+  // SOUND & AUDIO SYNTHESIS
+  let audioCtx = null;
   function getAudioCtx() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    if (audioCtx.state === 'suspended') audioCtx.resume();
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
     return audioCtx;
   }
 
   function playTone(freq, type = 'sine', duration = 0.15, delay = 0) {
-    try {
-      const ctx = getAudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
-      gain.gain.setValueAtTime(0.12, ctx.currentTime + delay);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(ctx.currentTime + delay);
-      osc.stop(ctx.currentTime + delay + duration);
-    } catch(e) {}
+    const ctx = getAudioCtx();
+    if (!ctx) return;
+    setTimeout(() => {
+      try {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }, delay * 1000);
   }
 
   function playCorrectSound() {
-    playTone(523.25, 'triangle', 0.1, 0);
+    playTone(523.25, 'triangle', 0.12, 0);
     playTone(659.25, 'triangle', 0.12, 0.08);
     playTone(783.99, 'triangle', 0.22, 0.16);
   }
 
   function playWrongSound() {
-    playTone(261.63, 'sawtooth', 0.15, 0);
-    playTone(220.00, 'sawtooth', 0.2, 0.12);
+    playTone(300, 'sawtooth', 0.15, 0);
+    playTone(240, 'sawtooth', 0.22, 0.12);
   }
 
   function playFanfare() {
-    const notes = [523.25, 659.25, 783.99, 1046.50];
-    notes.forEach((f, i) => playTone(f, 'sine', 0.25, i * 0.12));
-    launchConfetti();
+    playTone(523.25, 'triangle', 0.15, 0);
+    playTone(659.25, 'triangle', 0.15, 0.12);
+    playTone(783.99, 'triangle', 0.15, 0.24);
+    playTone(1046.50, 'triangle', 0.40, 0.36);
   }
 
-  // Confetti Engine
+  // CONFETTI
   function launchConfetti() {
     const canvas = document.getElementById('confetti-canvas');
     if (!canvas) return;
@@ -1144,59 +1214,60 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const colors = ['#2563eb', '#f59e0b', '#16a34a', '#ec4899', '#9333ea', '#e11d48'];
-    const particles = [];
-    for (let i = 0; i < 45; i++) {
-      particles.push({
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        vx: (Math.random() - 0.5) * 14,
-        vy: (Math.random() - 0.7) * 14,
-        size: Math.random() * 8 + 4,
+    const pieces = [];
+    const colors = ['#f59e0b', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6', '#ef4444'];
+    for (let i = 0; i < 40; i++) {
+      pieces.push({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 100,
+        y: canvas.height / 2 + (Math.random() - 0.5) * 50,
+        r: Math.random() * 6 + 3,
         color: colors[Math.floor(Math.random() * colors.length)],
-        rotation: Math.random() * 360,
-        vr: (Math.random() - 0.5) * 10,
+        vx: (Math.random() - 0.5) * 8,
+        vy: -Math.random() * 7 - 3,
+        gravity: 0.25,
         alpha: 1
       });
     }
 
+    let frames = 0;
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      let alive = false;
-      particles.forEach(p => {
+      pieces.forEach(p => {
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.35;
-        p.rotation += p.vr;
+        p.vy += p.gravity;
         p.alpha -= 0.015;
-        if (p.alpha > 0) {
-          alive = true;
-          ctx.save();
-          ctx.globalAlpha = p.alpha;
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rotation * Math.PI / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-          ctx.restore();
-        }
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       });
-      if (alive) requestAnimationFrame(render);
-      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+      frames++;
+      if (frames < 70) {
+        requestAnimationFrame(render);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
     }
     render();
   }
 
-  // Toggle Auto-Read
-  let autoReadSentence = true;
+  // CHECK CHOICE
   function toggleAutoRead() {
     autoReadSentence = !autoReadSentence;
-    document.getElementById('autoread-icon').innerText = autoReadSentence ? '🔊' : '🔇';
-    document.getElementById('autoread-label').innerText = autoReadSentence ? 'Satz: AN' : 'Satz: AUS';
-    playTone(autoReadSentence ? 660 : 440, 'sine', 0.1, 0);
+    const btn = document.getElementById('btn-toggle-autoread');
+    if (autoReadSentence) {
+      btn.classList.add('active');
+      btn.innerText = "🔊 Auto-Voz: ON";
+    } else {
+      btn.classList.remove('active');
+      btn.innerText = "🔇 Auto-Voz: OFF";
+    }
   }
 
-  // Score & Choice Checking
-  let score = 0;
   function checkChoice(btn, isCorrect, fullSentence) {
     getAudioCtx();
     const parent = btn.closest('.question-item');
@@ -1256,152 +1327,129 @@
     }
   }
 
-  // German TTS Engine
+  // GERMAN TTS ENGINE
   let ttsRate = 0.88;
-  let isSlow = false;
   function toggleTtsSpeed() {
-    isSlow = !isSlow;
-    ttsRate = isSlow ? 0.72 : 0.88;
-    document.getElementById('speed-icon').innerText = isSlow ? '🐢' : '🐰';
-    document.getElementById('speed-label').innerText = isSlow ? 'Langsam' : 'Normal';
-    playTone(isSlow ? 440 : 660, 'sine', 0.1, 0);
+    const btn = document.getElementById('btn-tts-speed');
+    if (ttsRate < 0.95) {
+      ttsRate = 1.0;
+      btn.innerText = "⚡ Rápido";
+    } else if (ttsRate === 1.0) {
+      ttsRate = 0.72;
+      btn.innerText = "🐢 Lento";
+    } else {
+      ttsRate = 0.88;
+      btn.innerText = "🐰 Normal";
+    }
   }
 
   function speakPrompt(btn, text, lang = 'de-DE') {
-    if (!('speechSynthesis' in window)) {
-      alert("Dein Browser unterstützt keine Sprachausgabe.");
-      return;
-    }
+    if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
-    document.querySelectorAll('.btn-tts, .btn-listen-story').forEach(b => b.classList.remove('speaking'));
 
-    let clean = text.replace(/<[^>]*>/g, ' ').replace(/______/g, ' ');
-    clean = clean.replace(/Sofía/g, currentStudentName);
-
-    const utterance = new SpeechSynthesisUtterance(clean);
-    utterance.lang = lang;
-    utterance.rate = ttsRate;
-    utterance.pitch = 1.05;
+    const clean = text.replace(/[*_#☐]/g, '').trim();
+    const utter = new SpeechSynthesisUtterance(clean);
+    utter.lang = lang;
+    utter.rate = ttsRate;
+    utter.pitch = 1.05;
 
     const voices = window.speechSynthesis.getVoices();
-    const bestVoice = voices.find(v => v.lang.startsWith('de') && 
-      (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Marlene') || v.name.includes('Hans') || v.name.includes('Anna') || v.name.includes('Vicki')));
-    if (bestVoice) utterance.voice = bestVoice;
+    const deVoice = voices.find(v => v.lang.startsWith('de') && (v.name.includes('Google') || v.name.includes('Natural') || v.default));
+    if (deVoice) utter.voice = deVoice;
 
     if (btn) {
-      btn.classList.add('speaking');
-      utterance.onend = () => btn.classList.remove('speaking');
-      utterance.onerror = () => btn.classList.remove('speaking');
+      const orig = btn.innerText;
+      btn.innerText = '⏳';
+      utter.onend = () => { btn.innerText = orig; };
+      utter.onerror = () => { btn.innerText = orig; };
     }
-    window.speechSynthesis.speak(utterance);
+
+    window.speechSynthesis.speak(utter);
   }
 
   function speakMaxText(btn) {
-    const text = "Hallo! Ich heiße Max. Ich bin acht Jahre alt. Ich habe einen Hund. Der Hund heißt Bello. Ich spiele gern Fußball. Meine Lieblingsfarbe ist blau.";
-    speakPrompt(btn, text, 'de-DE');
+    const text = "Hallo! Ich heiße Max. Ich bin 8 Jahre alt. Ich habe einen Hund. Der Hund heißt Bello. Ich spiele gern Fußball. Meine Lieblingsfarbe ist blau.";
+    speakPrompt(btn, text);
   }
 
   function speakAnnaText(btn) {
-    const text = "Hallo! Das ist meine Freundin Anna. Sie ist neun Jahre alt und kommt aus Deutschland. Sie hat eine Katze. Die Katze heißt Mimi. Anna spielt gern Tennis und malt gern. Ihre Lieblingsfarbe ist rosa.";
-    speakPrompt(btn, text, 'de-DE');
+    const text = "Hallo! Das ist meine Freundin Anna. Sie ist 9 Jahre alt und kommt aus Deutschland. Sie hat eine Katze. Die Katze heißt Mimi. Anna spielt gern Tennis und malt gern. Ihre Lieblingsfarbe ist rosa.";
+    speakPrompt(btn, text);
   }
 
   function readMyProfile(btn) {
-    const alter = document.getElementById('jetzt-alter').value || "8";
-    const ort = document.getElementById('jetzt-ort').value || "Hurlingham";
-    const tier = document.getElementById('jetzt-tier').value || "der Hund";
-    const hobby = document.getElementById('jetzt-hobby').value || "malen";
-    const farbe = document.getElementById('jetzt-farbe').value || "blau";
+    const name = document.getElementById('prof-name').value || "Sofía";
+    const age = document.getElementById('prof-age').value || "8";
+    const pet = document.getElementById('prof-pet').value || "einen Hund";
+    const hobby = document.getElementById('prof-hobby').value || "mit Freunden";
+    const color = document.getElementById('prof-color').value || "rosa";
 
-    const text = `Hallo! Ich heiße ${currentStudentName}. Ich bin ${alter} Jahre alt. Ich wohne in ${ort}. Mein Lieblingstier ist ${tier}. Ich spiele oder mache gern ${hobby}. Meine Lieblingsfarbe ist ${farbe}.`;
-    speakPrompt(btn, text, 'de-DE');
+    const text = `Hallo! Ich heiße ${name}. Ich bin ${age} Jahre alt. Ich habe ${pet}. Ich spiele gern ${hobby}. Meine Lieblingsfarbe ist ${color}.`;
+    speakPrompt(btn, text);
   }
 
-  // Student Name
-  let currentStudentName = localStorage.getItem('dandy_student_name_de') || 'Sofía';
   function applyStudentName(name) {
-    if (!name || !name.trim()) name = 'Sofía';
-    name = name.trim();
     currentStudentName = name;
-    localStorage.setItem('dandy_student_name_de', name);
-
-    document.getElementById('student-name-header').innerText = name;
-    document.querySelectorAll('.dyn-student-name').forEach(el => {
-      el.innerText = name;
-    });
-
-    document.querySelectorAll('.question-item').forEach(qDiv => {
-      const fb = qDiv.querySelector('.sentence-feedback');
-      const origSentence = qDiv.dataset.fullSentence;
-      if (fb && origSentence) {
-        const displaySentence = origSentence.replace(/Sofía/g, currentStudentName);
-        const fbText = fb.querySelector('.feedback-text');
-        if (fbText) fbText.innerText = `“${displaySentence}”`;
-        const fbBtn = fb.querySelector('.btn-tts');
-        if (fbBtn) {
-          fbBtn.onclick = function() { speakPrompt(this, displaySentence); };
-        }
-      }
-    });
-
-    document.title = `${name} & Dandy's World - Deutsch-Abenteuer`;
+    document.getElementById('btn-student-name').innerText = `👤 ${name}`;
+    const profName = document.getElementById('prof-name');
+    if (profName) profName.value = name;
+    localStorage.setItem('sofi_deutsch_student_name', name);
   }
 
   function openNameModal() {
-    const modal = document.getElementById('name-modal');
-    const input = document.getElementById('student-name-input');
-    input.value = currentStudentName;
-    modal.classList.add('show');
-    setTimeout(() => input.focus(), 100);
+    document.getElementById('modal-input-name').value = currentStudentName;
+    document.getElementById('modal-name').classList.add('show');
+  }
+
+  function closeNameModal() {
+    document.getElementById('modal-name').classList.remove('show');
   }
 
   function saveStudentName() {
-    const input = document.getElementById('student-name-input');
-    applyStudentName(input.value);
-    document.getElementById('name-modal').classList.remove('show');
-    playTone(659.25, 'sine', 0.15, 0);
+    const val = document.getElementById('modal-input-name').value.trim();
+    if (val) applyStudentName(val);
+    closeNameModal();
   }
 
-  // Stage Switcher
-  let currentStage = 1;
+  // STAGE SWITCHING
   function switchStage(stageNum) {
     currentStage = stageNum;
-    document.querySelectorAll('.stage-view').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.stage-view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
-    const activeStage = document.getElementById(`stage-${stageNum}`);
-    if (activeStage) activeStage.classList.add('active');
+    const activeView = document.getElementById(`stage-${stageNum}`);
+    if (activeView) activeView.classList.add('active');
 
     const activeTab = document.querySelectorAll('.tab-btn')[stageNum - 1];
     if (activeTab) {
       activeTab.classList.add('active');
-      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
 
-    document.getElementById('btn-prev').style.visibility = (stageNum === 1) ? 'hidden' : 'visible';
-    const nextBtn = document.getElementById('btn-next');
-    if (stageNum === 5) {
-      nextBtn.innerText = '🏆 Fertig! (Terminar)';
-      nextBtn.onclick = () => { playFanfare(); window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }); };
-    } else {
-      nextBtn.innerText = 'Weiter ➡️';
-      nextBtn.onclick = nextStage;
-    }
+    document.getElementById('stage-indicator').innerText = `Etapa ${stageNum} de ${TOTAL_STAGES}`;
+    document.getElementById('btn-nav-prev').disabled = (stageNum === 1);
+    document.getElementById('btn-nav-next').disabled = (stageNum === TOTAL_STAGES);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function nextStage() { if (currentStage < 5) switchStage(currentStage + 1); }
+  function nextStage() { if (currentStage < TOTAL_STAGES) switchStage(currentStage + 1); }
   function prevStage() { if (currentStage > 1) switchStage(currentStage - 1); }
 
-  // Init
   window.addEventListener('DOMContentLoaded', () => {
-    applyStudentName(currentStudentName);
-    switchStage(1);
+    const saved = localStorage.getItem('sofi_deutsch_student_name');
+    if (saved) applyStudentName(saved);
+
     regenerateAllQuestions();
-    if (!localStorage.getItem('dandy_student_name_de')) {
-      setTimeout(openNameModal, 400);
+    switchStage(1);
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
     }
   });
 </script>
+
 </body>
 </html>

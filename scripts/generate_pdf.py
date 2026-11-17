@@ -737,13 +737,20 @@ def build_pdf():
         ("pferd_icon.png", "das Pferd", "el caballo", "#15803d"),
         ("schwein_icon.png", "das Schwein", "el cerdo", "#15803d"),
         ("schaf_icon.png", "das Schaf", "la oveja", "#15803d"),
-        ("ente_icon.png", "die Ente", "el pato", "#b91c1c"),
-        ("huhn_icon.png", "das Huhn", "la gallina", "#15803d"),
-        ("ziege_icon.png", "die Ziege", "la cabra", "#b91c1c"),
     ]
-    story.append(create_visual_vocab_strip(animals_visuals[:5], cols=5))
+    story.append(create_visual_vocab_strip(animals_visuals, cols=6))
     story.append(Spacer(1, 1))
-    story.append(create_visual_vocab_strip(animals_visuals[5:], cols=4))
+
+    # Visual strip of key adjectives & opposites with icons
+    adjectives_visuals = [
+        ("gross_icon.png", "groß", "grande", "#7e22ce"),
+        ("klein_icon.png", "klein", "pequeño", "#7e22ce"),
+        ("schnell_icon.png", "schnell", "rápido", "#b45309"),
+        ("langsam_icon.png", "langsam", "lento", "#b45309"),
+        ("lustig_icon.png", "lustig", "divertido", "#15803d"),
+        ("bunt_icon.png", "bunt", "colorido", "#ec4899"),
+    ]
+    story.append(create_visual_vocab_strip(adjectives_visuals, cols=6))
     story.append(Spacer(1, 2))
 
     story.append(Paragraph("<b>Fragen / Preguntas:</b>", s_sec_num))
