@@ -176,21 +176,41 @@
   }
   .q-thumb { width: 72px; height: 72px; object-fit: contain; }
 
+  /* Choices Grid - Clean, No Squares */
   .choices-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px;
   }
   .choice-btn {
     background: #fff; border: 2px solid #cbd5e1; border-radius: 12px;
-    padding: 9px 12px; font-family: inherit; font-size: 0.88rem; font-weight: 700;
+    padding: 10px 12px; font-family: inherit; font-size: 0.88rem; font-weight: 700;
     color: #1e293b; text-align: left; cursor: pointer; transition: all 0.15s;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; gap: 8px;
   }
-  .choice-btn:hover { border-color: #3b82f6; background: #eff6ff; }
+  .choice-letter {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #f1f5f9; color: #475569; font-size: 0.75rem; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .choice-text { flex-grow: 1; }
+
+  .choice-btn:hover {
+    border-color: #3b82f6; background: #eff6ff;
+  }
+  .choice-btn:hover .choice-letter {
+    background: #dbeafe; color: #1e40af;
+  }
   .choice-btn.selected-correct {
     border-color: #22c55e !important; background: #dcfce7 !important; color: #15803d !important;
   }
+  .choice-btn.selected-correct .choice-letter {
+    background: #15803d !important; color: #fff !important;
+  }
   .choice-btn.selected-wrong {
     border-color: #ef4444 !important; background: #fee2e2 !important; color: #b91c1c !important;
+  }
+  .choice-btn.selected-wrong .choice-letter {
+    background: #b91c1c !important; color: #fff !important;
   }
 
   /* Full Sentence Feedback Readout */
@@ -376,41 +396,84 @@
     </div>
   </header>
 
-  <!-- Stage Navigation Tabs -->
+  <!-- Stage Navigation Tabs: Strictly ordered 1 to 6 (Adjectives at the end) -->
   <nav class="stage-nav">
-    <button class="tab-btn active" onclick="switchStage(1)">🐮 1. Bauernhoftiere</button>
+    <button class="tab-btn active" onclick="switchStage(1)">🎧 1. Hör- & Leseverstehen</button>
     <button class="tab-btn" onclick="switchStage(2)">✏️ 2. Schulsachen</button>
-    <button class="tab-btn" onclick="switchStage(3)">⭐ 3. Adjektive & Gegenteile</button>
+    <button class="tab-btn" onclick="switchStage(3)">🐮 3. Bauernhoftiere</button>
     <button class="tab-btn" onclick="switchStage(4)">👨‍👩‍👧 4. Familie</button>
     <button class="tab-btn" onclick="switchStage(5)">⚽ 5. Hobbys & Datum</button>
-    <button class="tab-btn" onclick="switchStage(6)">🎧 6. Hör- & Leseverstehen</button>
+    <button class="tab-btn" onclick="switchStage(6)">⭐ 6. Adjektive & Gegenteile</button>
   </nav>
 
-  <!-- STAGE 1: Bauernhoftiere (Bild & Wort verbinden) -->
+  <!-- STAGE 1: Hör- & Leseverstehen & Persönliche Vorstellung (NOW FIRST!) -->
   <section class="stage-view active" id="stage-1">
-    <div class="rule-pill">
-      🐮 <strong>Thema 1: Die Tiere auf dem Bauernhof – Bild & Wort verbinden!</strong><br/>
-      <small>Cada animal con su imagen, artículo (🟦 der, 🔴 die, 🟢 das) y pronunciación. ¡Toca cada tarjeta para escucharla!</small>
+    <div class="rule-pill" style="background:#eff6ff; border-color:#93c5fd; color:#1e40af;">
+      🎧 <strong>Thema 1: Hörverstehen, Leseverstehen & persönliche Vorstellung</strong><br/>
+      <small>Modelos exactos del integrador: escuchá a Max, leé sobre Anna y completá tus propios datos personales.</small>
     </div>
 
-    <!-- Visual Showcase of Farm Animals -->
-    <div class="card">
-      <div class="card-banner">
-        <span class="card-badge" style="background:#15803d;">🖼️</span>
-        <h2 class="card-title">Wortschatz: Tiere auf dem Bauernhof</h2>
-        <span class="card-hint">Tippe auf das Bild zum Anhören 🔊</span>
+    <!-- Max Hörtext -->
+    <div class="audio-card">
+      <div class="audio-header">
+        <span class="audio-title">🎧 1. Hörtext: Max stellt sich vor (Dandy's World)</span>
+        <button class="btn-tts" onclick="speakMaxText(this)">▶️ Vorlesen (Escuchar)</button>
       </div>
-      <div class="vocab-grid" id="showcase-tiere"></div>
+      <div class="audio-text-de">
+        "Hallo! Ich heiße Max. Ich bin 8 Jahre alt. Ich habe einen Hund. Der Hund heißt Bello. Ich spiele gern Fußball. Meine Lieblingsfarbe ist blau."
+      </div>
+      <div class="audio-text-es">
+        ¡Hola! Me llamo Max. Tengo 8 años. Tengo un perro. El perro se llama Bello. Me gusta jugar al fútbol. Mi color favorito es el azul.
+      </div>
     </div>
+    <div id="container-s1-max" class="item-list"></div>
 
-    <!-- Interactive Matching Questions with Images -->
+    <!-- Anna Lesetext -->
+    <div class="audio-card anna">
+      <div class="audio-header">
+        <span class="audio-title">📖 2. Lesetext: Das ist Anna!</span>
+        <button class="btn-tts" onclick="speakAnnaText(this)">▶️ Vorlesen (Escuchar)</button>
+      </div>
+      <div class="audio-text-de">
+        "Hallo! Das ist meine Freundin Anna. Sie ist 9 Jahre alt und kommt aus Deutschland. Sie hat eine Katze. Die Katze heißt Mimi. Anna spielt gern Tennis und malt gern. Ihre Lieblingsfarbe ist rosa."
+      </div>
+      <div class="audio-text-es">
+        ¡Hola! Esta es mi amiga Anna. Tiene 9 años y es de Alemania. Tiene una gata (Mimi). A Anna le gusta jugar al tenis y pintar. Su color favorito es el rosa.
+      </div>
+    </div>
+    <div id="container-s1-anna" class="item-list"></div>
+
+    <!-- Jetzt bist du dran! Form -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#16a34a;">🎯</span>
-        <h2 class="card-title">Verbinde Bild & Wort: Tiere & Artikel</h2>
-        <span class="card-hint">Observa la imagen y elige la opción</span>
+        <span class="card-badge" style="background:#f59e0b;">✍️</span>
+        <h2 class="card-title">3. Jetzt bist du dran! (¡Ahora te toca a vos!)</h2>
       </div>
-      <div id="container-s1-tiere" class="item-list"></div>
+      <form class="profile-form" onsubmit="event.preventDefault();">
+        <div class="form-row">
+          <label>Hallo! Ich heiße... (Me llamo...)</label>
+          <input type="text" id="prof-name" class="form-input" value="Sofía" placeholder="Dein Name">
+        </div>
+        <div class="form-row">
+          <label>Ich bin ... Jahre alt. (Tengo ... años)</label>
+          <input type="text" id="prof-age" class="form-input" value="8" placeholder="Alter">
+        </div>
+        <div class="form-row">
+          <label>Ich habe einen Hund / eine Katze... (Tengo una mascota...)</label>
+          <input type="text" id="prof-pet" class="form-input" value="einen Hund" placeholder="z.B. einen Hund / eine Katze / kein Haustier">
+        </div>
+        <div class="form-row">
+          <label>Ich spiele gern... (Me gusta jugar a...)</label>
+          <input type="text" id="prof-hobby" class="form-input" value="mit Dandy und Freunden" placeholder="z.B. Fußball / Tennis / Videospiele">
+        </div>
+        <div class="form-row">
+          <label>Meine Lieblingsfarbe ist... (Mi color favorito es...)</label>
+          <input type="text" id="prof-color" class="form-input" value="rosa und lila" placeholder="z.B. blau / rot / grün / rosa">
+        </div>
+        <button type="button" class="badge-btn" style="background:#15803d; color:#fff; align-self:flex-start; padding:10px 16px; font-size:0.9rem;" onclick="readMyProfile(this)">
+          🔊 Mein Profil auf Deutsch vorlesen!
+        </button>
+      </form>
     </div>
   </section>
 
@@ -476,54 +539,31 @@
     </div>
   </section>
 
-  <!-- STAGE 3: Adjektive & Gegenteile (NEW DEDICATED STAGE!) -->
+  <!-- STAGE 3: Bauernhoftiere (Bild & Wort verbinden) -->
   <section class="stage-view" id="stage-3">
-    <div class="rule-pill" style="background:#faf5ff; border-color:#d8b4fe; color:#6b21a8;">
-      ⭐ <strong>Thema 3: Die Adjektive & Gegenteile – ¡Adjetivos, Opuestos y Características!</strong><br/>
-      <small>Los adjetivos describen cómo son las cosas, animales y amigos: <strong>groß ↔ klein</strong> (grande/chico), <strong>schnell ↔ langsam</strong> (rápido/lento), <strong>lustig ↔ traurig</strong> (divertido/triste), <strong>laut ↔ leise</strong> (fuerte/bajito), <strong>bunt</strong> (colorido).</small>
+    <div class="rule-pill">
+      🐮 <strong>Thema 3: Die Tiere auf dem Bauernhof – Bild & Wort verbinden!</strong><br/>
+      <small>Cada animal con su imagen, artículo (🟦 der, 🔴 die, 🟢 das) y pronunciación. ¡Toca cada tarjeta para escucharla!</small>
     </div>
 
-    <!-- Visual Showcase of Adjectives -->
+    <!-- Visual Showcase of Farm Animals -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#7e22ce;">🖼️</span>
-        <h2 class="card-title">Wortschatz: Adjektive & Eigenschaften</h2>
+        <span class="card-badge" style="background:#15803d;">🖼️</span>
+        <h2 class="card-title">Wortschatz: Tiere auf dem Bauernhof</h2>
         <span class="card-hint">Tippe auf das Bild zum Anhören 🔊</span>
       </div>
-      <div class="vocab-grid" id="showcase-adjektive"></div>
+      <div class="vocab-grid" id="showcase-tiere"></div>
     </div>
 
-    <!-- Interactive Antonyms Matching Game: Finde das Gegenteil! -->
+    <!-- Interactive Matching Questions with Images -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#9333ea;">⚡</span>
-        <h2 class="card-title">Spiel: Finde das Gegenteil! (¡Encontrá el opuesto!)</h2>
-        <span class="card-hint">Toca una palabra a la izquierda y luego su antónimo a la derecha</span>
+        <span class="card-badge" style="background:#16a34a;">🎯</span>
+        <h2 class="card-title">Verbinde Bild & Wort: Tiere & Artikel</h2>
+        <span class="card-hint">Observa la imagen y elige la opción</span>
       </div>
-      <div class="opposites-container" id="opposites-game">
-        <div class="opposites-col" id="col-opposites-left"></div>
-        <div class="opposites-col" id="col-opposites-right"></div>
-      </div>
-      <div id="opposites-status" style="text-align:center; font-weight:800; font-size:0.9rem; color:#15803d; min-height:20px;"></div>
-    </div>
-
-    <!-- Image Association: Bild & Adjektiv verbinden -->
-    <div class="card">
-      <div class="card-banner">
-        <span class="card-badge" style="background:#c026d3;">🎯</span>
-        <h2 class="card-title">Bild & Adjektiv: ¿Cómo es cada personaje o animal?</h2>
-        <span class="card-hint">Observa la imagen y elige el adjetivo correcto</span>
-      </div>
-      <div id="container-s3-adjektive-bild" class="item-list"></div>
-    </div>
-
-    <!-- Sentence Practice with Adjectives -->
-    <div class="card">
-      <div class="card-banner">
-        <span class="card-badge" style="background:#4f46e5;">✍️</span>
-        <h2 class="card-title">Sätze vervollständigen (Completar con el adjetivo)</h2>
-      </div>
-      <div id="container-s3-adjektive-saetze" class="item-list"></div>
+      <div id="container-s3-tiere" class="item-list"></div>
     </div>
   </section>
 
@@ -590,74 +630,54 @@
     </div>
   </section>
 
-  <!-- STAGE 6: Hör- & Leseverstehen & Zertifikat -->
+  <!-- STAGE 6: Adjektive & Gegenteile (NOW AT THE END!) -->
   <section class="stage-view" id="stage-6">
-    <div class="rule-pill" style="background:#eff6ff; border-color:#93c5fd; color:#1e40af;">
-      🎧 <strong>Thema 6: Hörverstehen, Leseverstehen & persönliche Vorstellung</strong><br/>
-      <small>Modelos exactos del integrador: escuchá a Max, leé sobre Anna y completá tus propios datos personales.</small>
+    <div class="rule-pill" style="background:#faf5ff; border-color:#d8b4fe; color:#6b21a8;">
+      ⭐ <strong>Thema 6: Die Adjektive & Gegenteile – ¡Adjetivos, Opuestos y Gran Cierre!</strong><br/>
+      <small>Los adjetivos describen cómo son las cosas, animales y amigos: <strong>groß ↔ klein</strong> (grande/chico), <strong>schnell ↔ langsam</strong> (rápido/lento), <strong>lustig ↔ traurig</strong> (divertido/triste), <strong>laut ↔ leise</strong> (fuerte/bajito), <strong>bunt</strong> (colorido).</small>
     </div>
 
-    <!-- Max Hörtext -->
-    <div class="audio-card">
-      <div class="audio-header">
-        <span class="audio-title">🎧 1. Hörtext: Max stellt sich vor (Dandy's World)</span>
-        <button class="btn-tts" onclick="speakMaxText(this)">▶️ Vorlesen (Escuchar)</button>
-      </div>
-      <div class="audio-text-de">
-        "Hallo! Ich heiße Max. Ich bin 8 Jahre alt. Ich habe einen Hund. Der Hund heißt Bello. Ich spiele gern Fußball. Meine Lieblingsfarbe ist blau."
-      </div>
-      <div class="audio-text-es">
-        ¡Hola! Me llamo Max. Tengo 8 años. Tengo un perro. El perro se llama Bello. Me gusta jugar al fútbol. Mi color favorito es el azul.
-      </div>
-    </div>
-    <div id="container-s6-max" class="item-list"></div>
-
-    <!-- Anna Lesetext -->
-    <div class="audio-card anna">
-      <div class="audio-header">
-        <span class="audio-title">📖 2. Lesetext: Das ist Anna!</span>
-        <button class="btn-tts" onclick="speakAnnaText(this)">▶️ Vorlesen (Escuchar)</button>
-      </div>
-      <div class="audio-text-de">
-        "Hallo! Das ist meine Freundin Anna. Sie ist 9 Jahre alt und kommt aus Deutschland. Sie hat eine Katze. Die Katze heißt Mimi. Anna spielt gern Tennis und malt gern. Ihre Lieblingsfarbe ist rosa."
-      </div>
-      <div class="audio-text-es">
-        ¡Hola! Esta es mi amiga Anna. Tiene 9 años y es de Alemania. Tiene una gata (Mimi). A Anna le gusta jugar al tenis y pintar. Su color favorito es el rosa.
-      </div>
-    </div>
-    <div id="container-s6-anna" class="item-list"></div>
-
-    <!-- Jetzt bist du dran! Form -->
+    <!-- Visual Showcase of Adjectives -->
     <div class="card">
       <div class="card-banner">
-        <span class="card-badge" style="background:#f59e0b;">✍️</span>
-        <h2 class="card-title">3. Jetzt bist du dran! (¡Ahora te toca a vos!)</h2>
+        <span class="card-badge" style="background:#7e22ce;">🖼️</span>
+        <h2 class="card-title">Wortschatz: Adjektive & Eigenschaften</h2>
+        <span class="card-hint">Tippe auf das Bild zum Anhören 🔊</span>
       </div>
-      <form class="profile-form" onsubmit="event.preventDefault();">
-        <div class="form-row">
-          <label>Hallo! Ich heiße... (Me llamo...)</label>
-          <input type="text" id="prof-name" class="form-input" value="Sofía" placeholder="Dein Name">
-        </div>
-        <div class="form-row">
-          <label>Ich bin ... Jahre alt. (Tengo ... años)</label>
-          <input type="text" id="prof-age" class="form-input" value="8" placeholder="Alter">
-        </div>
-        <div class="form-row">
-          <label>Ich habe einen Hund / eine Katze... (Tengo una mascota...)</label>
-          <input type="text" id="prof-pet" class="form-input" value="einen Hund" placeholder="z.B. einen Hund / eine Katze / kein Haustier">
-        </div>
-        <div class="form-row">
-          <label>Ich spiele gern... (Me gusta jugar a...)</label>
-          <input type="text" id="prof-hobby" class="form-input" value="mit Dandy und Freunden" placeholder="z.B. Fußball / Tennis / Videospiele">
-        </div>
-        <div class="form-row">
-          <label>Meine Lieblingsfarbe ist... (Mi color favorito es...)</label>
-          <input type="text" id="prof-color" class="form-input" value="rosa und lila" placeholder="z.B. blau / rot / grün / rosa">
-        </div>
-        <button type="button" class="badge-btn" style="background:#15803d; color:#fff; align-self:flex-start; padding:10px 16px; font-size:0.9rem;" onclick="readMyProfile(this)">
-          🔊 Mein Profil auf Deutsch vorlesen!
-        </button>
-      </form>
+      <div class="vocab-grid" id="showcase-adjektive"></div>
+    </div>
+
+    <!-- Interactive Antonyms Matching Game: Finde das Gegenteil! -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#9333ea;">⚡</span>
+        <h2 class="card-title">Spiel: Finde das Gegenteil! (¡Encontrá el opuesto!)</h2>
+        <span class="card-hint">Toca una palabra a la izquierda y luego su antónimo a la derecha</span>
+      </div>
+      <div class="opposites-container" id="opposites-game">
+        <div class="opposites-col" id="col-opposites-left"></div>
+        <div class="opposites-col" id="col-opposites-right"></div>
+      </div>
+      <div id="opposites-status" style="text-align:center; font-weight:800; font-size:0.9rem; color:#15803d; min-height:20px;"></div>
+    </div>
+
+    <!-- Image Association: Bild & Adjektiv verbinden -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#c026d3;">🎯</span>
+        <h2 class="card-title">Bild & Adjektiv: ¿Cómo es cada personaje o animal?</h2>
+        <span class="card-hint">Observa la imagen y elige el adjetivo correcto</span>
+      </div>
+      <div id="container-s6-adjektive-bild" class="item-list"></div>
+    </div>
+
+    <!-- Sentence Practice with Adjectives -->
+    <div class="card">
+      <div class="card-banner">
+        <span class="card-badge" style="background:#4f46e5;">✍️</span>
+        <h2 class="card-title">Sätze vervollständigen (Completar con el adjetivo)</h2>
+      </div>
+      <div id="container-s6-adjektive-saetze" class="item-list"></div>
     </div>
 
     <!-- Final Certificate -->
@@ -907,17 +927,24 @@
 
   // QUESTION BANK
   const QUESTION_BANK = {
-    s1_tiere: [
-      { img: "hund_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["der Hund", "die Katze", "das Pferd"], answer: "der Hund", full: "Das ist der Hund." },
-      { img: "katze_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["die Katze", "die Kuh", "das Huhn"], answer: "die Katze", full: "Das ist die Katze." },
-      { img: "kuh_icon.png", de: "Welches Tier gibt frische Milch?", es: "¿Qué animal da leche fresca?", choices: ["die Kuh", "das Schwein", "der Hund"], answer: "die Kuh", full: "Die Kuh gibt frische Milch." },
-      { img: "pferd_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["das Pferd", "der Hund", "die Ziege"], answer: "das Pferd", full: "Das ist das Pferd." },
-      { img: "schwein_icon.png", de: "Welches Tier ist rosa und macht Oink?", es: "¿Qué animal es rosa?", choices: ["das Schwein", "die Ente", "das Schaf"], answer: "das Schwein", full: "Das ist das Schwein." },
-      { img: "ente_icon.png", de: "Welches Tier schwimmt im See?", es: "¿Qué animal nada en el lago?", choices: ["die Ente", "die Katze", "der Hund"], answer: "die Ente", full: "Die Ente schwimmt im See." },
-      { img: "schaf_icon.png", de: "Welches Tier hat weiße Wolle?", es: "¿Qué animal tiene lana blanca?", choices: ["das Schaf", "das Pferd", "die Ziege"], answer: "das Schaf", full: "Das Schaf hat weiße Wolle." },
-      { img: "huhn_icon.png", de: "Welches Tier legt Eier?", es: "¿Qué animal pone huevos?", choices: ["das Huhn", "der Hund", "die Katze"], answer: "das Huhn", full: "Das Huhn legt Eier." }
+    // STAGE 1: HÖR- & LESEVERSTEHEN
+    s1_max: [
+      { de: "Wie heißt der Junge im Hörtext?", es: "¿Cómo se llama el nene?", choices: ["Max", "Leo", "Bello"], answer: "Max", full: "Der Junge heißt Max." },
+      { de: "Wie alt ist Max?", es: "¿Cuántos años tiene Max?", choices: ["8 Jahre alt", "7 Jahre alt", "9 Jahre alt"], answer: "8 Jahre alt", full: "Max ist 8 Jahre alt." },
+      { de: "Welches Tier hat Max?", es: "¿Qué animal tiene Max?", choices: ["Einen Hund (Bello)", "Eine Katze", "Ein Pferd"], answer: "Einen Hund (Bello)", full: "Max hat einen Hund, er heißt Bello." },
+      { de: "Was ist seine Lieblingsfarbe?", es: "¿Cuál es su color favorito?", choices: ["Blau", "Rot", "Grün"], answer: "Blau", full: "Seine Lieblingsfarbe ist blau." },
+      { de: "Was spielt Max gern?", es: "¿Qué le gusta jugar a Max?", choices: ["Fußball", "Tennis", "Basketball"], answer: "Fußball", full: "Max spielt gern Fußball." }
     ],
 
+    s1_anna: [
+      { de: "Wie heißt das Mädchen im Lesetext?", es: "¿Cómo se llama la nena?", choices: ["Anna", "Lisa", "Mimi"], answer: "Anna", full: "Das Mädchen heißt Anna." },
+      { de: "Wie alt ist Anna?", es: "¿Cuántos años tiene Anna?", choices: ["9 Jahre alt", "8 Jahre alt", "10 Jahre alt"], answer: "9 Jahre alt", full: "Anna ist 9 Jahre alt." },
+      { de: "Welches Haustier hat Anna?", es: "¿Qué mascota tiene Anna?", choices: ["Eine Katze (Mimi)", "Einen Hund", "Ein Schwein"], answer: "Eine Katze (Mimi)", full: "Anna hat eine Katze, sie heißt Mimi." },
+      { de: "Was macht Anna gern?", es: "¿Qué le gusta hacer a Anna?", choices: ["Tennis spielen und malen", "Fußball spielen", "im Pool schwimmen"], answer: "Tennis spielen und malen", full: "Anna spielt gern Tennis und malt gern." },
+      { de: "Was ist ihre Lieblingsfarbe?", es: "¿Cuál es su color favorito?", choices: ["Rosa", "Blau", "Schwarz"], answer: "Rosa", full: "Ihre Lieblingsfarbe ist rosa." }
+    ],
+
+    // STAGE 2: SCHULSACHEN
     s2_schule: [
       { img: "bleistift_icon.png", de: "Was ist das?", es: "¿Qué es esto?", choices: ["der Bleistift", "die Schere", "das Buch"], answer: "der Bleistift", full: "Das ist der Bleistift." },
       { img: "schere_icon.png", de: "Womit schneiden wir Papier?", es: "¿Con qué cortamos papel?", choices: ["die Schere", "der Radiergummi", "das Lineal"], answer: "die Schere", full: "Die Schere schneidet Papier." },
@@ -934,29 +961,19 @@
       { de: "Das ist ______ Schere, das ist ein Lineal!", es: "¡Eso no es una tijera, es una regla!", choices: ["keine", "kein", "ein"], answer: "keine", full: "Das ist keine Schere, das ist ein Lineal!" }
     ],
 
-    // NEW STAGE 3: ADJEKTIVE
-    s3_adjektive_bild: [
-      { img: "gross_icon.png", de: "Der Elefant ist nicht klein, er ist...", es: "El elefante no es chico, es...", choices: ["groß", "klein", "traurig"], answer: "groß", full: "Der Elefant ist groß!" },
-      { img: "klein_icon.png", de: "Die kleine Maus ist...", es: "El ratoncito es...", choices: ["klein", "groß", "laut"], answer: "klein", full: "Die kleine Maus ist klein." },
-      { img: "schnell_icon.png", de: "Die Rakete und das Rennauto sind sehr...", es: "El cohete es muy...", choices: ["schnell", "langsam", "müde"], answer: "schnell", full: "Die Rakete fliegt schnell!" },
-      { img: "langsam_icon.png", de: "Die Schildkröte läuft ganz...", es: "La tortuga camina muy...", choices: ["langsam", "schnell", "laut"], answer: "langsam", full: "Die Schildkröte läuft langsam." },
-      { img: "lustig_icon.png", de: "Dandy lacht und macht Witze. Dandy ist...", es: "Dandy se ríe, es muy...", choices: ["lustig", "traurig", "langsam"], answer: "lustig", full: "Dandy ist sehr lustig!" },
-      { img: "bunt_icon.png", de: "Flutter hat Flügel mit vielen Farben. Flutter ist...", es: "Flutter tiene alas de muchos colores, es...", choices: ["bunt", "schwarz", "leise"], answer: "bunt", full: "Flutter ist wunderschön bunt!" },
-      { img: "laut_icon.png", de: "Der Hund bellt laut! Das ist sehr...", es: "El perro ladra fuerte, es...", choices: ["laut", "leise", "klein"], answer: "laut", full: "Der Hund bellt laut." },
-      { img: "leise_icon.png", de: "Die Katze schleicht nachts ganz...", es: "La gata se mueve de noche muy...", choices: ["leise", "laut", "dick"], answer: "leise", full: "Die Katze ist ganz leise." },
-      { img: "alt_icon.png", de: "Opa hat weiße Haare. Opa ist...", es: "El abuelo tiene pelo blanco, es...", choices: ["alt", "jung", "bunt"], answer: "alt", full: "Der Opa ist alt und weise." },
-      { img: "jung_icon.png", de: "Das kleine Baby ist noch sehr...", es: "El bebé es aún muy...", choices: ["jung", "alt", "schnell"], answer: "jung", full: "Das Baby ist jung." }
+    // STAGE 3: BAUERNHOFTIERE
+    s3_tiere: [
+      { img: "hund_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["der Hund", "die Katze", "das Pferd"], answer: "der Hund", full: "Das ist der Hund." },
+      { img: "katze_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["die Katze", "die Kuh", "das Huhn"], answer: "die Katze", full: "Das ist die Katze." },
+      { img: "kuh_icon.png", de: "Welches Tier gibt frische Milch?", es: "¿Qué animal da leche fresca?", choices: ["die Kuh", "das Schwein", "der Hund"], answer: "die Kuh", full: "Die Kuh gibt frische Milch." },
+      { img: "pferd_icon.png", de: "Welches Tier ist das?", es: "¿Qué animal es este?", choices: ["das Pferd", "der Hund", "die Ziege"], answer: "das Pferd", full: "Das ist das Pferd." },
+      { img: "schwein_icon.png", de: "Welches Tier ist rosa und macht Oink?", es: "¿Qué animal es rosa?", choices: ["das Schwein", "die Ente", "das Schaf"], answer: "das Schwein", full: "Das ist das Schwein." },
+      { img: "ente_icon.png", de: "Welches Tier schwimmt im See?", es: "¿Qué animal nada en el lago?", choices: ["die Ente", "die Katze", "der Hund"], answer: "die Ente", full: "Die Ente schwimmt im See." },
+      { img: "schaf_icon.png", de: "Welches Tier hat weiße Wolle?", es: "¿Qué animal tiene lana blanca?", choices: ["das Schaf", "das Pferd", "die Ziege"], answer: "das Schaf", full: "Das Schaf hat weiße Wolle." },
+      { img: "huhn_icon.png", de: "Welches Tier legt Eier?", es: "¿Qué animal pone huevos?", choices: ["das Huhn", "der Hund", "die Katze"], answer: "das Huhn", full: "Das Huhn legt Eier." }
     ],
 
-    s3_adjektive_saetze: [
-      { de: "Was ist das Gegenteil von **groß**? (Opuesto de grande)", es: "¿Cuál es el opuesto de groß?", choices: ["klein", "schnell", "lustig"], answer: "klein", full: "Das Gegenteil von groß ist klein." },
-      { de: "Was ist das Gegenteil von **schnell**? (Opuesto de rápido)", es: "¿Cuál es el opuesto de schnell?", choices: ["langsam", "klein", "laut"], answer: "langsam", full: "Das Gegenteil von schnell ist langsam." },
-      { de: "Was ist das Gegenteil von **lustig**? (Opuesto de divertido)", es: "¿Cuál es el opuesto de lustig?", choices: ["traurig", "bunt", "alt"], answer: "traurig", full: "Das Gegenteil von lustig ist traurig." },
-      { de: "Was ist das Gegenteil von **laut**? (Opuesto de fuerte/ruidoso)", es: "¿Cuál es el opuesto de laut?", choices: ["leise", "langsam", "jung"], answer: "leise", full: "Das Gegenteil von laut ist leise." },
-      { de: "Das Pferd rennt schnell, aber die Kuh geht...", es: "El caballo corre rápido, pero la vaca va...", choices: ["langsam", "bunt", "klein"], answer: "langsam", full: "Das Pferd rennt schnell, die Kuh geht langsam." },
-      { de: "Mein neuer Bleistift schreibt super, er ist...", es: "Mi nuevo lápiz escribe genial, es...", choices: ["schön", "traurig", "müde"], answer: "schön", full: "Mein neuer Bleistift ist schön." }
-    ],
-
+    // STAGE 4: FAMILIE
     s4_familie: [
       { img: "vater_icon.png", de: "Wer ist das?", es: "¿Quién es?", choices: ["der Vater", "die Mutter", "die Schwester"], answer: "der Vater", full: "Das ist der Vater." },
       { img: "mutter_icon.png", de: "Wer ist das?", es: "¿Quién es?", choices: ["die Mutter", "der Bruder", "die Oma"], answer: "die Mutter", full: "Das ist die Mutter." },
@@ -966,6 +983,7 @@
       { img: "oma_icon.png", de: "Wer backt leckere Kekse?", es: "¿Quién hornea galletitas?", choices: ["die Oma", "der Bruder", "die Katze"], answer: "die Oma", full: "Die Oma backt leckere Kekse." }
     ],
 
+    // STAGE 5: HOBBYS & DATUM
     s5_hobbys: [
       { img: "fussball_icon.png", de: "Was spielt Max gern?", es: "¿Qué le gusta jugar a Max?", choices: ["Fußball", "Tennis", "Basketball"], answer: "Fußball", full: "Max spielt gern Fußball." },
       { img: "malen_icon.png", de: "Anna nimmt Pinsel und Farben. Sie...", es: "Anna agarra pincel y pinturas. Ella...", choices: ["malt gern", "schwimmt gern", "schläft"], answer: "malt gern", full: "Anna malt gern bunte Bilder." },
@@ -980,18 +998,27 @@
       { de: "Wie schreibt man das Datum richtig?", es: "¿Cómo se escribe la fecha correctamente?", choices: ["Donnerstag, der 19. November", "Donnerstag 19 von November", "Tag 19 November"], answer: "Donnerstag, der 19. November", full: "Heute ist Donnerstag, der 19. November." }
     ],
 
-    s6_max: [
-      { de: "Wie heißt der Junge im Hörtext?", es: "¿Cómo se llama el nene?", choices: ["Max", "Leo", "Bello"], answer: "Max", full: "Der Junge heißt Max." },
-      { de: "Wie alt ist Max?", es: "¿Cuántos años tiene Max?", choices: ["8 Jahre alt", "7 Jahre alt", "9 Jahre alt"], answer: "8 Jahre alt", full: "Max ist 8 Jahre alt." },
-      { de: "Welches Tier hat Max?", es: "¿Qué animal tiene Max?", choices: ["Einen Hund (Bello)", "Eine Katze", "Ein Pferd"], answer: "Einen Hund (Bello)", full: "Max hat einen Hund, er heißt Bello." },
-      { de: "Was ist seine Lieblingsfarbe?", es: "¿Cuál es su color favorito?", choices: ["Blau", "Rot", "Grün"], answer: "Blau", full: "Seine Lieblingsfarbe ist blau." }
+    // STAGE 6: ADJEKTIVE & GEGENTEILE (AT THE END)
+    s6_adjektive_bild: [
+      { img: "gross_icon.png", de: "Der Elefant ist nicht klein, er ist...", es: "El elefante no es chico, es...", choices: ["groß", "klein", "traurig"], answer: "groß", full: "Der Elefant ist groß!" },
+      { img: "klein_icon.png", de: "Die kleine Maus ist...", es: "El ratoncito es...", choices: ["klein", "groß", "laut"], answer: "klein", full: "Die kleine Maus ist klein." },
+      { img: "schnell_icon.png", de: "Die Rakete und das Rennauto sind sehr...", es: "El cohete es muy...", choices: ["schnell", "langsam", "müde"], answer: "schnell", full: "Die Rakete fliegt schnell!" },
+      { img: "langsam_icon.png", de: "Die Schildkröte läuft ganz...", es: "La tortuga camina muy...", choices: ["langsam", "schnell", "laut"], answer: "langsam", full: "Die Schildkröte läuft langsam." },
+      { img: "lustig_icon.png", de: "Dandy lacht und macht Witze. Dandy ist...", es: "Dandy se ríe, es muy...", choices: ["lustig", "traurig", "langsam"], answer: "lustig", full: "Dandy ist sehr lustig!" },
+      { img: "bunt_icon.png", de: "Flutter hat Flügel mit vielen Farben. Flutter ist...", es: "Flutter tiene alas de muchos colores, es...", choices: ["bunt", "schwarz", "leise"], answer: "bunt", full: "Flutter ist wunderschön bunt!" },
+      { img: "laut_icon.png", de: "Der Hund bellt laut! Das ist sehr...", es: "El perro ladra fuerte, es...", choices: ["laut", "leise", "klein"], answer: "laut", full: "Der Hund bellt laut." },
+      { img: "leise_icon.png", de: "Die Katze schleicht nachts ganz...", es: "La gata se mueve de noche muy...", choices: ["leise", "laut", "dick"], answer: "leise", full: "Die Katze ist ganz leise." },
+      { img: "alt_icon.png", de: "Opa hat weiße Haare. Opa ist...", es: "El abuelo tiene pelo blanco, es...", choices: ["alt", "jung", "bunt"], answer: "alt", full: "Der Opa ist alt und weise." },
+      { img: "jung_icon.png", de: "Das kleine Baby ist noch sehr...", es: "El bebé es aún muy...", choices: ["jung", "alt", "schnell"], answer: "jung", full: "Das Baby ist jung." }
     ],
 
-    s6_anna: [
-      { de: "Wie heißt das Mädchen im Lesetext?", es: "¿Cómo se llama la nena?", choices: ["Anna", "Lisa", "Mimi"], answer: "Anna", full: "Das Mädchen heißt Anna." },
-      { de: "Wie alt ist Anna?", es: "¿Cuántos años tiene Anna?", choices: ["9 Jahre alt", "8 Jahre alt", "10 Jahre alt"], answer: "9 Jahre alt", full: "Anna ist 9 Jahre alt." },
-      { de: "Welches Haustier hat Anna?", es: "¿Qué mascota tiene Anna?", choices: ["Eine Katze (Mimi)", "Einen Hund", "Ein Schwein"], answer: "Eine Katze (Mimi)", full: "Anna hat eine Katze, sie heißt Mimi." },
-      { de: "Was macht Anna gern?", es: "¿Qué le gusta hacer a Anna?", choices: ["Tennis spielen und malen", "Fußball spielen", "im Pool schwimmen"], answer: "Tennis spielen und malen", full: "Anna spielt gern Tennis und malt gern." }
+    s6_adjektive_saetze: [
+      { de: "Was ist das Gegenteil von **groß**? (Opuesto de grande)", es: "¿Cuál es el opuesto de groß?", choices: ["klein", "schnell", "lustig"], answer: "klein", full: "Das Gegenteil von groß ist klein." },
+      { de: "Was ist das Gegenteil von **schnell**? (Opuesto de rápido)", es: "¿Cuál es el opuesto de schnell?", choices: ["langsam", "klein", "laut"], answer: "langsam", full: "Das Gegenteil von schnell ist langsam." },
+      { de: "Was ist das Gegenteil von **lustig**? (Opuesto de divertido)", es: "¿Cuál es el opuesto de lustig?", choices: ["traurig", "bunt", "alt"], answer: "traurig", full: "Das Gegenteil von lustig ist traurig." },
+      { de: "Was ist das Gegenteil von **laut**? (Opuesto de fuerte/ruidoso)", es: "¿Cuál es el opuesto de laut?", choices: ["leise", "langsam", "jung"], answer: "leise", full: "Das Gegenteil von laut ist leise." },
+      { de: "Das Pferd rennt schnell, aber die Kuh geht...", es: "El caballo corre rápido, pero la vaca va...", choices: ["langsam", "bunt", "klein"], answer: "langsam", full: "Das Pferd rennt schnell, die Kuh geht langsam." },
+      { de: "Mein neuer Bleistift schreibt super, er ist...", es: "Mi nuevo lápiz escribe genial, es...", choices: ["schön", "traurig", "müde"], answer: "schön", full: "Mein neuer Bleistift ist schön." }
     ]
   };
 
@@ -1004,6 +1031,7 @@
     return arr;
   }
 
+  // Render question group with clean option letters (NO SQUARES)
   function renderQuestionGroup(containerId, pool, count = 5) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -1057,11 +1085,24 @@
       const choicesGrid = document.createElement('div');
       choicesGrid.className = 'choices-grid';
 
+      const letters = ['a', 'b', 'c', 'd'];
       const shuffledChoices = shuffle(q.choices);
-      shuffledChoices.forEach(choiceText => {
+      shuffledChoices.forEach((choiceText, cIdx) => {
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
-        btn.innerText = choiceText;
+        
+        // Clean round letter badge, NO square character!
+        const letterSpan = document.createElement('span');
+        letterSpan.className = 'choice-letter';
+        letterSpan.innerText = letters[cIdx] || '';
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'choice-text';
+        textSpan.innerText = choiceText;
+
+        btn.appendChild(letterSpan);
+        btn.appendChild(textSpan);
+
         const isCorrect = (choiceText === q.answer);
         btn.onclick = function() {
           checkChoice(this, isCorrect, q.full);
@@ -1138,22 +1179,28 @@
     renderShowcases();
     initOppositesGame();
 
-    renderQuestionGroup("container-s1-tiere", QUESTION_BANK.s1_tiere, 5);
+    // 1. Hör- & Leseverstehen
+    renderQuestionGroup("container-s1-max", QUESTION_BANK.s1_max, 4);
+    renderQuestionGroup("container-s1-anna", QUESTION_BANK.s1_anna, 4);
 
+    // 2. Schulsachen
     renderArticlePool();
     renderQuestionGroup("container-s2-schule", QUESTION_BANK.s2_schule, 4);
     renderQuestionGroup("container-s2-grammatik", QUESTION_BANK.s2_grammatik, 4);
 
-    renderQuestionGroup("container-s3-adjektive-bild", QUESTION_BANK.s3_adjektive_bild, 5);
-    renderQuestionGroup("container-s3-adjektive-saetze", QUESTION_BANK.s3_adjektive_saetze, 4);
+    // 3. Bauernhoftiere
+    renderQuestionGroup("container-s3-tiere", QUESTION_BANK.s3_tiere, 5);
 
+    // 4. Familie
     renderQuestionGroup("container-s4-familie", QUESTION_BANK.s4_familie, 5);
 
+    // 5. Hobbys & Datum
     renderQuestionGroup("container-s5-hobbys", QUESTION_BANK.s5_hobbys, 4);
     renderQuestionGroup("container-s5-datum", QUESTION_BANK.s5_datum, 4);
 
-    renderQuestionGroup("container-s6-max", QUESTION_BANK.s6_max, 4);
-    renderQuestionGroup("container-s6-anna", QUESTION_BANK.s6_anna, 4);
+    // 6. Adjektive (at the end)
+    renderQuestionGroup("container-s6-adjektive-bild", QUESTION_BANK.s6_adjektive_bild, 5);
+    renderQuestionGroup("container-s6-adjektive-saetze", QUESTION_BANK.s6_adjektive_saetze, 4);
   }
 
   // SOUND & AUDIO SYNTHESIS
@@ -1347,7 +1394,7 @@
     if (!('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
 
-    const clean = text.replace(/[*_#☐]/g, '').trim();
+    const clean = text.replace(/[*_#]/g, '').trim();
     const utter = new SpeechSynthesisUtterance(clean);
     utter.lang = lang;
     utter.rate = ttsRate;

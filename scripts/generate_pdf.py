@@ -221,7 +221,7 @@ def create_question_item(q_num, q_de, q_es, opt_a, opt_b, opt_c):
         ],
         [
             Paragraph(
-                f"☐ a) {opt_a} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ☐ b) {opt_b} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ☐ c) {opt_c}",
+                f"[  ] a) {opt_a} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [  ] b) {opt_b} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [  ] c) {opt_c}",
                 s_options,
             )
         ],
